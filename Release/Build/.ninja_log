@@ -1,0 +1,27 @@
+# ninja log v6
+3	72	7561352138684282	src/ui_QPrabhupadaLoginWindow.h	37efce5e1074f16c
+3	72	7561352138684282	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/ui_QPrabhupadaLoginWindow.h	37efce5e1074f16c
+16	80	7561352138815032	src/ui_QPrabhupadaGoToLineWindow.h	92381b8a2d64c7d8
+16	80	7561352138815032	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/ui_QPrabhupadaGoToLineWindow.h	92381b8a2d64c7d8
+10	98	7561352138835115	src/ui_QPrabhupadaDictionaryWindow.h	2d13d84779ca71aa
+10	98	7561352138835115	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/ui_QPrabhupadaDictionaryWindow.h	2d13d84779ca71aa
+33	108	7561352139219238	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Source/resources/PrabhupadaDictionary_EN-US.qm	6d953510e4b8fe65
+21	109	7561352139058406	src/ui_QPrabhupadaAboutWindow.h	1cb9e23af0d9b899
+21	109	7561352139058406	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/ui_QPrabhupadaAboutWindow.h	1cb9e23af0d9b899
+39	112	7561352139219238	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Source/resources/PrabhupadaDictionary_ES-ES.qm	15d4252fb0df6544
+27	115	7561352139118756	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Source/resources/PrabhupadaDictionary_CS-CZ.qm	d7403ed21cd9b256
+45	117	7561352139357184	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Source/resources/PrabhupadaDictionary_PT-BR.qm	d0a1f7679fb2be7f
+80	130	7561352139457793	src/qrc_PrabhupadaDictionary.cpp	96338dc3ceb2715b
+80	130	7561352139457793	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/qrc_PrabhupadaDictionary.cpp	96338dc3ceb2715b
+73	133	7561352139556670	D:/CopperSpicePrg/PrabhupadaDictionaryOld/Source/resources/PrabhupadaDictionary_RU-RU.qm	24fa10a1c9fd6cda
+144	5165	7561352139713100	src/CMakeFiles/PrabhupadaDictionary.dir/QPrabhupadaUtil.cpp.obj	1f64c7da6c2e06ba
+5167	5692	7561352189955819	src/CMakeFiles/PrabhupadaDictionary.dir/qrc_PrabhupadaDictionary.cpp.obj	c034def6242bbb71
+153	6375	7561352139808565	src/CMakeFiles/PrabhupadaDictionary.dir/QPrabhupadaAboutWindow.cpp.obj	19f88d30216060d6
+136	6570	7561352139609185	src/CMakeFiles/PrabhupadaDictionary.dir/QPrabhupadaLoginWindow.cpp.obj	10e3f0a31d9ecadb
+150	6664	7561352139768392	src/CMakeFiles/PrabhupadaDictionary.dir/QPrabhupadaGoToLineWindow.cpp.obj	d1b0b4c886d6ca1
+141	6939	7561352139682770	src/CMakeFiles/PrabhupadaDictionary.dir/QPrabhupada.cpp.obj	f8760e90ada49a8d
+133	6977	7561352139609185	src/CMakeFiles/PrabhupadaDictionary.dir/PrabhupadaMain.cpp.obj	68dd6664b1122768
+139	8681	7561352139655946	src/CMakeFiles/PrabhupadaDictionary.dir/QPrabhupadaDictionaryWindow.cpp.obj	efe53c9295545755
+147	9774	7561352139733184	src/CMakeFiles/PrabhupadaDictionary.dir/QPrabhupadaDictionary.cpp.obj	297fc5526fccad22
+9778	9957	7561352236054761	bin/PrabhupadaDictionary.exe	912c5ae0ce9944c4
+20	1075	7561352238157311	CMakeFiles/install.util	9c9dacc4e54bd861

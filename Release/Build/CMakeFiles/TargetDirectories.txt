@@ -1,0 +1,15 @@
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/package.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/package_source.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/edit_cache.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/rebuild_cache.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/list_install_components.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/install.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/install/local.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/CMakeFiles/PrabhupadaDictionary.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/CMakeFiles/package.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/CMakeFiles/package_source.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/CMakeFiles/edit_cache.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/CMakeFiles/rebuild_cache.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/CMakeFiles/list_install_components.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/CMakeFiles/install.dir
+D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/src/CMakeFiles/install/local.dir
