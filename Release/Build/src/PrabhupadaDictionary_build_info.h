@@ -21,9 +21,9 @@
 #define PrabhupadaDictionary_BUILD_INFO_H_IN
 
 // PrabhupadaDictionary Version  "x.y.z"
-constexpr const char *versionString = "1.8.0";
+constexpr const char *versionString = "1.9.2";
 
 // PrabhupadaDictionary Build Date "16/12/2022"
-constexpr const char *buildDate = "17/12/2024";
+constexpr const char *buildDate = "24/12/2024";
 
 #endif

@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.18.0 FATAL_ERROR)
 
-cmake_policy(VERSION 3.16..3.25)
+cmake_policy(VERSION 3.18.0..3.29.6)
 
 if (${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.20.0")
    # enable RTTI on MSVC
@@ -14,8 +14,8 @@ add_compile_options(
 project( PrabhupadaDictionary )
 
 set(BUILD_MAJOR "1")
-set(BUILD_MINOR "8")
-set(BUILD_MICRO "0")
+set(BUILD_MINOR "9")
+set(BUILD_MICRO "2")
 
 set( BUILD_COMPONENTS "PrabhupadaDictionary" )
 
@@ -73,8 +73,8 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY   ${CMAKE_INSTALL_PREFIX})
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY  OFF)
 
 set(CPACK_BUNDLE_NAME  PrabhupadaDictionary)
-set(CPACK_BUNDLE_ICON  "${CMAKE_SOURCE_DIR}/resources/PrabhupadaDictionary.icns")
-set(CPACK_BUNDLE_PLIST "${CMAKE_SOURCE_DIR}/resources/Info.plist")
+set(CPACK_BUNDLE_ICON  "${CMAKE_SOURCE_DIR}/resources/Images/PrabhupadaDictionary.ico")
+set(CPACK_BUNDLE_PLIST "${CMAKE_SOURCE_DIR}/resources/Images/Info.plist")
 
 include(CPack)
 

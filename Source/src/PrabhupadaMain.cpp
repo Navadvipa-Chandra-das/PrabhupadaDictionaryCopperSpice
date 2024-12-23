@@ -22,65 +22,91 @@
 
 #include <QApplication>
 #include <QPrabhupada.h>
-#include <QPrabhupadaUtil.h>
 
 int main( int argc, char *argv[] )
 {
-  QApplication app( argc, argv );
+  int Result = 0;
+  QClassicLog::StartLog( "Prabhupada.log" );
+  QApplication a(argc, argv);
+
   QStorage AStorage;
+
+  QStoragerPrabhupadaDictionary*       AStoragerPrabhupadaDictionary       = new QStoragerPrabhupadaDictionary();
+  QStoragerLanguageVector*             AStoragerLanguageVector             = new QStoragerLanguageVector();
+  QStoragerLanguageIndex*              AStoragerLanguageIndex              = new QStoragerLanguageIndex();
+  QStoragerPrabhupadaLoginDialog*      AStoragerPrabhupadaLoginDialog      = new QStoragerPrabhupadaLoginDialog();
+  QStoragerPrabhupadaDictionaryWindow* AStoragerPrabhupadaDictionaryWindow = new QStoragerPrabhupadaDictionaryWindow();
 
   QPrabhupadaDictionary APrabhupadaDictionary( nullptr );
   APrabhupadaDictionary.setObjectName( "PrabhupadaDictionary" );
   APrabhupadaDictionary.m_Storage = &AStorage;
-  app.setObjectName( APrabhupadaDictionary.objectName() );
+  a.setObjectName( APrabhupadaDictionary.objectName() );
 
-  AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageVector, QStorageKind::File );
-  AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageUIIndex, QStorageKind::File );
+  AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageVector,  QStorageKind::File, AStoragerLanguageVector );
+  AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageUIIndex, QStorageKind::File, AStoragerLanguageIndex  );
 
-  QPrabhupadaLoginWindow *PrabhupadaLoginWindow = new QPrabhupadaLoginWindow( &APrabhupadaDictionary );
+  QPrabhupadaLoginDialog *APrabhupadaLoginDialog = new QPrabhupadaLoginDialog( &APrabhupadaDictionary, nullptr, Qt::WindowContextHelpButtonHint | Qt::WindowCloseButtonHint );
 
-  PrabhupadaLoginWindow->m_ui->ComboBoxUserName->setEditText( "Navadvipa Chandra das" );
-  PrabhupadaLoginWindow->m_ui->ComboBoxDatabaseName->setEditText( "NewNavadvipa" );
-  PrabhupadaLoginWindow->m_ui->ComboBoxHostName->setEditText( "127.0.0.1" );
-  PrabhupadaLoginWindow->m_ui->ComboBoxPort->setEditText( QString::number( 5432 ) );
-  PrabhupadaLoginWindow->m_ui->ComboBoxSchema->setEditText( "\"NewNavadvipa\"" );
+  APrabhupadaLoginDialog->ComboBoxUserName->    setEditText( "Navadvipa Chandra das" );
+  APrabhupadaLoginDialog->ComboBoxDatabaseName->setEditText( "NewNavadvipa" );
+  APrabhupadaLoginDialog->ComboBoxHostName->    setEditText( "127.0.0.1" );
+  APrabhupadaLoginDialog->ComboBoxPort->        setEditText( QString::number( 5432 ) );
+  APrabhupadaLoginDialog->ComboBoxSchema->      setEditText( "\"NewNavadvipa\"" );
 
-  AStorage.LoadObject( PrabhupadaLoginWindow, QStorageKind::File );
-  APrabhupadaDictionary.m_LanguageUIIndex.PrepareComboBox( PrabhupadaLoginWindow->m_ui->ComboBoxLanguageUI );
+  AStorage.LoadObject( APrabhupadaLoginDialog, QStorageKind::File, AStoragerPrabhupadaLoginDialog );
+  APrabhupadaDictionary.m_LanguageUIIndex.PrepareComboBox( APrabhupadaLoginDialog->ComboBoxLanguageUI );
 
   int R, N = 0;
   while ( ++N < 4 ) {
-    R = PrabhupadaLoginWindow->exec();
+     R = APrabhupadaLoginDialog->exec();
     if ( R == QDialog::Accepted ) {
-      QSqlDatabase DB = QSqlDatabase::addDatabase( PrabhupadaLoginWindow->m_DriverName, "PrabhupadaDB" );
-      if ( PrabhupadaLoginWindow->Connect( &DB ) ) {
+      QSqlDatabase DB = QSqlDatabase::addDatabase( APrabhupadaLoginDialog->m_DriverName, "PrabhupadaDB" );
+      if ( APrabhupadaLoginDialog->Connect( &DB ) ) {
         // Prepare AStorage
         AStorage.SetDatabase( &DB );
-        AStorage.m_Schema = PrabhupadaLoginWindow->m_Schema;
-        // Подготавливаем APrabhupadaDictionary
+        AStorage.m_Schema = APrabhupadaLoginDialog->m_Schema;
+        // Prepare APrabhupadaDictionary
         APrabhupadaDictionary.m_DB = &DB;
         APrabhupadaDictionary.m_Schema = AStorage.m_Schema;
         // Reset settings in DB, if need!
-        if ( PrabhupadaLoginWindow->m_ui->CheckBoxResetSettings->isChecked() ) {
-          AStorage.ResetSettings();
+        if ( APrabhupadaLoginDialog->CheckBoxResetSettings->isChecked() ) {
+            AStorage.ResetSettings();
         }
-        AStorage.LoadObject( &APrabhupadaDictionary, QStorageKind::DB );
-        QPrabhupadaDictionaryWindow PrabhupadaDictionaryWindow = QPrabhupadaDictionaryWindow( &APrabhupadaDictionary );
-        PrabhupadaDictionaryWindow.m_StorageKind = QStorageKind::DB;
-        PrabhupadaDictionaryWindow.m_Storage = &AStorage;
-        PrabhupadaDictionaryWindow.PrepareDictionary();
-        AStorage.LoadObject( &PrabhupadaDictionaryWindow, PrabhupadaDictionaryWindow.m_StorageKind );
-        PrabhupadaDictionaryWindow.FirstShow();
-        AStorage.SaveObject( PrabhupadaLoginWindow, QStorageKind::File );
+        AStorage.LoadObject( &APrabhupadaDictionary, QStorageKind::DB, AStoragerPrabhupadaDictionary );
+        QPrabhupadaDictionaryWindow APrabhupadaDictionaryWindow = QPrabhupadaDictionaryWindow( &APrabhupadaDictionary );
+        APrabhupadaDictionaryWindow.m_StorageKind = QStorageKind::DB;
+        APrabhupadaDictionaryWindow.m_Storage = &AStorage;
+        APrabhupadaDictionaryWindow.PrepareDictionary();
+        AStorage.LoadObject( &APrabhupadaDictionaryWindow, APrabhupadaDictionaryWindow.m_StorageKind, AStoragerPrabhupadaDictionaryWindow );
+        APrabhupadaDictionaryWindow.FirstShow();
+        AStorage.SaveObject( APrabhupadaLoginDialog, QStorageKind::File, AStoragerPrabhupadaLoginDialog );
 
-        delete PrabhupadaLoginWindow;
-        PrabhupadaLoginWindow = nullptr;
-        return app.exec();
+        delete APrabhupadaLoginDialog;
+
+        delete AStoragerPrabhupadaDictionary;
+        delete AStoragerLanguageVector;
+        delete AStoragerLanguageIndex;
+        delete AStoragerPrabhupadaLoginDialog;
+        delete AStoragerPrabhupadaDictionaryWindow;
+
+        APrabhupadaLoginDialog = nullptr;
+
+        AStoragerPrabhupadaDictionary       = nullptr;
+        AStoragerLanguageVector             = nullptr;
+        AStoragerLanguageIndex              = nullptr;
+        AStoragerPrabhupadaLoginDialog      = nullptr;
+        AStoragerPrabhupadaDictionaryWindow = nullptr;
+
+        Result = a.exec();
+        break;
       }
-    } else
+    } else {
       break;
+    }
   }
-  if ( PrabhupadaLoginWindow )
-    delete PrabhupadaLoginWindow;
-  return 0;
+  if ( APrabhupadaLoginDialog ) {
+    delete APrabhupadaLoginDialog;
+  }
+  QClassicLog::FinishLog();
+  return Result;
 }

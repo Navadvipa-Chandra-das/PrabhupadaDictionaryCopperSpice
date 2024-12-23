@@ -39,7 +39,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
       
       The C compiler identification is MSVC, found in:
-        D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/3.31.1/CompilerIdC/CMakeCCompilerId.exe
+        D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/3.31.1/CompilerIdC/CMakeCCompilerId.exe
       
   -
     kind: "message-v1"
@@ -51,7 +51,7 @@ events:
     message: |
       Detecting C compiler /showIncludes prefix:
         main.c
-        Примечание: включение файла:  D:\\CopperSpicePrg\\PrabhupadaDictionaryOld\\Release\\Build\\CMakeFiles\\ShowIncludes\\foo.h
+        Примечание: включение файла:  D:\\CopperSpicePrg\\PrabhupadaDictionary\\Release\\Build\\CMakeFiles\\ShowIncludes\\foo.h
         
       Found prefix "Примечание: включение файла:  "
   -
@@ -85,7 +85,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
       
       The CXX compiler identification is MSVC, found in:
-        D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/3.31.1/CompilerIdCXX/CMakeCXXCompilerId.exe
+        D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/3.31.1/CompilerIdCXX/CMakeCXXCompilerId.exe
       
   -
     kind: "message-v1"
@@ -97,7 +97,7 @@ events:
     message: |
       Detecting CXX compiler /showIncludes prefix:
         main.c
-        Примечание: включение файла:  D:\\CopperSpicePrg\\PrabhupadaDictionaryOld\\Release\\Build\\CMakeFiles\\ShowIncludes\\foo.h
+        Примечание: включение файла:  D:\\CopperSpicePrg\\PrabhupadaDictionary\\Release\\Build\\CMakeFiles\\ShowIncludes\\foo.h
         
       Found prefix "Примечание: включение файла:  "
   -
@@ -109,8 +109,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/CMakeScratch/TryCompile-bmy88b"
-      binary: "D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/CMakeScratch/TryCompile-bmy88b"
+      source: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-5o77wh"
+      binary: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-5o77wh"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -119,11 +119,11 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/CMakeScratch/TryCompile-bmy88b'
+        Change Dir: 'D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-5o77wh'
         
-        Run Build Command(s): C:/Prg/Ninja/ninja.exe -v cmTC_07792
-        [1/2] C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_07792.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_07792.dir\\ /FS -c C:\\Prg\\cmake-3.31.1-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Prg\\cmake-3.31.1-windows-x86_64\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1942 --intdir=CMakeFiles\\cmTC_07792.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_07792.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_07792.exe /implib:cmTC_07792.lib /pdb:cmTC_07792.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s): C:/Prg/Ninja/ninja.exe -v cmTC_99501
+        [1/2] C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_99501.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_99501.dir\\ /FS -c C:\\Prg\\cmake-3.31.1-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Prg\\cmake-3.31.1-windows-x86_64\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1942 --intdir=CMakeFiles\\cmTC_99501.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_99501.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_99501.exe /implib:cmTC_99501.lib /pdb:cmTC_99501.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -163,8 +163,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/CMakeScratch/TryCompile-1zz9wz"
-      binary: "D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/CMakeScratch/TryCompile-1zz9wz"
+      source: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-mu25vm"
+      binary: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-mu25vm"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -174,11 +174,11 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/CopperSpicePrg/PrabhupadaDictionaryOld/Release/Build/CMakeFiles/CMakeScratch/TryCompile-1zz9wz'
+        Change Dir: 'D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-mu25vm'
         
-        Run Build Command(s): C:/Prg/Ninja/ninja.exe -v cmTC_49fba
-        [1/2] C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /GR /EHsc  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_49fba.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_49fba.dir\\ /FS -c C:\\Prg\\cmake-3.31.1-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Prg\\cmake-3.31.1-windows-x86_64\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1942 --intdir=CMakeFiles\\cmTC_49fba.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_49fba.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_49fba.exe /implib:cmTC_49fba.lib /pdb:cmTC_49fba.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s): C:/Prg/Ninja/ninja.exe -v cmTC_13306
+        [1/2] C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /GR /EHsc  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_13306.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_13306.dir\\ /FS -c C:\\Prg\\cmake-3.31.1-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Prg\\cmake-3.31.1-windows-x86_64\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1942 --intdir=CMakeFiles\\cmTC_13306.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_13306.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_13306.exe /implib:cmTC_13306.lib /pdb:cmTC_13306.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -

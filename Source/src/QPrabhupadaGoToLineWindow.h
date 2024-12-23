@@ -18,32 +18,55 @@
 #include <QtSql>
 #include <QPrabhupada.h>
 #include <QPrabhupadaDictionary.h>
-#include <ui_QPrabhupadaGoToLineWindow.h>
 
-class QPrabhupadaGoToLineWindow : public QDialog
+class QPrabhupadaGoToLineDialog : public QStorageDialog
 {
-  CS_OBJECT( QPrabhupadaGoToLineWindow )
+  CS_OBJECT( QPrabhupadaGoToLineDialog )
 
   public:
-    QPrabhupadaGoToLineWindow() = delete;
-    QPrabhupadaGoToLineWindow( QStorage *AStorage );
-    ~QPrabhupadaGoToLineWindow();
-    Ui::QPrabhupadaGoToLineWindow *m_ui = new Ui::QPrabhupadaGoToLineWindow;
+    QPrabhupadaGoToLineDialog() = delete;
+    QPrabhupadaGoToLineDialog( QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags() );
+    ~QPrabhupadaGoToLineDialog();
     QStorage *m_Storage;
 
     CS_SIGNAL_1( Public, void SignalGoToLine( int Value ) )
     CS_SIGNAL_2( SignalGoToLine, Value )
 
   private:
-    using inherited = QDialog;
+    using inherited = QStorageDialog;
     void PushButtonGoClicked();
     void PushButtonCancelClicked();
   protected:
-    void LoadFromStream( QDataStream &ST ) override;
-    void SaveToStream( QDataStream &ST ) override;
     void changeEvent( QEvent *event ) override;
-    // void showEvent( QShowEvent *event ) override;
-    // void closeEvent( QCloseEvent *event ) override;
+  public:
+    virtual void LoadFromStream( QDataStream &ST );
+    virtual void SaveToStream( QDataStream &ST );
+
+    QVBoxLayout *verticalLayoutPrabhupada;
+    QVBoxLayout *verticalLayoutRowNumber;
+    QFormLayout *formLayout;
+    QLabel *LabelRowNumber;
+    QComboBox *ComboBoxRowNumber;
+    QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *PushButtonGo;
+    QPushButton *PushButtonCancel;
+    QSpacerItem *horizontalSpacer_2;
+
+    void setupUi( QDialog *QPrabhupadaGoToLineWindow );
+    void retranslateUi( QDialog *QPrabhupadaGoToLineWindow );
+};
+
+class QStoragerPrabhupadaGoToLineDialog : public QStoragerDialog
+{
+  public:
+    QStoragerPrabhupadaGoToLineDialog();
+    ~QStoragerPrabhupadaGoToLineDialog();
+  private:
+    using inherited = QStoragerDialog;
+  public:
+    virtual void LoadFromStream( QObject *AObject, QDataStream &ST ) override;
+    virtual void SaveToStream( QObject *AObject, QDataStream &ST ) override;
 };
 
 #endif

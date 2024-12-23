@@ -4,7 +4,6 @@ list(APPEND PrabhupadaDictionary_INCLUDES
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaDictionaryWindow.h
   #!!!
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupada.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaUtil.h
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaDictionary.h
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaGoToLineWindow.h
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaAboutWindow.h
@@ -16,21 +15,20 @@ list(APPEND PrabhupadaDictionary_SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaDictionaryWindow.cpp
   #!!!
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupada.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaUtil.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaDictionary.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaGoToLineWindow.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/QPrabhupadaAboutWindow.cpp
 
-  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaLoginWindow.ui
-  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaDictionaryWindow.ui
-  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaGoToLineWindow.ui
-  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaAboutWindow.ui
+  #${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaLoginWindow.ui
+  #${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaDictionaryWindow.ui
+  #${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaGoToLineWindow.ui
+  #${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaAboutWindow.ui
 
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_CS-CZ.ts
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_EN-US.ts
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_ES-ES.ts
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_PT-BR.ts
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_RU-RU.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_CS-CZ.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_EN-US.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_ES-ES.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_PT-BR.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_RU-RU.ts
   qrc_PrabhupadaDictionary.cpp
 )
 
@@ -42,30 +40,30 @@ list(APPEND PrabhupadaDictionary_SOURCES
 #include(widgets/widgets.cmake)
 
 # location for *.qm file, overrides build folder
-set( TS_OUTPUT_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/../resources )
+set( TS_OUTPUT_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang )
 
 # run lrelease to generate translation files
 COPPERSPICE_RESOURCES(
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_CS-CZ.ts
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_EN-US.ts
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_ES-ES.ts
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_PT-BR.ts
-  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_RU-RU.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_CS-CZ.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_EN-US.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_ES-ES.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_PT-BR.ts
+  ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_RU-RU.ts
 )
 
 # run rcc to generate qrc output
 COPPERSPICE_RESOURCES(
-  #${CMAKE_CURRENT_SOURCE_DIR}/../NewRosource.qrc
   ${CMAKE_CURRENT_SOURCE_DIR}/../PrabhupadaDictionary.qrc
 )
 
 # run uic to generate source
-COPPERSPICE_RESOURCES(
-  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaLoginWindow.ui
-  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaDictionaryWindow.ui
-  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaGoToLineWindow.ui
-  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaAboutWindow.ui
-)
+# now commented
+#COPPERSPICE_RESOURCES(
+#  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaLoginWindow.ui
+#  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaDictionaryWindow.ui
+#  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaGoToLineWindow.ui
+#  ${CMAKE_CURRENT_SOURCE_DIR}/../forms/QPrabhupadaAboutWindow.ui
+#)
 
 add_executable( PrabhupadaDictionary ${PrabhupadaDictionary_SOURCES} )
 
@@ -74,7 +72,8 @@ target_include_directories(PrabhupadaDictionary
   ${CMAKE_SOURCE_DIR}/src
 )
 
-target_link_libraries(PrabhupadaDictionary
+target_link_libraries(
+  PrabhupadaDictionary
   CopperSpice::CsCore
   CopperSpice::CsGui
   CopperSpice::CsNetwork
@@ -84,12 +83,10 @@ target_link_libraries(PrabhupadaDictionary
   CopperSpice::CsSvg
   CopperSpice::CsXml
   CopperSpice::CsXmlPatterns
-  #!!!
-  #CopperSpice::Prabhupada
 )
 
-if("Multimedia" IN_LIST COPPERSPICE_COMPONENTS)
-  target_link_libraries(PrabhupadaDictionary CopperSpice::CsMultimedia)
+if ( "Multimedia" IN_LIST COPPERSPICE_COMPONENTS )
+  target_link_libraries( PrabhupadaDictionary CopperSpice::CsMultimedia )
 endif()
 
 # webkit temporarily removed, pending overflow issue resolution in CsWebKit
@@ -101,16 +98,18 @@ endif()
 if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
   set_target_properties( PrabhupadaDictionary PROPERTIES OUTPUT_NAME PrabhupadaDictionary )
 
-  target_link_libraries(PrabhupadaDictionary
+  target_link_libraries(
+    PrabhupadaDictionary
     "-framework OpenGL"
   )
 
-elseif(CMAKE_SYSTEM_NAME MATCHES "(Linux|OpenBSD|FreeBSD|NetBSD|DragonFly)")
-  set_target_properties(PrabhupadaDictionary PROPERTIES OUTPUT_NAME PrabhupadaDictionary)
+elseif ( CMAKE_SYSTEM_NAME MATCHES "(Linux|OpenBSD|FreeBSD|NetBSD|DragonFly)" )
+  set_target_properties( PrabhupadaDictionary PROPERTIES OUTPUT_NAME PrabhupadaDictionary )
 
-elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
+elseif( CMAKE_SYSTEM_NAME MATCHES "Windows" )
   # disable console on windows
-  target_link_libraries(PrabhupadaDictionary
+  target_link_libraries(
+    PrabhupadaDictionary
     netapi32
     mpr
     -mwindows
@@ -118,31 +117,49 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
 
 endif()
 
-if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
-  install(TARGETS PrabhupadaDictionary DESTINATION ../MacOS)
+if ( CMAKE_SYSTEM_NAME MATCHES "Darwin" )
+  install( TARGETS PrabhupadaDictionary DESTINATION ../MacOS )
 else()
-  install(TARGETS PrabhupadaDictionary DESTINATION .)
+  install( TARGETS PrabhupadaDictionary DESTINATION . )
 endif()
 
 # copy file to install folder
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Start.bat             DESTINATION .)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/m_LanguageUIIndex.ini DESTINATION .)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/m_LanguageVector.ini  DESTINATION .)
+
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/ShrilaPrabhupada.jpg DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Sanskrit.db DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/m_LanguageVector.ini DESTINATION .)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Start.bat DESTINATION .)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Sanskrit.db          DESTINATION ./resources/PrabhupadaDictionaryFiles)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/PrabhupadaPrimer.txt DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/PrabhupadaLila.txt DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Letter.txt DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Help.txt DESTINATION ./resources/PrabhupadaDictionaryFiles)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/PrabhupadaLila.txt   DESTINATION ./resources/PrabhupadaDictionaryFiles)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Letter.txt           DESTINATION ./resources/PrabhupadaDictionaryFiles)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Help.txt             DESTINATION ./resources/PrabhupadaDictionaryFiles)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Fonts/gtb.ttf DESTINATION ./resources/PrabhupadaDictionaryFiles/Fonts)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Fonts/gti.ttf DESTINATION ./resources/PrabhupadaDictionaryFiles/Fonts)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionaryFiles/Fonts/gtr.ttf DESTINATION ./resources/PrabhupadaDictionaryFiles/Fonts)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Fonts/gtb.ttf DESTINATION ./resources/Fonts)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Fonts/gti.ttf DESTINATION ./resources/Fonts)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Fonts/gtr.ttf DESTINATION ./resources/Fonts)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_CS-CZ.qm DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_EN-US.qm DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_ES-ES.qm DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_PT-BR.qm DESTINATION ./resources/PrabhupadaDictionaryFiles)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary_RU-RU.qm DESTINATION ./resources/PrabhupadaDictionaryFiles)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_CS-CZ.qm DESTINATION ./resources/Lang)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_EN-US.qm DESTINATION ./resources/Lang)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_ES-ES.qm DESTINATION ./resources/Lang)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_PT-BR.qm DESTINATION ./resources/Lang)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Lang/PrabhupadaDictionary_RU-RU.qm DESTINATION ./resources/Lang)
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/About.png                DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/AutoPercentBegin.png     DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/AutoPercentEnd.png       DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/CaseSensitive.png        DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/Delete.png               DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/DeleteAllBookmarks.png   DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/Find.png                 DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/GoToRow.png              DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/Insert.png               DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/PrabhupadaDictionary.png DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/RegularExpression.png    DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/RemoveDuplicates.png     DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/SaveBukva.png            DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/SaveLang.png             DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/WhatsThis.png            DESTINATION ./resources/Images)
 
 # installs the CopperSpice libraries
 cs_copy_library(CsCore)
@@ -154,8 +171,6 @@ cs_copy_library(CsSql)
 cs_copy_library(CsSvg)
 cs_copy_library(CsXml)
 cs_copy_library(CsXmlPatterns)
-#!!!
-#cs_copy_library(Prabhupada)
 
 if ("Multimedia" IN_LIST COPPERSPICE_COMPONENTS)
   cs_copy_library(CsMultimedia)
@@ -163,7 +178,7 @@ endif()
 
 #if ("WebKit" IN_LIST COPPERSPICE_COMPONENTS)
   # webkit temporarily removed, pending overflow issue resolution in CsWebKit
-#  cs_copy_library(CsWebKit)
+  # cs_copy_library(CsWebKit)
 #endif()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
@@ -182,7 +197,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     cs_copy_plugins(CsSqlPsql ../plugins)
   endif()
 
-  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary.icns DESTINATION ./resources)
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/PrabhupadaDictionary.icns DESTINATION ./resources/Images)
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "(Linux|OpenBSD|FreeBSD|NetBSD|DragonFly)")
 
@@ -198,7 +213,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "(Linux|OpenBSD|FreeBSD|NetBSD|DragonFly)")
     cs_copy_plugins(CsSqlPsql)
   endif()
 
-  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary.png DESTINATION ./resources)
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/PrabhupadaDictionary.png DESTINATION ./resources/Images)
 
 elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
 
@@ -213,6 +228,6 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
     cs_copy_plugins(CsSqlPsql)
   endif()
 
-  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/PrabhupadaDictionary.ico DESTINATION ./resources)
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/PrabhupadaDictionary.ico DESTINATION ./resources)
 
 endif()

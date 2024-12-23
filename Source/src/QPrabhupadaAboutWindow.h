@@ -18,26 +18,48 @@
 #include <QtSql>
 #include <QPrabhupada.h>
 #include <QPrabhupadaDictionary.h>
-#include <ui_QPrabhupadaAboutWindow.h>
 
-class QPrabhupadaAboutWindow : public QDialog
+class QPrabhupadaAboutDialog : public QStorageDialog
 {
-  CS_OBJECT( QPrabhupadaAboutWindow )
+  CS_OBJECT( QPrabhupadaAboutDialog )
 
   public:
-    QPrabhupadaAboutWindow() = delete;
-    QPrabhupadaAboutWindow( QStorage *AStorage );
-    ~QPrabhupadaAboutWindow();
-    Ui::QPrabhupadaAboutWindow *m_ui = new Ui::QPrabhupadaAboutWindow;
-    QStorage *m_Storage;
+  QPrabhupadaAboutDialog() = delete;
+  QPrabhupadaAboutDialog( QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags() );
+  ~QPrabhupadaAboutDialog();
+    virtual void LoadFromStream( QDataStream &ST );
+    virtual void SaveToStream( QDataStream &ST );
   private:
-    using inherited = QDialog;
+    using inherited = QStorageDialog;
   protected:
-    void LoadFromStream( QDataStream &ST ) override;
-    void SaveToStream( QDataStream &ST ) override;
     void changeEvent( QEvent *event ) override;
-    // void showEvent( QShowEvent *event ) override;
-    // void closeEvent( QCloseEvent *event ) override;
+  public:
+    QVBoxLayout *verticalLayoutPrabhupada;
+    QVBoxLayout *verticalLayoutRowNumber;
+    QFormLayout *formLayout;
+    //QLabel *LabelRowNumber;
+    //QComboBox *ComboBoxRowNumber;
+    QTabWidget *TabWidgetAbout;
+    QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *PushButtonGo;
+    QPushButton *PushButtonCancel;
+    QSpacerItem *horizontalSpacer_2;
+
+    void setupUi( QDialog *QPrabhupadaAboutWindow );
+    void retranslateUi( QDialog *QPrabhupadaAboutWindow );
+};
+
+class QStoragerPrabhupadaAboutDialog : public QStoragerDialog
+{
+  public:
+    QStoragerPrabhupadaAboutDialog();
+    ~QStoragerPrabhupadaAboutDialog();
+  private:
+    using inherited = QStoragerDialog;
+  public:
+    virtual void LoadFromStream( QObject *AObject, QDataStream &ST ) override;
+    virtual void SaveToStream( QObject *AObject, QDataStream &ST ) override;
 };
 
 #endif

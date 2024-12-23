@@ -51,15 +51,12 @@ void QMapMemoryStorage::SaveToStream( QDataStream& ST )
 }
 
 QStorage::QStorage()
-  : inherited()
+: inherited()
 {
 }
 
 QStorage::~QStorage()
 {
-  if ( m_Query != nullptr ) {
-    delete m_Query;
-  }
 }
 
 void QStorage::SetDatabase( QSqlDatabase *Value )
@@ -69,7 +66,11 @@ void QStorage::SetDatabase( QSqlDatabase *Value )
     if ( m_Query != nullptr ) {
       delete m_Query;
     }
-    m_Query = new QSqlQuery( *m_Database );
+    if ( Value == nullptr ) {
+      m_Query = nullptr;
+    } else {
+      m_Query = new QSqlQuery( *m_Database );
+    }
   }
 }
 
@@ -82,13 +83,13 @@ bool QStorage::BeginLoad( QObject *O, QStorageKind AStorageKind )
       m_Stream   = new QDataStream( m_File );
       return m_File->open( QIODevice::ReadOnly );
     case QStorageKind::DB :
-      if ( m_Query != nullptr ) {
+      if ( m_Database != nullptr && m_Database->isOpen() && m_Query != nullptr ) {
         m_Query->prepare( QString( "select\n"
-                                  "  a.\"UserRegKey\"\n"
-                                  ", a.\"UserData\"\n"
-                                  "from\n"
-                                  "    %1\"UserReg\" a\n"
-                                  "where a.\"UserRegKey\" = :UserRegKey;" ).formatArg( m_Schema ) );
+                                   "  a.\"UserRegKey\"\n"
+                                   ", a.\"UserData\"\n"
+                                   "from\n"
+                                   "    %1\"UserReg\" a\n"
+                                   "where a.\"UserRegKey\" = :UserRegKey;" ).formatArg( m_Schema ) );
         m_Query->bindValue( ":UserRegKey", m_FileName );
         m_Query->exec();
         if ( m_Query->next() ) {
@@ -143,12 +144,12 @@ void QStorage::BeginSave( QObject *O, QStorageKind AStorageKind )
       }
       break;
     case QStorageKind::DB :
-      if ( m_Query != nullptr ) {
+      if ( m_Database != nullptr && m_Database->isOpen() && m_Query != nullptr ) {
         m_Query->prepare( QString( "select\n"
-                                  "  a.\"UserRegKey\"\n"
-                                  "from\n"
-                                  "    %1\"UserReg\" a\n"
-                                  "where a.\"UserRegKey\" = :UserRegKey;" ).formatArg( m_Schema ) );
+                                   "  a.\"UserRegKey\"\n"
+                                   "from\n"
+                                   "    %1\"UserReg\" a\n"
+                                   "where a.\"UserRegKey\" = :UserRegKey;" ).formatArg( m_Schema ) );
         m_Query->bindValue( ":UserRegKey", m_FileName );
         m_Query->exec();
         m_ByteArray = new QByteArray();
@@ -157,15 +158,15 @@ void QStorage::BeginSave( QObject *O, QStorageKind AStorageKind )
           m_Stream = new QDataStream( BU );
           if ( m_Query->next() ) {
             m_SQL = QString( "update %1\"UserReg\"\n"
-                            "set\n"
-                            "  \"UserData\" = :UserData\n"
-                            "where\n"
-                            "    \"UserRegKey\" = :UserRegKey;" ).formatArg( m_Schema );
+                             "set\n"
+                             "  \"UserData\" = :UserData\n"
+                             "where\n"
+                             "    \"UserRegKey\" = :UserRegKey;" ).formatArg( m_Schema );
           } else {
             m_SQL = QString( "insert into %1\"UserReg\"\n"
-                            "( \"UserRegKey\", \"UserData\" )\n"
-                            "values\n"
-                            "( :UserRegKey, :UserData );" ).formatArg( m_Schema );
+                             "( \"UserRegKey\", \"UserData\" )\n"
+                             "values\n"
+                             "( :UserRegKey, :UserData );" ).formatArg( m_Schema );
           }
         }
       }
@@ -173,7 +174,6 @@ void QStorage::BeginSave( QObject *O, QStorageKind AStorageKind )
     case QStorageKind::Memory :
       QMapMemoryStorage::iterator I = m_MapMemoryStorage.find( m_FileName );
       QByteArray *BA;
-      QBuffer    *BU;
       if ( I == m_MapMemoryStorage.end() ) {
         BA = new QByteArray();
         BU = new QBuffer( BA );
@@ -216,21 +216,20 @@ void QStorage::EndSave( QStorageKind AStorageKind )
   m_Stream = nullptr;
 }
 
-bool QStorage::LoadObject( QObject *O, QStorageKind AStorageKind )
+bool QStorage::LoadObject( QObject *O, QStorageKind AStorageKind, QStorager* ST )
 {
   bool LoadSuccess = false;
   if ( m_Enabled ) {
-
     if ( BeginLoad( O, AStorageKind ) ) {
       if ( m_Stream != nullptr ) {
         qint8 V;
         *m_Stream >> V;
         if ( V == m_Version ) {
-          O->LoadFromStream( *m_Stream );
-          *m_Stream >> V;
-          if ( V == m_Version ) {
-            LoadSuccess = true;
+          if ( ST != nullptr ) {
+            ST->LoadFromStream( O, *m_Stream );
+            *m_Stream >> V;
           }
+          LoadSuccess = true;
         }
       }
     }
@@ -239,17 +238,25 @@ bool QStorage::LoadObject( QObject *O, QStorageKind AStorageKind )
   return LoadSuccess;
 }
 
-void QStorage::SaveObject( QObject *O, QStorageKind AStorageKind )
+void QStorage::SaveObject( QObject *O, QStorageKind AStorageKind, QStorager* ST )
 {
   if ( m_Enabled ) {
     BeginSave( O, AStorageKind );
     if ( m_Stream != nullptr ) {
       *m_Stream << m_Version;
-      O->SaveToStream( *m_Stream );
-      *m_Stream << m_Version;
+      if ( ST != nullptr ) {
+        ST->SaveToStream( O, *m_Stream );
+        *m_Stream << m_Version;
+      }
       EndSave( AStorageKind );
     }
   }
+}
+
+void QStorage::RemoveMemory( QObject *O )
+{
+  QString S = KeyStorage( O, QStorageKind::Memory );
+  m_MapMemoryStorage.erase( S );
 }
 
 QString QStorage::PrefixKeyStorage()
@@ -257,12 +264,12 @@ QString QStorage::PrefixKeyStorage()
   QString APrefix, AUserName;
 
   APrefix = qApp->objectName();
-  if ( !APrefix.empty() ) {
+  if ( !APrefix.isEmpty() ) {
     APrefix += "-";
   }
   if ( m_Database != nullptr ) {
     AUserName = m_Database->userName();
-    if ( !AUserName.empty() ) {
+    if ( !AUserName.isEmpty() ) {
       APrefix += AUserName + "-";
     }
   }
@@ -273,7 +280,6 @@ QString QStorage::PrefixKeyStorage()
 QString QStorage::KeyStorage( QObject *O, QStorageKind AStorageKind )
 {
   QString R, S, APrefix;
-  int i = 0;
 
   if ( AStorageKind == QStorageKind::DB ) {
     APrefix = PrefixKeyStorage();
@@ -281,21 +287,20 @@ QString QStorage::KeyStorage( QObject *O, QStorageKind AStorageKind )
 
   while ( O != nullptr ) {
     S = O->objectName();
-    if ( !S.empty() ) {
-      if ( R.empty() )
+    if ( !S.isEmpty() ) {
+      if ( R.isEmpty() )
         R = S;
       else
         R = S + "." + R;
     }
 
     O = O->parent();
-    ++i;
   }
 
-  if ( !R.empty() )
+  if ( !R.isEmpty() )
     R += ".ini";
 
-  if ( !APrefix.empty() )
+  if ( !APrefix.isEmpty() )
     R = APrefix + R;
 
   return R;
@@ -309,11 +314,13 @@ void QStorage::ResetSettings()
   m_Query->exec();
 }
 
+int QStorage::MaxHistoryComboBox = 30;
+
 void QStorage::PrepareHistoryComboBox( QComboBox *CB, int MaxCount )
 {
- if ( CB->isEditable() ) {
+  if ( CB->isEditable() ) {
     QString S = CB->currentText();
-    if ( !S.empty() ) {
+    if ( !S.isEmpty() ) {
       int I = CB->findText( S );
       if ( I != -1 ) {
         QString SA = CB->itemText( I );
@@ -361,22 +368,110 @@ void QStorage::SaveToStreamPrepareHistory( QComboBox *CB, QDataStream &ST, int H
 
 void QStorage::LoadFromStream( QDataStream &ST )
 {
-  inherited::LoadFromStream( ST );
-
   m_MapMemoryStorage.LoadFromStream( ST );
 }
 
 void QStorage::SaveToStream( QDataStream &ST )
 {
-  inherited::SaveToStream( ST );
-
   m_MapMemoryStorage.SaveToStream( ST );
 }
 
-const QChar32 QStorage::CharPercent   = '%';
-const QChar32 QStorage::CharUnderline = '_';
+QStorageMainWindow::QStorageMainWindow( QWidget *parent
+                                      , Qt::WindowFlags flags )
+  : inherited( parent, flags )
+{
+}
 
-bool QStorage::Like( QString::iterator t_end, QString::iterator s_end, QString::iterator t, QString::iterator s )
+QStorageMainWindow::~QStorageMainWindow()
+{
+}
+
+void QStorageMainWindow::closeEvent( QCloseEvent *event )
+{
+  if ( m_Storage ) {
+    QStoragerMainWindow* AStoragerMainWindow = new QStoragerMainWindow();
+    m_Storage->SaveObject( this, m_StorageKind, AStoragerMainWindow );
+    delete AStoragerMainWindow;
+  }
+
+  inherited::closeEvent( event );
+}
+
+QStorageDialog::QStorageDialog( QWidget *parent
+                              , Qt::WindowFlags flags )
+  : inherited( parent, flags )
+{
+}
+
+QStorageDialog::~QStorageDialog()
+{
+}
+
+QStorager::QStorager()
+{
+}
+
+QStorager::~QStorager()
+{
+}
+
+QStoragerMainWindow::QStoragerMainWindow()
+  : inherited()
+{
+}
+
+QStoragerMainWindow::~QStoragerMainWindow()
+{
+}
+
+QStoragerDialog::QStoragerDialog()
+: inherited()
+{
+}
+
+QStoragerDialog::~QStoragerDialog()
+{
+}
+
+void QStoragerMainWindow::LoadFromStream( QObject *AObject, QDataStream &ST )
+{
+  QMainWindow *O = static_cast< QMainWindow* >( AObject );
+  QByteArray BA;
+  // 1
+  ST >> BA;
+  O->restoreGeometry( BA );
+  // 2
+  ST >> BA;
+  O->restoreState( BA );
+}
+
+void QStoragerMainWindow::SaveToStream( QObject *AObject, QDataStream &ST )
+{
+  QMainWindow *O = static_cast< QMainWindow* >( AObject );
+  // 1, 2
+  ST << O->saveGeometry() << O->saveState();
+}
+
+void QStoragerDialog::LoadFromStream( QObject *AObject, QDataStream &ST )
+{
+  QDialog *O = static_cast< QDialog* >( AObject );
+  QByteArray BA;
+  // 1
+  ST >> BA;
+  O->restoreGeometry( BA );
+}
+
+void QStoragerDialog::SaveToStream( QObject *AObject, QDataStream &ST )
+{
+  QDialog *O = static_cast< QDialog* >( AObject );
+  // 1
+  ST << O->saveGeometry();
+}
+
+const QChar CharPercent   = '%';
+const QChar CharUnderline = '_';
+
+bool Like( QString::iterator t_end, QString::iterator s_end, QString::iterator t, QString::iterator s )
 {
   if ( t == t_end ) {
     return true;
@@ -413,83 +508,356 @@ bool QStorage::Like( QString::iterator t_end, QString::iterator s_end, QString::
   return true;
 }
 
-bool QStorage::LikeBest( const QString& Template, const QString& Source )
+const int H_STR = 11;
+
+QString MILLION_STR[ H_STR ][ 3 ];
+
+QString LIMON_STR[ 3 ];
+QString ONE_GENDER[ 3 ];
+QString TWO_GENDER[ 3 ];
+QString SOTKA[ 9 ];
+QString TEN_STR[ 10 ];
+QString TWENTY_STR[ 8 ];
+QString ONE_STR[ 7 ];
+QString ZERO;
+QString MINUS;
+
+void RetranslateStrings()
 {
-  int I, J, K
-    , LTemplate = Template.size()
-    , LSource   = Source.size();
+  MILLION_STR[ 0 ][ 0 ] = QObject::tr( "тысяча" );
+  MILLION_STR[ 0 ][ 1 ] = QObject::tr( "тысячи" );
+  MILLION_STR[ 0 ][ 2 ] = QObject::tr( "тысяч" );
 
-  bool Result = false;
+  MILLION_STR[ 1 ][ 0 ] = QObject::tr( "миллион" );
+  MILLION_STR[ 1 ][ 1 ] = QObject::tr( "миллиона" );
+  MILLION_STR[ 1 ][ 2 ] = QObject::tr( "миллионов" );
 
-  I = 0;
-  J = 0;
-  while ( I < LTemplate && J < LSource ) {
-    if ( Template[ I ] == CharPercent ) {
-      while ( I < LTemplate && ( Template[ I ] == CharPercent || Template[ I ] == CharUnderline ) ) {
-        ++I;
-      }
-      if ( I >= LTemplate ) {
-        Result = true;
+  MILLION_STR[ 2 ][ 0 ] = QObject::tr( "миллиард" );
+  MILLION_STR[ 2 ][ 1 ] = QObject::tr( "миллиарда" );
+  MILLION_STR[ 2 ][ 2 ] = QObject::tr( "миллиардов" );
+
+  MILLION_STR[ 3 ][ 0 ] = QObject::tr( "триллион" );
+  MILLION_STR[ 3 ][ 1 ] = QObject::tr( "триллиона" );
+  MILLION_STR[ 3 ][ 2 ] = QObject::tr( "триллионов" );
+
+  MILLION_STR[ 4 ][ 0 ] = QObject::tr( "квадриллион" );
+  MILLION_STR[ 4 ][ 1 ] = QObject::tr( "квадриллиона" );
+  MILLION_STR[ 4 ][ 2 ] = QObject::tr( "квадриллионов" );
+
+  MILLION_STR[ 5 ][ 0 ] = QObject::tr( "квинтиллион" );
+  MILLION_STR[ 5 ][ 1 ] = QObject::tr( "квинтиллиона" );
+  MILLION_STR[ 5 ][ 2 ] = QObject::tr( "квинтиллионов" );
+
+  MILLION_STR[ 6 ][ 0 ] = QObject::tr( "секстиллион" );
+  MILLION_STR[ 6 ][ 1 ] = QObject::tr( "секстиллиона" );
+  MILLION_STR[ 6 ][ 2 ] = QObject::tr( "секстиллионов" );
+
+  MILLION_STR[ 7 ][ 0 ] = QObject::tr( "септиллион" );
+  MILLION_STR[ 7 ][ 1 ] = QObject::tr( "септиллиона" );
+  MILLION_STR[ 7 ][ 2 ] = QObject::tr( "септиллионов" );
+
+  MILLION_STR[ 8 ][ 0 ] = QObject::tr( "окталлион" );
+  MILLION_STR[ 8 ][ 1 ] = QObject::tr( "окталлиона" );
+  MILLION_STR[ 8 ][ 2 ] = QObject::tr( "окталлионов" );
+
+  MILLION_STR[ 9 ][ 0 ] = QObject::tr( "ноналлион" );
+  MILLION_STR[ 9 ][ 1 ] = QObject::tr( "ноналлиона" );
+  MILLION_STR[ 9 ][ 2 ] = QObject::tr( "ноналлионов" );
+
+  MILLION_STR[ 10 ][ 0 ] = QObject::tr( "дециллион" );
+  MILLION_STR[ 10 ][ 1 ] = QObject::tr( "дециллиона" );
+  MILLION_STR[ 10 ][ 2 ] = QObject::tr( "дециллионов" );
+
+  LIMON_STR[ 0 ] = QObject::tr( "-ллион' " );
+  LIMON_STR[ 1 ] = QObject::tr( "-ллиона' " );
+  LIMON_STR[ 2 ] = QObject::tr( "-ллионов' " );
+
+  ONE_GENDER[ 0 ] = QObject::tr( "один " );
+  ONE_GENDER[ 1 ] = QObject::tr( "одно " );
+  ONE_GENDER[ 2 ] = QObject::tr( "одна " );
+
+  TWO_GENDER[ 0 ] = QObject::tr( "два " );
+  TWO_GENDER[ 1 ] = QObject::tr( "два " );
+  TWO_GENDER[ 2 ] = QObject::tr( "две " );
+
+  SOTKA[ 0 ] = QObject::tr( "сто " );
+  SOTKA[ 1 ] = QObject::tr( "двести " );
+  SOTKA[ 2 ] = QObject::tr( "триста " );
+  SOTKA[ 3 ] = QObject::tr( "четыреста " );
+  SOTKA[ 4 ] = QObject::tr( "пятьсот " );
+  SOTKA[ 5 ] = QObject::tr( "шестьсот " );
+  SOTKA[ 6 ] = QObject::tr( "семьсот " );
+  SOTKA[ 7 ] = QObject::tr( "восемьсот " );
+  SOTKA[ 8 ] = QObject::tr( "девятьсот " );
+
+  TEN_STR[ 0 ] = QObject::tr( "десять " );
+  TEN_STR[ 1 ] = QObject::tr( "одиннадцать " );
+  TEN_STR[ 2 ] = QObject::tr( "двенадцать " );
+  TEN_STR[ 3 ] = QObject::tr( "тринадцать " );
+  TEN_STR[ 4 ] = QObject::tr( "четырнадцать " );
+  TEN_STR[ 5 ] = QObject::tr( "пятнадцать " );
+  TEN_STR[ 6 ] = QObject::tr( "шестнадцать " );
+  TEN_STR[ 7 ] = QObject::tr( "семнадцать " );
+  TEN_STR[ 8 ] = QObject::tr( "восемнадцать " );
+  TEN_STR[ 9 ] = QObject::tr( "девятнадцать " );
+
+  TWENTY_STR[ 0 ] = QObject::tr( "двадцать " );
+  TWENTY_STR[ 1 ] = QObject::tr( "тридцать " );
+  TWENTY_STR[ 2 ] = QObject::tr( "сорок " );
+  TWENTY_STR[ 3 ] = QObject::tr( "пятьдесят " );
+  TWENTY_STR[ 4 ] = QObject::tr( "шестьдесят " );
+  TWENTY_STR[ 5 ] = QObject::tr( "семьдесят " );
+  TWENTY_STR[ 6 ] = QObject::tr( "восемьдесят " );
+  TWENTY_STR[ 7 ] = QObject::tr( "девяносто " );
+
+  ONE_STR[ 0 ] = QObject::tr( "три " );
+  ONE_STR[ 1 ] = QObject::tr( "четыре " );
+  ONE_STR[ 2 ] = QObject::tr( "пять " );
+  ONE_STR[ 3 ] = QObject::tr( "шесть " );
+  ONE_STR[ 4 ] = QObject::tr( "семь " );
+  ONE_STR[ 5 ] = QObject::tr( "восемь " );
+  ONE_STR[ 6 ] = QObject::tr( "девять " );
+
+  ZERO  = QObject::tr( "ноль "  );
+  MINUS = QObject::tr( "минус " );
+}
+
+QNumberWordDiapazon NumberWordDiapazon( char16_t C, bool B )
+{
+  if ( B ) {
+    return QNumberWordDiapazon::Five;
+  } else {
+    switch ( C ) {
+      case u'1':
+        return QNumberWordDiapazon::One;
+      case u'2':
+      case u'3':
+      case u'4':
+        return QNumberWordDiapazon::TwoFourth;
+      default:
+        return QNumberWordDiapazon::Five;
+    }
+  }
+}
+
+QString __fastcall ThreeNumberToWords( const QString &S
+, int P
+, QGender AGender
+, QNumberWordDiapazon &ADiapazon )
+{
+  bool B = false;
+  QString Result;
+  Result = "";
+
+  char16_t S0 = S[ 0 ].unicode()
+  , S1 = S[ 1 ].unicode()
+  , S2 = S[ 2 ].unicode();
+
+  switch ( S0 ) {
+    case u'0' :
+      break; // ничего не делаем
+    case u'1' :
+    case u'2' :
+    case u'3' :
+    case u'4' :
+    case u'5' :
+    case u'6' :
+    case u'7' :
+    case u'8' :
+    case u'9' :
+      Result = Result + SOTKA[ S0 - 49 ];
+      break;
+    default :
+      return QObject::tr( "Ошибочное число " ) + S;
+  }
+
+  switch ( S1 ) {
+    case u'0' :
+      break; // ничего не делаем
+    case u'1' :
+      if ( S2 >= u'0' && S2 <= u'9' ) {
+        Result = Result + TEN_STR[ S2 - 48 ];
       } else {
-        while ( J < LSource ) {
-          while ( Source[ J ] != Template[ I ] && J <= LSource ) {
-            ++J;
-          }
-          if ( J >= LSource ) {
+        return QObject::tr( "Ошибочное число " ) + S;
+      }
+      B = true;
+      break;
+    case u'2' :
+    case u'3' :
+    case u'4' :
+    case u'5' :
+    case u'6' :
+    case u'7' :
+    case u'8' :
+    case u'9' :
+      Result = Result + TWENTY_STR[ S1 - 50 ];
+      break;
+    default :
+      return QObject::tr( "Ошибочное число " ) + S;
+  }
+
+  if ( ! B ) {
+    switch ( S2 ) {
+      case u'0' :
+        break; // ничего не делаем
+      case u'1' :
+        switch ( P ) {
+          case 0 :
+            Result = Result + ONE_GENDER[ (int)AGender ];
             break;
-          }
-          K = 0;
-          while ( ( Source[ J + K ] == Template[ I + K ] ) &&
-                  ( J + K < LSource && I + K < LTemplate ) &&
-                  ( !( Template[ I + K ] == CharPercent || Template[ I + K ] == CharUnderline ) )
-                ) {
-            ++K;
-          }
-          if ( ( Template[ I + K ] == CharPercent || Template[ I + K ] == CharUnderline ) || ( I + K >= LTemplate ) ) {
-            I = I + K - 1;
-            J = J + K - 1;
+          case 1 :
+            Result = Result + ONE_GENDER[ (int)QGender::Female ];
             break;
-          }
-          J = J + K;
+          default :
+            Result = Result + ONE_GENDER[ (int)QGender::Male ];
         }
-      }
-      if ( J >= LSource ) {
         break;
-      }
-    } else if ( Template[ I ] != CharUnderline ) {
-      if ( Source[ J ] != Template[ I ] ) {
-        break;
-      }
+          case u'2' :
+            switch ( P ) {
+              case 0 :
+                Result = Result + TWO_GENDER[ (int)AGender ];
+                break;
+              case 1 :
+                Result = Result + TWO_GENDER[ (int)QGender::Female ];
+                break;
+              default :
+                Result = Result + TWO_GENDER[ (int)QGender::Male ];
+            }
+            break;
+              case u'3' :
+              case u'4' :
+              case u'5' :
+              case u'6' :
+              case u'7' :
+              case u'8' :
+              case u'9' :
+                Result = Result + ONE_STR[ S2 - 51 ];
+                break;
+              default :
+                return QObject::tr( "Ошибочное число " ) + S;
     }
-    ++I;
-    ++J;
-    if ( J >= LSource ) {
-      K = 0;
-      while ( Template[ I + K ] == CharPercent && I + K < LTemplate ) {
-        ++K;
-      }
-      if ( I + K >= LTemplate ) {
-        Result = true;
-      }
-    }
+  }
+
+  if ( Result == "" )
+    return Result;
+
+  if ( P == 0 )
+    ADiapazon  = NumberWordDiapazon( S2, B );
+  else if ( ( P >= 1 ) && ( P <= H_STR ) )
+    Result = Result + MILLION_STR[ P - 1 ][ (int)NumberWordDiapazon( S2, B ) ] + " ";
+  else {
+    QString T[3] = { "", "", "" };
+    QString Lion = StringNumberToWords( QString::number( P - 1 )
+    , QGender::Male
+    , T
+    , false );
+    Lion.remove( Lion.size() - 1, 1 );
+    Result = Result + "'" + Lion + LIMON_STR[ (int)NumberWordDiapazon( S2, B ) ];
   }
   return Result;
 }
 
-QStorageMainWindow::QStorageMainWindow()
-  : inherited()
+QString StringNumberToWords( QString AStringNumber
+, QGender AGender
+, QString (&ACounted)[ 3 ]
+, bool FirstUpper )
 {
-}
+  int I, N;
+  QNumberWordDiapazon ADiapazon ;
+  QString Result, Three;
+  bool IsMinus = false;
 
-QStorageMainWindow::~QStorageMainWindow()
-{
-}
+  Result = "";
 
-void QStorageMainWindow::closeEvent( QCloseEvent *event )
-{
-  if ( m_Storage ) {
-    m_Storage->SaveObject( this, m_StorageKind );
+  if ( !AStringNumber.isEmpty() && AStringNumber[ 0 ] == '-' ) {
+    AStringNumber.remove( 0, 1 );
+    IsMinus = true;
   }
 
-  inherited::closeEvent( event );
+  ADiapazon = QNumberWordDiapazon::Five;
+  N = AStringNumber.size();
+
+  if ( ( N % 3 ) != 0 ) {
+    AStringNumber = AStringNumber.rightJustified( ( ( N / 3 ) + 1 ) * 3, '0' );
+    N = AStringNumber.size();
+  }
+
+  for ( I = ( N / 3 ); I > 0; I-- ) {
+    Three  = AStringNumber.mid( N - I * 3, 3 );
+    Result = Result + ThreeNumberToWords( Three, I - 1, AGender, ADiapazon );
+  }
+
+
+  if ( Result == "" ) {
+    Result = ZERO;
+  }
+
+  Result = Result + ACounted[ (int)ADiapazon ];
+
+  if ( FirstUpper ) {
+    Result.replace( 0, 1, Result[ 0 ].toUpper() );
+  }
+
+  if ( IsMinus ) {
+    Result = MINUS + Result;
+  }
+
+  return Result;
+}
+
+void PrabhupadaMessage( const QString &msg
+, const QString &title
+, QWidget *parent )
+{
+  QMessageBox msgB( parent );
+
+  if ( parent != nullptr )
+    msgB.setWindowModality( Qt::WindowModal );
+
+  if ( !title.isEmpty() ) {
+    msgB.setWindowTitle( title );
+  }
+  //msgB.setWindowIcon( QIcon( ":/Icon/resources/PrabhupadaDictionary.ico" ) );
+  msgB.setIcon( QMessageBox::Information );
+
+  msgB.setText( msg );
+  msgB.exec();
+}
+
+QSaveFile* QClassicLog::m_SaveFile = nullptr;
+QTextStream* QClassicLog::m_Stream = nullptr;
+
+QClassicLog::QClassicLog( QWidget *parent )
+: inherited( parent )
+{
+}
+
+QClassicLog::~QClassicLog()
+{
+}
+
+bool QClassicLog::StartLog( const QString &AFileLog )
+{
+  m_SaveFile = new QSaveFile( AFileLog );
+  if ( m_SaveFile->open( QIODevice::WriteOnly | QIODevice::Text ) ) {
+    m_Stream = new QTextStream( m_SaveFile );
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void QClassicLog::FinishLog()
+{
+  m_SaveFile->commit();
+  delete m_Stream;
+  delete m_SaveFile;
+  m_Stream = nullptr;
+  m_SaveFile = nullptr;
+}
+
+void QClassicLog::Log( const QString &ALogString )
+{
+  QString S = QDateTime::currentDateTime().toString( "dd/MM/yyyy hh:mm:ss:zzz " ) + ALogString + "\n";
+  *m_Stream << S;
 }

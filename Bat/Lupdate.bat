@@ -1,10 +1,12 @@
-rem cd D:\CopperSpicePrg\PrabhupadaDictionaryOld\Source\src 
+rem cd D:\CopperSpicePrg\PrabhupadaDictionary\Source\src 
+
+rem D:\CopperSpice\Release\Lib\bin\lupdate.exe ^
+rem @D:\CopperSpicePrg\PrabhupadaDictionary\Bat\Lupdate.lst ^
 
 D:\CopperSpice\Release\Lib\bin\lupdate.exe ^
-@D:\CopperSpicePrg\PrabhupadaDictionaryOld\Bat\Lupdate.lst ^
-D:\CopperSpicePrg\PrabhupadaDictionaryOld\Source\src ^
--ts D:\CopperSpicePrg\PrabhupadaDictionaryOld\Source\resources\PrabhupadaDictionary_PT-BR.ts ^
--ts D:\CopperSpicePrg\PrabhupadaDictionaryOld\Source\resources\PrabhupadaDictionary_EN-US.ts ^
--ts D:\CopperSpicePrg\PrabhupadaDictionaryOld\Source\resources\PrabhupadaDictionary_ES-ES.ts ^
--ts D:\CopperSpicePrg\PrabhupadaDictionaryOld\Source\resources\PrabhupadaDictionary_CS-CZ.ts ^
--ts D:\CopperSpicePrg\PrabhupadaDictionaryOld\Source\resources\PrabhupadaDictionary_RU-RU.ts
+D:\CopperSpicePrg\PrabhupadaDictionary\Source\src ^
+-ts D:\CopperSpicePrg\PrabhupadaDictionary\Source\resources\Lang\PrabhupadaDictionary_PT-BR.ts ^
+-ts D:\CopperSpicePrg\PrabhupadaDictionary\Source\resources\Lang\PrabhupadaDictionary_EN-US.ts ^
+-ts D:\CopperSpicePrg\PrabhupadaDictionary\Source\resources\Lang\PrabhupadaDictionary_ES-ES.ts ^
+-ts D:\CopperSpicePrg\PrabhupadaDictionary\Source\resources\Lang\PrabhupadaDictionary_CS-CZ.ts ^
+-ts D:\CopperSpicePrg\PrabhupadaDictionary\Source\resources\Lang\PrabhupadaDictionary_RU-RU.ts

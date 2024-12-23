@@ -56,6 +56,7 @@ class QPrabhupadaFindOptions
 
     void LoadFromStream( QDataStream &ST );
     void SaveToStream  ( QDataStream &ST );
+  public:
     QPrabhupadaFindOptions& operator = ( const QPrabhupadaFindOptions&  A );
     QPrabhupadaFindOptions& operator = (       QPrabhupadaFindOptions&& A );
     bool operator == ( const QPrabhupadaFindOptions& A )
@@ -110,10 +111,8 @@ class QFilterSlovar
     void SetTranslate( const QString &Value );
     void SetSanskritWithoutDiakritik( const QString& Value );
     void SetTranslateWithoutDiakritik( const QString& Value );
-
     void LoadFromStream( QDataStream &ST );
     void SaveToStream( QDataStream &ST );
-
     QFilterSlovar& operator = ( const QFilterSlovar& A );
     QFilterSlovar& operator = ( QFilterSlovar&& A );
     bool operator == ( const QFilterSlovar& A )
@@ -130,7 +129,7 @@ class QFilterSlovar
     }
     bool GetIsEmpty() const
     {
-      return m_SanskritWithoutDiakritik.empty() && m_TranslateWithoutDiakritik.empty();
+      return m_SanskritWithoutDiakritik.isEmpty() && m_TranslateWithoutDiakritik.isEmpty();
     }
     void Clear()
     {
@@ -161,16 +160,16 @@ using QPrabhupadaFilterSlovar = QEmitValue< QFilterSlovar >;
 class QPrabhupadaLetter
 {
   public:
-    QChar32 m_Letter;
+    QChar m_Letter;
     int m_Ves;
     QPrabhupadaLetter();
     ~QPrabhupadaLetter();
 };
 
-class QPrabhupadaPrimer : public std::map< QChar32, QPrabhupadaLetter >
+class QPrabhupadaPrimer : public std::map< QChar, QPrabhupadaLetter >
 {
   private:
-    using inherited = std::map< QChar32, QPrabhupadaLetter >;
+    using inherited = std::map< QChar, QPrabhupadaLetter >;
   public:
     QPrabhupadaPrimer();
     ~QPrabhupadaPrimer();
@@ -265,36 +264,64 @@ class QLanguageInfo
     QPrabhupadaZakladkaMap m_PrabhupadaZakladkaMap;
 };
 
-class QLanguageVector : public std::vector< QLanguageInfo >, public QObject
+class QLanguageVector : public QObject
 {
   CS_OBJECT( QLanguageVector )
   private:
-    using inherited_v = std::vector< QLanguageInfo >;
-    using inherited_o = QObject;
+    using inherited = QObject;
   public:
     QLanguageVector();
     ~QLanguageVector();
+    using  QVectorType = std::vector< QLanguageInfo >;
+    QVectorType m_Vector;
     bool m_LoadSuccess = false;
-    int FindLanguage( const QString &S );
-    void LoadFromStream( QDataStream &ST ) override;
-    void SaveToStream( QDataStream &ST ) override;
+    std::size_t FindLanguage( const QString &S );
+    void LoadFromStream( QDataStream &ST );
+    void SaveToStream( QDataStream &ST );
 };
 
-class QLanguageIndex : public QEmitValue< int >
+class QStoragerLanguageVector : public QStorager
 {
+  public:
+    QStoragerLanguageVector();
+    ~QStoragerLanguageVector();
   private:
-    using inherited = QEmitValue< int >;
+    using inherited = QStorager;
+  public:
+    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
+    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
+};
+
+class QLanguageIndex : public QEmitInt
+{
+  CS_OBJECT( QLanguageIndex )
+  private:
+    using inherited = QEmitInt;
   public:
     QLanguageIndex() = delete;
     QLanguageIndex( int Value
-                  , QLanguageVector &ALanguageVector );
+                  , QLanguageVector& ALanguageVector );
     ~QLanguageIndex();
     static const int RussianIndex = 4;
     QLanguageVector& m_LanguageVector;
     void PrepareComboBox( QComboBox *CB );
     void ComboBoxAddItem( QComboBox *CB, const QString &S );
-    inline QLanguageInfo& LanguageInfo() { return m_LanguageVector[ m_Value ]; };
+    inline QLanguageInfo& LanguageInfo() { return m_LanguageVector.m_Vector[ m_Value ]; };
+    void LoadFromStream( QDataStream &ST );
+    void SaveToStream( QDataStream &ST );
   protected:
+};
+
+class QStoragerLanguageIndex : public QStorager
+{
+  public:
+    QStoragerLanguageIndex();
+    ~QStoragerLanguageIndex();
+  private:
+    using inherited = QStorager;
+  public:
+    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
+    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
 };
 
 class QPrabhupadaDictionary : public QAbstractTableModel
@@ -331,21 +358,21 @@ class QPrabhupadaDictionary : public QAbstractTableModel
     void PreparePrabhupadaSlovarVector();
 
     static const QString PrabhupadaDictionaryFiles;
+    static const QString PrabhupadaDictionaryLang;
     static QPrabhupadaPrimer PrabhupadaPrimer;
     static void PreparePrabhupadaPrimer();
     static QString RemoveDiacritics( const QString& S );
     static bool PrabhupadaCompareLess( const QString& A, const QString& B );
     static bool PrabhupadaCompareMore( const QString& A, const QString& B );
-
-    void LoadFromStream( QDataStream &ST ) override;
-    void SaveToStream( QDataStream &ST ) override;
-
+    void LoadFromStream( QDataStream &ST );
+    void SaveToStream( QDataStream &ST );
+  public:
     int rowCount( const QModelIndex &parent = QModelIndex() ) const override;
     int columnCount( const QModelIndex &parent = QModelIndex() ) const override;
     QVariant data( const QModelIndex &index, int role = Qt::DisplayRole ) const override;
     QVariant headerData( int section, Qt::Orientation orientation, int role ) const override;
 
-    inline const QFilterSlovar& GetFilterSlovar() const { return m_LanguageVector[ m_LanguageIndex.m_Value ].m_FilterSlovar; };
+    inline const QFilterSlovar& GetFilterSlovar() const { return m_LanguageVector.m_Vector[ m_LanguageIndex.m_Value ].m_FilterSlovar; };
     void sortByColumn( int column, Qt::SortOrder order );
     void OrderByChanged( QPrabhupadaDictionaryOrderBy Value );
     void CaseSensitiveChanged( bool Value );
@@ -353,6 +380,18 @@ class QPrabhupadaDictionary : public QAbstractTableModel
     void AutoPercentBeginChanged( bool Value );
     void AutoPercentEndChanged( bool Value );
   protected:
+};
+
+class QStoragerPrabhupadaDictionary : public QStorager
+{
+  public:
+    QStoragerPrabhupadaDictionary();
+    ~QStoragerPrabhupadaDictionary();
+  private:
+    using inherited = QStorager;
+  public:
+    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
+    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
 };
 
 #endif

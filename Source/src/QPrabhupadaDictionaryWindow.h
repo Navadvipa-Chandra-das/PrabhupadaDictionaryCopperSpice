@@ -17,24 +17,24 @@
 #include <QtGui>
 #include <QPrabhupada.h>
 #include <QPrabhupadaDictionary.h>
-#include <ui_QPrabhupadaDictionaryWindow.h>
 
-class QPrabhupadaDictionaryWindow : public QStorageMainWindow
-{
+class QPrabhupadaDictionaryWindow : public QStorageMainWindow {
   CS_OBJECT( QPrabhupadaDictionaryWindow )
-
   public:
     int m_SanskitHeaderSize = 50;
     int m_TranslateHeaderSize = 50;
     bool m_StartResize = false;
 
     QPrabhupadaDictionaryWindow() = delete;
-    QPrabhupadaDictionaryWindow( QPrabhupadaDictionary *APrabhupadaDictionary );
+    QPrabhupadaDictionaryWindow( QPrabhupadaDictionary *APrabhupadaDictionary
+                               , QWidget *parent = nullptr
+                               , Qt::WindowFlags flags = Qt::WindowFlags() );
     ~QPrabhupadaDictionaryWindow();
-    Ui::QPrabhupadaDictionaryWindow *m_ui = new Ui::QPrabhupadaDictionaryWindow;
     QPrabhupadaDictionary *m_PrabhupadaDictionary;
     void PrepareDictionary();
     void FirstShow();
+    void LoadFromStream( QDataStream &ST );
+    void SaveToStream( QDataStream &ST );
   private:
     using inherited = QStorageMainWindow;
 
@@ -93,12 +93,78 @@ class QPrabhupadaDictionaryWindow : public QStorageMainWindow
   protected:
     void changeEvent( QEvent *event ) override;
     void closeEvent( QCloseEvent *event ) override;
-    void LoadFromStream( QDataStream &ST ) override;
-    void SaveToStream( QDataStream &ST ) override;
     void SpinBoxFontSizeChanged( int Value );
     virtual void FontSizeChanged( int Value );
     virtual void PrabhupadaTableResized();
     void resizeEvent( QResizeEvent *event ) override;
+  public:
+    QAction *m_actionFind;
+    QAction *m_actionCaseSensitive;
+    QAction *m_actionDelete;
+    QAction *m_actionInsert;
+    QAction *m_actionRemove_Duplicates;
+    QAction *m_actionSet_Bookmark_0;
+    QAction *m_actionSet_Bookmark_1;
+    QAction *m_actionSet_Bookmark_2;
+    QAction *m_actionSet_Bookmark_3;
+    QAction *m_actionSet_Bookmark_4;
+    QAction *m_actionSet_Bookmark_5;
+    QAction *m_actionSet_Bookmark_6;
+    QAction *m_actionSet_Bookmark_7;
+    QAction *m_actionSet_Bookmark_8;
+    QAction *m_actionSet_Bookmark_9;
+    QAction *m_actionGo_to_bookmark_0;
+    QAction *m_actionGo_to_bookmark_1;
+    QAction *m_actionGo_to_bookmark_2;
+    QAction *m_actionGo_to_bookmark_3;
+    QAction *m_actionGo_to_bookmark_4;
+    QAction *m_actionGo_to_bookmark_5;
+    QAction *m_actionGo_to_bookmark_6;
+    QAction *m_actionGo_to_bookmark_7;
+    QAction *m_actionGo_to_bookmark_8;
+    QAction *m_actionGo_to_bookmark_9;
+    QAction *m_actionWhats_This_mode;
+    QAction *m_actionGoToRow;
+    QAction *m_actionAbout;
+    QAction *m_ActionSaveAllLetterToFile;
+    QAction *m_actionDeleteAllBookmarks;
+    QAction *m_actionRegularExpression;
+    QAction *m_actionAutoPercentBegin;
+    QAction *m_actionAutoPercentEnd;
+    QWidget *centralwidget;
+    QVBoxLayout *vlPrabhuadaMain;
+    QHBoxLayout *horizontalLayoutLanguage;
+    QSpinBox *sbFontSize;
+    QComboBox *ComboBoxLanguage;
+    QComboBox *ComboBoxLanguageUI;
+    QHBoxLayout *horizontalLayoutRow;
+    QLineEdit *lineEditRowIndicator;
+    QVBoxLayout *vlDictionary;
+    QTableView *tbvPrabhupadaDictionary;
+    QSplitter *splSanskritTranslate;
+    QComboBox *ComboBoxSanskrit;
+    QComboBox *ComboBoxTranslate;
+    QMenuBar *mbPrabupadaDictionary;
+    QMenu *menuAction;
+    QMenu *menuSet_Bookmark;
+    QMenu *menuGo_Bookmarks;
+    QToolBar *tbPrabhupada;
+
+    void setupUi(QMainWindow *QPrabhupadaDictionaryWindow);
+    void retranslateUi(QMainWindow *QPrabhupadaDictionaryWindow);
+};
+
+
+class QStoragerPrabhupadaDictionaryWindow : public QStoragerMainWindow
+{
+  public:
+    QStoragerPrabhupadaDictionaryWindow();
+    ~QStoragerPrabhupadaDictionaryWindow();
+  private:
+    using inherited = QStoragerMainWindow;
+  public:
+    virtual void LoadFromStream( QObject *AObject, QDataStream &ST ) override;
+    virtual void SaveToStream( QObject *AObject, QDataStream &ST ) override;
 };
 
 #endif

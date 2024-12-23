@@ -12,40 +12,117 @@
 
 #include <PrabhupadaDictionary_build_info.h>
 #include <QPrabhupadaAboutWindow.h>
-#include <QPrabhupadaUtil.h>
 #include <QPrabhupada.h>
 
-QPrabhupadaAboutWindow::QPrabhupadaAboutWindow( QStorage *AStorage )
-  : inherited()
-  , m_Storage( AStorage )
+QPrabhupadaAboutDialog::QPrabhupadaAboutDialog( QWidget *parent, Qt::WindowFlags flags )
+  : inherited( parent, flags )
 {
-  m_ui->setupUi( this );
+    setupUi( this );
 }
 
-QPrabhupadaAboutWindow::~QPrabhupadaAboutWindow()
+QPrabhupadaAboutDialog::~QPrabhupadaAboutDialog()
 {
-  delete m_ui;
 }
 
-void QPrabhupadaAboutWindow::LoadFromStream( QDataStream &ST )
+void QPrabhupadaAboutDialog::LoadFromStream( QDataStream &ST )
 {
-  inherited::LoadFromStream( ST );
-
-  QStorage::LoadFromStream( m_ui->ComboBoxRowNumber, ST );
 }
 
-void QPrabhupadaAboutWindow::SaveToStream( QDataStream &ST )
+void QPrabhupadaAboutDialog::SaveToStream( QDataStream &ST )
 {
-  inherited::SaveToStream( ST );
-
-  QStorage::SaveToStream( m_ui->ComboBoxRowNumber, ST );
 }
 
-void QPrabhupadaAboutWindow::changeEvent( QEvent *event )
+void QPrabhupadaAboutDialog::changeEvent( QEvent *event )
 {
   if ( event->type() == QEvent::LanguageChange ) {
-    m_ui->retranslateUi( this );
+    retranslateUi( this );
   }
 
   inherited::changeEvent( event );
+}
+
+void QPrabhupadaAboutDialog::setupUi( QDialog *APrabhupadaAboutDialog )
+{
+  if ( APrabhupadaAboutDialog->objectName().isEmpty() ) {
+    APrabhupadaAboutDialog->setObjectName( "QPrabhupadaAboutDialog" );
+  }
+  APrabhupadaAboutDialog->resize(272, 82);
+  verticalLayoutPrabhupada = new QVBoxLayout(APrabhupadaAboutDialog);
+  verticalLayoutPrabhupada->setObjectName("verticalLayoutPrabhupada");
+  verticalLayoutRowNumber = new QVBoxLayout();
+  verticalLayoutRowNumber->setObjectName("verticalLayoutRowNumber");
+  formLayout = new QFormLayout();
+  formLayout->setObjectName("formLayout");
+  TabWidgetAbout = new QTabWidget( APrabhupadaAboutDialog );
+
+
+  verticalLayoutRowNumber->addLayout(formLayout);
+
+
+  verticalLayoutPrabhupada->addLayout(verticalLayoutRowNumber);
+
+  horizontalLayout = new QHBoxLayout();
+  horizontalLayout->setObjectName("horizontalLayout");
+  horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+  horizontalLayout->addItem(horizontalSpacer);
+
+  PushButtonGo = new QPushButton(APrabhupadaAboutDialog);
+  PushButtonGo->setObjectName("PushButtonGo");
+
+  horizontalLayout->addWidget(PushButtonGo);
+
+  PushButtonCancel = new QPushButton(APrabhupadaAboutDialog);
+  PushButtonCancel->setObjectName("PushButtonCancel");
+
+  horizontalLayout->addWidget(PushButtonCancel);
+
+  horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+  horizontalLayout->addItem(horizontalSpacer_2);
+
+
+  verticalLayoutPrabhupada->addLayout(horizontalLayout);
+
+  verticalLayoutPrabhupada->setStretch(0, 1);
+
+  retranslateUi( APrabhupadaAboutDialog );
+} // setupUi
+
+void QPrabhupadaAboutDialog::retranslateUi( QDialog *APrabhupadaAboutDialog )
+{
+  APrabhupadaAboutDialog->setWindowTitle( tr( "О программе" ) );
+  PushButtonGo->setText( tr( "Поехали!" ) );
+  #if QT_CONFIG(shortcut)
+    PushButtonGo->setShortcut( tr( "Return" ) );
+  #endif // QT_CONFIG(shortcut)
+  PushButtonCancel->setText( tr( "Задний ход!" ) );
+  #if QT_CONFIG(shortcut)
+    PushButtonCancel->setShortcut( tr( "Esc" ) );
+  #endif // QT_CONFIG(shortcut)
+} // retranslateUi
+
+QStoragerPrabhupadaAboutDialog::QStoragerPrabhupadaAboutDialog()
+  : inherited()
+{
+}
+
+QStoragerPrabhupadaAboutDialog::~QStoragerPrabhupadaAboutDialog()
+{
+}
+
+void QStoragerPrabhupadaAboutDialog::LoadFromStream( QObject *AObject, QDataStream &ST )
+{
+  inherited::LoadFromStream( AObject, ST );
+  QPrabhupadaAboutDialog *O = static_cast< QPrabhupadaAboutDialog* >( AObject );
+  // 1
+  O->LoadFromStream( ST );
+}
+
+void QStoragerPrabhupadaAboutDialog::SaveToStream( QObject *AObject, QDataStream &ST )
+{
+  inherited::SaveToStream( AObject, ST );
+  QPrabhupadaAboutDialog *O = static_cast< QPrabhupadaAboutDialog* >( AObject );
+  // 1
+  O->SaveToStream( ST );
 }

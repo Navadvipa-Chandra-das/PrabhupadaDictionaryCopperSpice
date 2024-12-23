@@ -18,23 +18,25 @@
 #include <QtSql>
 #include <QPrabhupada.h>
 #include <QPrabhupadaDictionary.h>
-#include <ui_QPrabhupadaLoginWindow.h>
 
-class QPrabhupadaLoginWindow : public QDialog
+class QPrabhupadaLoginDialog : public QStorageDialog
 {
-  CS_OBJECT( QPrabhupadaLoginWindow )
+  CS_OBJECT( QPrabhupadaLoginDialog )
 
   public:
-    QPrabhupadaLoginWindow() = delete;
-    QPrabhupadaLoginWindow( QPrabhupadaDictionary *APrabhupadaDictionary );
-    ~QPrabhupadaLoginWindow();
-    Ui::QPrabhupadaLoginWindow *m_ui = new Ui::QPrabhupadaLoginWindow;
+    QPrabhupadaLoginDialog( QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags() ) = delete;
+    QPrabhupadaLoginDialog() = delete;
+    QPrabhupadaLoginDialog( QPrabhupadaDictionary *APrabhupadaDictionary
+                          , QWidget *parent = nullptr
+                          , Qt::WindowFlags flags = Qt::WindowFlags() );
+    ~QPrabhupadaLoginDialog();
+    //Ui::QPrabhupadaLoginDialog *m_ui = new Ui::QPrabhupadaLoginDialog;
     QString m_DriverName;
     QString m_Schema;
     QPrabhupadaDictionary *m_PrabhupadaDictionary = nullptr;
     bool Connect( QSqlDatabase *DB );
   private:
-    using inherited = QDialog;
+    using inherited = QStorageDialog;
     void Connects();
     void Emits();
     void SQLRadioButton( bool checked );
@@ -44,11 +46,51 @@ class QPrabhupadaLoginWindow : public QDialog
     void pushButtonOKClicked();
     void pushButtonCancelClicked();
   protected:
-    void LoadFromStream( QDataStream &ST ) override;
-    void SaveToStream( QDataStream &ST ) override;
     void changeEvent( QEvent *event ) override;
-    // void showEvent( QShowEvent *event ) override;
-    // void closeEvent( QCloseEvent *event ) override;
+  public:
+    virtual void LoadFromStream( QDataStream &ST );
+    virtual void SaveToStream( QDataStream &ST );
+
+    QVBoxLayout *LayoutPrabhupadaLogin;
+    QHBoxLayout *LayoutSQL;
+    QRadioButton *radioButtonSQLite;
+    QRadioButton *radioButtonPostgreSQL;
+    QFormLayout *LayoutConnection;
+    QLabel *LabelUserName;
+    QComboBox *ComboBoxUserName;
+    QLabel *LabelPassword;
+    QLineEdit *LineEditPassword;
+    QLabel *LabelDatabaseName;
+    QComboBox *ComboBoxDatabaseName;
+    QLabel *LabelHostName;
+    QComboBox *ComboBoxHostName;
+    QLabel *LabelPort;
+    QComboBox *ComboBoxPort;
+    QLabel *LabelSchema;
+    QComboBox *ComboBoxSchema;
+    QCheckBox *CheckBoxResetSettings;
+    QLabel *LabelLanguageUI;
+    QComboBox *ComboBoxLanguageUI;
+    QHBoxLayout *horizontalLayout;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *pushButtonOK;
+    QPushButton *pushButtonCancel;
+    QSpacerItem *horizontalSpacer_2;
+
+    void setupUi(QDialog *QPrabhupadaLoginDialog);
+    void retranslateUi(QDialog *QPrabhupadaLoginDialog);
+};
+
+class QStoragerPrabhupadaLoginDialog : public QStoragerDialog
+{
+  public:
+    QStoragerPrabhupadaLoginDialog();
+    ~QStoragerPrabhupadaLoginDialog();
+  private:
+    using inherited = QStoragerDialog;
+  public:
+    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
+    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
 };
 
 #endif
