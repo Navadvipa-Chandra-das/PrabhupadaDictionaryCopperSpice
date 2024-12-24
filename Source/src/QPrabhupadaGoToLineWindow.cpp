@@ -123,20 +123,20 @@ void QPrabhupadaGoToLineDialog::retranslateUi( QDialog *APrabhupadaGoToLineDialo
 {
   APrabhupadaGoToLineDialog->setWindowTitle( tr( "Перейти к строке" ) );
   LabelRowNumber->setText( tr( "Номер строки" ) );
-  #if QT_CONFIG(whatsthis)
+  #if !QT_NO_WHATSTHIS
     ComboBoxRowNumber->setWhatsThis( tr( "<html><head/><body><p>Введите номер строки и нажмите Enter для перехода к ней!</p></body></html>" ) );
-  #endif // QT_CONFIG(whatsthis)
-  #if QT_CONFIG(tooltip)
+  #endif
+  #if !QT_NO_TOOLTIP
     ComboBoxRowNumber->setToolTip( tr( "Номер строки" ) );
-  #endif // QT_CONFIG(tooltip)
+  #endif
   PushButtonGo->setText( tr( "Поехали!" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     PushButtonGo->setShortcut( tr( "Return" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif
   PushButtonCancel->setText( tr( "Задний ход!" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     PushButtonCancel->setShortcut( tr( "Esc" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif
 } // retranslateUi
 
 QStoragerPrabhupadaGoToLineDialog::QStoragerPrabhupadaGoToLineDialog()
@@ -148,18 +148,18 @@ QStoragerPrabhupadaGoToLineDialog::~QStoragerPrabhupadaGoToLineDialog()
 {
 }
 
-void QStoragerPrabhupadaGoToLineDialog::LoadFromStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaGoToLineDialog::LoadFromStream( void *AObject, QDataStream &ST )
 {
-    inherited::LoadFromStream( AObject, ST );
-    QPrabhupadaGoToLineDialog *O = static_cast< QPrabhupadaGoToLineDialog* >( AObject );
-    // 1
-    O->LoadFromStream( ST );
+  inherited::LoadFromStream( AObject, ST );
+  QPrabhupadaGoToLineDialog *O = static_cast< QPrabhupadaGoToLineDialog* >( AObject );
+  // 1
+  O->LoadFromStream( ST );
 }
 
-void QStoragerPrabhupadaGoToLineDialog::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaGoToLineDialog::SaveToStream( void *AObject, QDataStream &ST )
 {
-    inherited::SaveToStream( AObject, ST );
-    QPrabhupadaGoToLineDialog *O = static_cast< QPrabhupadaGoToLineDialog* >( AObject );
-    // 1
-    O->SaveToStream( ST );
+  inherited::SaveToStream( AObject, ST );
+  QPrabhupadaGoToLineDialog *O = static_cast< QPrabhupadaGoToLineDialog* >( AObject );
+  // 1
+  O->SaveToStream( ST );
 }

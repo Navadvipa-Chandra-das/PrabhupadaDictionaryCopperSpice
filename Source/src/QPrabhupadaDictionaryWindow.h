@@ -18,7 +18,7 @@
 #include <QPrabhupada.h>
 #include <QPrabhupadaDictionary.h>
 
-class QPrabhupadaDictionaryWindow : public QStorageMainWindow {
+class QPrabhupadaDictionaryWindow : public QMainWindow {
   CS_OBJECT( QPrabhupadaDictionaryWindow )
   public:
     int m_SanskitHeaderSize = 50;
@@ -30,13 +30,17 @@ class QPrabhupadaDictionaryWindow : public QStorageMainWindow {
                                , QWidget *parent = nullptr
                                , Qt::WindowFlags flags = Qt::WindowFlags() );
     ~QPrabhupadaDictionaryWindow();
+
     QPrabhupadaDictionary *m_PrabhupadaDictionary;
+    QStorageKind m_StorageKind = QStorageKind::File;
+    QStorage *m_Storage = nullptr;
+
     void PrepareDictionary();
     void FirstShow();
     void LoadFromStream( QDataStream &ST );
     void SaveToStream( QDataStream &ST );
   private:
-    using inherited = QStorageMainWindow;
+    using inherited = QMainWindow;
 
     void actionExit_Program();
     void actionFind();
@@ -163,8 +167,8 @@ class QStoragerPrabhupadaDictionaryWindow : public QStoragerMainWindow
   private:
     using inherited = QStoragerMainWindow;
   public:
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST ) override;
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST ) override;
+    virtual void LoadFromStream( void *AObject, QDataStream &ST ) override;
+    virtual void SaveToStream(   void *AObject, QDataStream &ST ) override;
 };
 
 #endif

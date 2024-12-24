@@ -19,7 +19,7 @@
 #include <QPrabhupada.h>
 #include <QPrabhupadaDictionary.h>
 
-class QPrabhupadaLoginDialog : public QStorageDialog
+class QPrabhupadaLoginDialog : public QDialog
 {
   CS_OBJECT( QPrabhupadaLoginDialog )
 
@@ -36,7 +36,7 @@ class QPrabhupadaLoginDialog : public QStorageDialog
     QPrabhupadaDictionary *m_PrabhupadaDictionary = nullptr;
     bool Connect( QSqlDatabase *DB );
   private:
-    using inherited = QStorageDialog;
+    using inherited = QDialog;
     void Connects();
     void Emits();
     void SQLRadioButton( bool checked );

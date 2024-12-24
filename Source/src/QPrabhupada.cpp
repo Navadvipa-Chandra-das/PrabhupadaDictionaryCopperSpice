@@ -74,9 +74,17 @@ void QStorage::SetDatabase( QSqlDatabase *Value )
   }
 }
 
-bool QStorage::BeginLoad( QObject *O, QStorageKind AStorageKind )
+void QStorage::PrepareFileName( void* O, QStorageKind AStorageKind, const QString& AKeyStorage )
 {
-  m_FileName = KeyStorage( O, AStorageKind );
+  if ( AKeyStorage.isEmpty() ) {
+    m_FileName = KeyStorage( static_cast< QObject* >( O ), AStorageKind );
+  } else {
+    m_FileName = AKeyStorage;
+  }
+}
+
+bool QStorage::BeginLoad( void* O, QStorageKind AStorageKind )
+{
   switch ( AStorageKind ) {
     case QStorageKind::File :
       m_File     = new QFile( m_FileName );
@@ -132,10 +140,9 @@ void QStorage::EndLoad( QStorageKind AStorageKind )
   m_Stream = nullptr;
 }
 
-void QStorage::BeginSave( QObject *O, QStorageKind AStorageKind )
+void QStorage::BeginSave( void* O, QStorageKind AStorageKind )
 {
   QBuffer *BU;
-  m_FileName = KeyStorage( O, AStorageKind );
   switch ( AStorageKind ) {
     case QStorageKind::File :
       m_SaveFile = new QSaveFile( m_FileName );
@@ -216,8 +223,9 @@ void QStorage::EndSave( QStorageKind AStorageKind )
   m_Stream = nullptr;
 }
 
-bool QStorage::LoadObject( QObject *O, QStorageKind AStorageKind, QStorager* ST )
+bool QStorage::LoadObject( void* O, QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage )
 {
+  PrepareFileName( O, AStorageKind, AKeyStorage );
   bool LoadSuccess = false;
   if ( m_Enabled ) {
     if ( BeginLoad( O, AStorageKind ) ) {
@@ -238,8 +246,9 @@ bool QStorage::LoadObject( QObject *O, QStorageKind AStorageKind, QStorager* ST 
   return LoadSuccess;
 }
 
-void QStorage::SaveObject( QObject *O, QStorageKind AStorageKind, QStorager* ST )
+void QStorage::SaveObject( void* O, QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage )
 {
+  PrepareFileName( O, AStorageKind, AKeyStorage );
   if ( m_Enabled ) {
     BeginSave( O, AStorageKind );
     if ( m_Stream != nullptr ) {
@@ -253,10 +262,13 @@ void QStorage::SaveObject( QObject *O, QStorageKind AStorageKind, QStorager* ST 
   }
 }
 
-void QStorage::RemoveMemory( QObject *O )
+void QStorage::RemoveMemory( void* O, const QString& AKeyStorage )
 {
-  QString S = KeyStorage( O, QStorageKind::Memory );
-  m_MapMemoryStorage.erase( S );
+  if ( AKeyStorage.isEmpty() ) {
+    m_MapMemoryStorage.erase( KeyStorage( static_cast< QObject* >( O ), QStorageKind::Memory ) );
+  } else {
+    m_MapMemoryStorage.erase( AKeyStorage );
+  }
 }
 
 QString QStorage::PrefixKeyStorage()
@@ -376,37 +388,6 @@ void QStorage::SaveToStream( QDataStream &ST )
   m_MapMemoryStorage.SaveToStream( ST );
 }
 
-QStorageMainWindow::QStorageMainWindow( QWidget *parent
-                                      , Qt::WindowFlags flags )
-  : inherited( parent, flags )
-{
-}
-
-QStorageMainWindow::~QStorageMainWindow()
-{
-}
-
-void QStorageMainWindow::closeEvent( QCloseEvent *event )
-{
-  if ( m_Storage ) {
-    QStoragerMainWindow* AStoragerMainWindow = new QStoragerMainWindow();
-    m_Storage->SaveObject( this, m_StorageKind, AStoragerMainWindow );
-    delete AStoragerMainWindow;
-  }
-
-  inherited::closeEvent( event );
-}
-
-QStorageDialog::QStorageDialog( QWidget *parent
-                              , Qt::WindowFlags flags )
-  : inherited( parent, flags )
-{
-}
-
-QStorageDialog::~QStorageDialog()
-{
-}
-
 QStorager::QStorager()
 {
 }
@@ -424,16 +405,7 @@ QStoragerMainWindow::~QStoragerMainWindow()
 {
 }
 
-QStoragerDialog::QStoragerDialog()
-: inherited()
-{
-}
-
-QStoragerDialog::~QStoragerDialog()
-{
-}
-
-void QStoragerMainWindow::LoadFromStream( QObject *AObject, QDataStream &ST )
+void QStoragerMainWindow::LoadFromStream( void *AObject, QDataStream &ST )
 {
   QMainWindow *O = static_cast< QMainWindow* >( AObject );
   QByteArray BA;
@@ -445,14 +417,23 @@ void QStoragerMainWindow::LoadFromStream( QObject *AObject, QDataStream &ST )
   O->restoreState( BA );
 }
 
-void QStoragerMainWindow::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerMainWindow::SaveToStream( void *AObject, QDataStream &ST )
 {
   QMainWindow *O = static_cast< QMainWindow* >( AObject );
   // 1, 2
   ST << O->saveGeometry() << O->saveState();
 }
 
-void QStoragerDialog::LoadFromStream( QObject *AObject, QDataStream &ST )
+QStoragerDialog::QStoragerDialog()
+: inherited()
+{
+}
+
+QStoragerDialog::~QStoragerDialog()
+{
+}
+
+void QStoragerDialog::LoadFromStream( void *AObject, QDataStream &ST )
 {
   QDialog *O = static_cast< QDialog* >( AObject );
   QByteArray BA;
@@ -461,7 +442,7 @@ void QStoragerDialog::LoadFromStream( QObject *AObject, QDataStream &ST )
   O->restoreGeometry( BA );
 }
 
-void QStoragerDialog::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerDialog::SaveToStream( void *AObject, QDataStream &ST )
 {
   QDialog *O = static_cast< QDialog* >( AObject );
   // 1
@@ -640,10 +621,10 @@ QNumberWordDiapazon NumberWordDiapazon( char16_t C, bool B )
   }
 }
 
-QString __fastcall ThreeNumberToWords( const QString &S
-, int P
-, QGender AGender
-, QNumberWordDiapazon &ADiapazon )
+QString ThreeNumberToWords( const QString &S
+                          , int P
+                          , QGender AGender
+                          , QNumberWordDiapazon &ADiapazon )
 {
   bool B = false;
   QString Result;

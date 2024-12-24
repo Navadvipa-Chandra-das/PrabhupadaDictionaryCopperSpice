@@ -288,8 +288,8 @@ class QStoragerLanguageVector : public QStorager
   private:
     using inherited = QStorager;
   public:
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
+    virtual void LoadFromStream( void *AObject, QDataStream &ST );
+    virtual void SaveToStream(   void *AObject, QDataStream &ST );
 };
 
 class QLanguageIndex : public QEmitInt
@@ -320,8 +320,8 @@ class QStoragerLanguageIndex : public QStorager
   private:
     using inherited = QStorager;
   public:
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
+    virtual void LoadFromStream( void *AObject, QDataStream &ST );
+    virtual void SaveToStream(   void *AObject, QDataStream &ST );
 };
 
 class QPrabhupadaDictionary : public QAbstractTableModel
@@ -390,8 +390,8 @@ class QStoragerPrabhupadaDictionary : public QStorager
   private:
     using inherited = QStorager;
   public:
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
+    virtual void LoadFromStream( void *AObject, QDataStream &ST );
+    virtual void SaveToStream(   void *AObject, QDataStream &ST );
 };
 
 #endif

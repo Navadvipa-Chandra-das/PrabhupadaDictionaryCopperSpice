@@ -93,13 +93,13 @@ void QPrabhupadaAboutDialog::retranslateUi( QDialog *APrabhupadaAboutDialog )
 {
   APrabhupadaAboutDialog->setWindowTitle( tr( "О программе" ) );
   PushButtonGo->setText( tr( "Поехали!" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     PushButtonGo->setShortcut( tr( "Return" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif
   PushButtonCancel->setText( tr( "Задний ход!" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     PushButtonCancel->setShortcut( tr( "Esc" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif
 } // retranslateUi
 
 QStoragerPrabhupadaAboutDialog::QStoragerPrabhupadaAboutDialog()
@@ -111,7 +111,7 @@ QStoragerPrabhupadaAboutDialog::~QStoragerPrabhupadaAboutDialog()
 {
 }
 
-void QStoragerPrabhupadaAboutDialog::LoadFromStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaAboutDialog::LoadFromStream( void *AObject, QDataStream &ST )
 {
   inherited::LoadFromStream( AObject, ST );
   QPrabhupadaAboutDialog *O = static_cast< QPrabhupadaAboutDialog* >( AObject );
@@ -119,7 +119,7 @@ void QStoragerPrabhupadaAboutDialog::LoadFromStream( QObject *AObject, QDataStre
   O->LoadFromStream( ST );
 }
 
-void QStoragerPrabhupadaAboutDialog::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaAboutDialog::SaveToStream( void *AObject, QDataStream &ST )
 {
   inherited::SaveToStream( AObject, ST );
   QPrabhupadaAboutDialog *O = static_cast< QPrabhupadaAboutDialog* >( AObject );

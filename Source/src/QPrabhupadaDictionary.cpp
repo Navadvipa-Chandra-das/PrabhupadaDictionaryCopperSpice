@@ -220,7 +220,7 @@ QStoragerLanguageVector::~QStoragerLanguageVector()
 {
 }
 
-void QStoragerLanguageVector::LoadFromStream( QObject *AObject, QDataStream &ST )
+void QStoragerLanguageVector::LoadFromStream( void *AObject, QDataStream &ST )
 {
     QLanguageVector *O = static_cast< QLanguageVector* >( AObject );
     // 1
@@ -241,7 +241,7 @@ void QStoragerLanguageVector::LoadFromStream( QObject *AObject, QDataStream &ST 
     O->m_LoadSuccess = L > 0;
 }
 
-void QStoragerLanguageVector::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerLanguageVector::SaveToStream( void *AObject, QDataStream &ST )
 {
     QLanguageVector *O = static_cast< QLanguageVector* >( AObject );
     // 1
@@ -512,14 +512,14 @@ QStoragerLanguageIndex::~QStoragerLanguageIndex()
 {
 }
 
-void QStoragerLanguageIndex::LoadFromStream( QObject *AObject, QDataStream &ST )
+void QStoragerLanguageIndex::LoadFromStream( void *AObject, QDataStream &ST )
 {
     QLanguageIndex *O = static_cast< QLanguageIndex* >( AObject );
     // 1
     O->LoadFromStream( ST );
 }
 
-void QStoragerLanguageIndex::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerLanguageIndex::SaveToStream( void *AObject, QDataStream &ST )
 {
     QLanguageIndex *O = static_cast< QLanguageIndex* >( AObject );
     // 1
@@ -769,7 +769,7 @@ void QPrabhupadaDictionary::LanguageUIIndexChanged( int Value )
   if ( m_LanguageUIIndex.m_NeedMainWork ) {
     std::size_t L = m_LanguageVector.m_Vector.size();
     if ( Value > -1 && L > Value ) {
-      QString AFileTranslate = PrabhupadaDictionaryLang + "PrabhupadaDictionary_" + m_LanguageVector.m_Vector[ Value ].m_Language + ".qm";
+      QString AFileTranslate = "PrabhupadaDictionary_" + m_LanguageVector.m_Vector[ Value ].m_Language + ".qm";
       if ( m_Translator.load( AFileTranslate, PrabhupadaDictionaryLang ) ) {
         qApp->installTranslator( &m_Translator );
         QGuiApplication::setApplicationDisplayName( tr( "Словарь Шрилы Прабхупады!" ) );
@@ -1055,14 +1055,14 @@ QStoragerPrabhupadaDictionary::~QStoragerPrabhupadaDictionary()
 {
 }
 
-void QStoragerPrabhupadaDictionary::LoadFromStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaDictionary::LoadFromStream( void *AObject, QDataStream &ST )
 {
     QPrabhupadaDictionary *O = static_cast< QPrabhupadaDictionary* >( AObject );
     // 1
     O->LoadFromStream( ST );
 }
 
-void QStoragerPrabhupadaDictionary::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaDictionary::SaveToStream( void *AObject, QDataStream &ST )
 {
     QPrabhupadaDictionary *O = static_cast< QPrabhupadaDictionary* >( AObject );
     // 1

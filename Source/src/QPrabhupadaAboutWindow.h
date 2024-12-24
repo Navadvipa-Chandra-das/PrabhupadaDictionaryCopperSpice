@@ -19,7 +19,7 @@
 #include <QPrabhupada.h>
 #include <QPrabhupadaDictionary.h>
 
-class QPrabhupadaAboutDialog : public QStorageDialog
+class QPrabhupadaAboutDialog : public QDialog
 {
   CS_OBJECT( QPrabhupadaAboutDialog )
 
@@ -30,7 +30,7 @@ class QPrabhupadaAboutDialog : public QStorageDialog
     virtual void LoadFromStream( QDataStream &ST );
     virtual void SaveToStream( QDataStream &ST );
   private:
-    using inherited = QStorageDialog;
+    using inherited = QDialog;
   protected:
     void changeEvent( QEvent *event ) override;
   public:
@@ -58,8 +58,8 @@ class QStoragerPrabhupadaAboutDialog : public QStoragerDialog
   private:
     using inherited = QStoragerDialog;
   public:
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST ) override;
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST ) override;
+    virtual void LoadFromStream( void *AObject, QDataStream &ST ) override;
+    virtual void SaveToStream(   void *AObject, QDataStream &ST ) override;
 };
 
 #endif

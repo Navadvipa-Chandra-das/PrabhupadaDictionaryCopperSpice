@@ -318,19 +318,18 @@ void QPrabhupadaDictionaryWindow::actionRemove_Duplicates()
 
 void QPrabhupadaDictionaryWindow::actionWhats_This_mode()
 {
-  // if ( QWhatsThis::inWhatsThisMode() ) {
-  //   QWhatsThis::leaveWhatsThisMode();
-  // } else {
-  //   QWhatsThis::enterWhatsThisMode();
-  // }
-
-  QString A[3];
-  A[ 0 ] = "рубль";
-  A[ 1 ] = "рубля";
-  A[ 2 ] = "рублей";
-  QString W = StringNumberToWords( ComboBoxSanskrit->currentText(), QGender::Male, A, true );
-  ComboBoxTranslate->setCurrentText( W );
-  PrabhupadaLog( W );
+  if ( QWhatsThis::inWhatsThisMode() ) {
+    QWhatsThis::leaveWhatsThisMode();
+  } else {
+    QWhatsThis::enterWhatsThisMode();
+  }
+  // QString A[3];
+  // A[ 0 ] = "рубль";
+  // A[ 1 ] = "рубля";
+  // A[ 2 ] = "рублей";
+  // QString W = StringNumberToWords( ComboBoxSanskrit->currentText(), QGender::Male, A, true );
+  // PrabhupadaLog( W );
+  // PrabhupadaMessage( W );
 }
 
 void QPrabhupadaDictionaryWindow::actionGoToRow()
@@ -415,18 +414,23 @@ void QPrabhupadaDictionaryWindow::changeEvent( QEvent *event )
 
 void QPrabhupadaDictionaryWindow::closeEvent( QCloseEvent *event )
 {
-  QStoragerPrabhupadaDictionary* AStoragerPrabhupadaDictionary       = new QStoragerPrabhupadaDictionary();
-  QStoragerLanguageIndex*        AStoragerLanguageIndex              = new QStoragerLanguageIndex();
-  QStoragerLanguageVector*       AStoragerLanguageVector             = new QStoragerLanguageVector();
+  if ( m_Storage ) {
+    QStoragerPrabhupadaDictionary* AStoragerPrabhupadaDictionary       = new QStoragerPrabhupadaDictionary();
+    QStoragerLanguageIndex*        AStoragerLanguageIndex              = new QStoragerLanguageIndex();
+    QStoragerLanguageVector*       AStoragerLanguageVector             = new QStoragerLanguageVector();
 
-  m_Storage->SaveObject( m_PrabhupadaDictionary,                     QStorageKind::DB,   AStoragerPrabhupadaDictionary );
-  m_Storage->SaveObject( &m_PrabhupadaDictionary->m_LanguageUIIndex, QStorageKind::File, AStoragerLanguageIndex );
-  m_Storage->SaveObject( &m_PrabhupadaDictionary->m_LanguageVector,  QStorageKind::File, AStoragerLanguageVector );
+    m_Storage->SaveObject( m_PrabhupadaDictionary,                     QStorageKind::DB,   AStoragerPrabhupadaDictionary );
+    m_Storage->SaveObject( &m_PrabhupadaDictionary->m_LanguageUIIndex, QStorageKind::File, AStoragerLanguageIndex );
+    m_Storage->SaveObject( &m_PrabhupadaDictionary->m_LanguageVector,  QStorageKind::File, AStoragerLanguageVector );
 
-  delete AStoragerPrabhupadaDictionary;
-  delete AStoragerLanguageVector;
-  delete AStoragerLanguageIndex;
+    delete AStoragerPrabhupadaDictionary;
+    delete AStoragerLanguageVector;
+    delete AStoragerLanguageIndex;
 
+    QStoragerPrabhupadaDictionaryWindow* AStoragerPrabhupadaDictionaryWindow = new QStoragerPrabhupadaDictionaryWindow();
+    m_Storage->SaveObject( this, m_StorageKind, AStoragerPrabhupadaDictionaryWindow );
+    delete AStoragerPrabhupadaDictionaryWindow;
+  }
   inherited::closeEvent( event );
 }
 
@@ -1035,158 +1039,158 @@ void QPrabhupadaDictionaryWindow::setupUi(QMainWindow *QPrabhupadaDictionaryWind
 void QPrabhupadaDictionaryWindow::retranslateUi(QMainWindow *QPrabhupadaDictionaryWindow)
 {
   QPrabhupadaDictionaryWindow->setWindowTitle( tr( "Словарь Шрилы Прабхупады" ) );
-  #if QT_CONFIG(whatsthis)
+  #if !QT_NO_WHATSTHIS
     QPrabhupadaDictionaryWindow->setWhatsThis( tr( "Словарь Его Божественной Милости основателя-ачарьи Международного Общества сознания Кришны Шри Шримад Абхая Чаранаравидны Бхактиведанты Свами Прабхупады! Познакомиться с его книгами можно на сайте vedabase.io" ) );
-  #endif // QT_CONFIG(whatsthis)
+  #endif // !QT_NO_WHATSTHIS
 
   m_actionFind->setText( tr( "&Найти" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionFind->setShortcut( tr( "Return" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
 
   m_actionCaseSensitive->setText( tr( "&Различать регистр" ) );
 
   m_actionDelete->setText( tr( "&Удалить" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionDelete->setShortcut( tr( "Ctrl+Del" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
 
   m_actionInsert->setText( tr( "&Вставить" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionInsert->setShortcut( tr( "Ctrl+Ins" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
 
   m_actionRemove_Duplicates->setText( tr( "Удалить &дубликаты" ) );
 
   m_actionSet_Bookmark_0->setText( tr( "Установить закладку &0" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_0->setShortcut( tr( "Ctrl+0" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_1->setText( tr( "Установить закладку &1" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_1->setShortcut( tr( "Ctrl+1" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_2->setText( tr( "Установить закладку &2" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_2->setShortcut( tr( "Ctrl+2" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_3->setText( tr( "Установить закладку &3" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_3->setShortcut( tr( "Ctrl+3" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_4->setText( tr( "Установить закладку &4" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_4->setShortcut( tr( "Ctrl+4" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_5->setText( tr( "Установить закладку &5" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_5->setShortcut( tr( "Ctrl+5" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_6->setText( tr( "Установить закладку &6" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_6->setShortcut( tr( "Ctrl+6" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_7->setText( tr( "Установить закладку &7" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_7->setShortcut( tr( "Ctrl+7" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_8->setText( tr( "Установить закладку &8" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_8->setShortcut( tr( "Ctrl+8" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionSet_Bookmark_9->setText( tr( "Установить закладку &9" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionSet_Bookmark_9->setShortcut( tr( "Ctrl+9" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
 
   m_actionGo_to_bookmark_0->setText( tr( "К закладке &0" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_0->setShortcut( tr( "Alt+0" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_1->setText( tr( "К закладке &1" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_1->setShortcut( tr( "Alt+1" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_2->setText( tr( "К закладке &2" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_2->setShortcut( tr( "Alt+2" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_3->setText( tr( "К закладке &3" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_3->setShortcut( tr( "Alt+3" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_4->setText( tr( "К закладке &4" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_4->setShortcut( tr( "Alt+4" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_5->setText( tr( "К закладке &5" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_5->setShortcut( tr( "Alt+5" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_6->setText( tr( "К закладке &6" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_6->setShortcut( tr( "Alt+6" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_7->setText( tr( "К закладке &7" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_7->setShortcut( tr( "Alt+7" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_8->setText( tr( "К закладке &8" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_8->setShortcut( tr( "Alt+8" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGo_to_bookmark_9->setText( tr( "К закладке &9" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGo_to_bookmark_9->setShortcut( tr( "Alt+9" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
 
   m_actionWhats_This_mode->setText( tr( "&Режим вопроса" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionWhats_This_mode->setShortcut( tr( "Shift+F1" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionGoToRow->setText( tr( "&Перейти к строке" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionGoToRow->setShortcut( tr( "Ctrl+G" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionAbout->setText( tr( "&О программе" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionAbout->setShortcut( tr( "F1" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_ActionSaveAllLetterToFile->setText( tr( "Сохранить буквы в файл" ) );
   m_actionDeleteAllBookmarks->setText( tr( "&Удалить все закладки" ) );
-  #if QT_CONFIG(shortcut)
+  #if !QT_NO_SHORTCUT
     m_actionDeleteAllBookmarks->setShortcut( tr( "Ctrl+Alt+0" ) );
-  #endif // QT_CONFIG(shortcut)
+  #endif // !QT_NO_SHORTCUT
   m_actionRegularExpression->setText( tr( "Регулярные выра&жения" ) );
   m_actionAutoPercentBegin->setText( tr( "Авто % в на&чале" ) );
   m_actionAutoPercentEnd->setText( tr( "Авто % в кон&це" ) );
-  #if QT_CONFIG(tooltip)
+  #if !QT_NO_TOOLTIP
     sbFontSize->setToolTip( tr( "Размер шрифта" ) );
-  #endif // QT_CONFIG(tooltip)
-  #if QT_CONFIG(tooltip)
+  #endif // !QT_NO_TOOLTIP
+  #if !QT_NO_TOOLTIP
     ComboBoxLanguage->setToolTip( tr( "Язык словаря" ) );
-  #endif // QT_CONFIG(tooltip)
-  #if QT_CONFIG(tooltip)
+  #endif // !QT_NO_TOOLTIP
+  #if !QT_NO_TOOLTIP
     ComboBoxLanguageUI->setToolTip( tr( "<html><head/><body><p>Язык программы словаря<br/>Шрилы Прабхупады</p></body></html>" ) );
-  #endif // QT_CONFIG(tooltip)
-  #if QT_CONFIG(tooltip)
+  #endif // !QT_NO_TOOLTIP
+  #if !QT_NO_TOOLTIP
     lineEditRowIndicator->setToolTip( tr( "Текущая строка / всего строк" ) );
-  #endif // QT_CONFIG(tooltip)
-  #if QT_CONFIG(whatsthis)
+  #endif // !QT_NO_TOOLTIP
+  #if !QT_NO_WHATSTHIS
     lineEditRowIndicator->setWhatsThis( tr( "<html><head/><body><p>Индикатор, который показывает номер текущей строки, а также общее количество строк в таблице!</p></body></html>" ) );
-  #endif // QT_CONFIG(whatsthis)
-  #if QT_CONFIG(tooltip)
+  #endif // !QT_NO_WHATSTHIS
+  #if !QT_NO_TOOLTIP
     ComboBoxSanskrit->setToolTip( tr( "<html><head/><body><p>Поиск по санскриту!</p></body></html>" ) );
-  #endif // QT_CONFIG(tooltip)
-  #if QT_CONFIG(whatsthis)
+  #endif // !QT_NO_TOOLTIP
+  #if !QT_NO_WHATSTHIS
     ComboBoxSanskrit->setWhatsThis( tr( "<html><head/><body><p>Поиск по санскриту!</p><p>Можно использовать регулярные выражения!</p></body></html>" ) );
-  #endif // QT_CONFIG(whatsthis)
-  #if QT_CONFIG(tooltip)
+  #endif // !QT_NO_WHATSTHIS
+  #if !QT_NO_TOOLTIP
     ComboBoxTranslate->setToolTip( tr( "<html><head/><body><p>Поиск по переводу!</p></body></html>" ) );
-  #endif // QT_CONFIG(tooltip)
-  #if QT_CONFIG(whatsthis)
+  #endif // !QT_NO_TOOLTIP
+  #if !QT_NO_WHATSTHIS
     ComboBoxTranslate->setWhatsThis( tr( "<html><head/><body><p>Поиск по переводу!</p><p>Можно использовать регулярные выражения!</p></body></html>" ) );
-  #endif // QT_CONFIG(whatsthis)
+  #endif // !QT_NO_WHATSTHIS
 
   menuAction->setTitle( tr( "&Действие" ) );
   menuSet_Bookmark->setTitle( tr( "&Установить закладку" ) );
@@ -1204,7 +1208,7 @@ QStoragerPrabhupadaDictionaryWindow::~QStoragerPrabhupadaDictionaryWindow()
 {
 }
 
-void QStoragerPrabhupadaDictionaryWindow::LoadFromStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaDictionaryWindow::LoadFromStream( void *AObject, QDataStream &ST )
 {
   inherited::LoadFromStream( AObject, ST );
   QPrabhupadaDictionaryWindow *O = static_cast< QPrabhupadaDictionaryWindow* >( AObject );
@@ -1212,7 +1216,7 @@ void QStoragerPrabhupadaDictionaryWindow::LoadFromStream( QObject *AObject, QDat
   O->LoadFromStream( ST );
 }
 
-void QStoragerPrabhupadaDictionaryWindow::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaDictionaryWindow::SaveToStream( void *AObject, QDataStream &ST )
 {
   inherited::SaveToStream( AObject, ST );
   QPrabhupadaDictionaryWindow *O = static_cast< QPrabhupadaDictionaryWindow* >( AObject );

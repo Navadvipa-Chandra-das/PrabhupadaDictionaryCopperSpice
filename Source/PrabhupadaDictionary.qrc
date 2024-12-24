@@ -1,18 +1,5 @@
 <RCC>
   <qresource prefix="ToolButton">
-    <file>resources/Images/AutoPercentBegin.png</file>
-    <file>resources/Images/AutoPercentEnd.png</file>
-    <file>resources/Images/RegularExpression.png</file>
-    <file>resources/Images/DeleteAllBookmarks.png</file>
-    <file>resources/Images/SaveBukva.png</file>
-    <file>resources/Images/About.png</file>
-    <file>resources/Images/GoToRow.png</file>
-    <file>resources/Images/RemoveDuplicates.png</file>
-    <file>resources/Images/CaseSensitive.png</file>
-    <file>resources/Images/Find.png</file>
-    <file>resources/Images/Delete.png</file>
-    <file>resources/Images/Insert.png</file>
-    <file>resources/Images/WhatsThis.png</file>
   </qresource>
   <qresource prefix="Icon">
     <file>resources/Images/PrabhupadaDictionary.ico</file>

@@ -353,9 +353,9 @@ void QPrabhupadaLoginDialog::retranslateUi( QDialog *APrabhupadaLoginDialog )
   LabelPort->        setText( tr( "Порт" ) );
   LabelSchema->      setText( tr( "Схема" ) );
 
-  #if QT_CONFIG(whatsthis)
+  #if QT_NO_WHATSTHIS
     CheckBoxResetSettings->setWhatsThis( tr( "<html><head/><body><p>Этот флаг сбрасывает все настройки пользователя после входа в программу! Но только те из них, которые хранятся в базе данных! Настройки, хранящиеся в файлах &quot;ini&quot; сбрасывайте простым удалением этих файлов!</p></body></html>" ) );
-  #endif // QT_CONFIG(whatsthis)
+  #endif
 
   CheckBoxResetSettings->setText( tr( "Сбросить настройки" ) );
   LabelLanguageUI->      setText( tr( "Язык программы" ) );

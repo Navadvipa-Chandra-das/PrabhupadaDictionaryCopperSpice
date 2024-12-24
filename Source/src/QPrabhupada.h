@@ -75,8 +75,8 @@ class QStorager
   public:
     QStorager();
     ~QStorager();
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST ) = 0;
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST ) = 0;
+    virtual void LoadFromStream( void *AObject, QDataStream &ST ) = 0;
+    virtual void SaveToStream(   void *AObject, QDataStream &ST ) = 0;
 };
 
 class QStorage : public QObject
@@ -156,9 +156,9 @@ public:
     }
   }
 
-  bool LoadObject( QObject *O, QStorageKind AStorageKind, QStorager* ST );
-  void SaveObject( QObject *O, QStorageKind AStorageKind, QStorager* ST );
-  void RemoveMemory( QObject *O );
+  bool LoadObject( void* O,    QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
+  void SaveObject( void* O,    QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
+  void RemoveMemory( void* O, const QString& AKeyStorage = "" );
   void ClearMemory() { m_MapMemoryStorage.clear(); };
 
   void SaveToStreamPrepareHistory( QComboBox *CB, QDataStream &ST, int HistoryCount );
@@ -174,38 +174,11 @@ private:
   QByteArray *m_ByteArray;
   QString m_SQL;
   QMapMemoryStorage m_MapMemoryStorage;
-  bool BeginLoad( QObject *O, QStorageKind AStorageKind );
+  void PrepareFileName( void* O, QStorageKind AStorageKind, const QString& AKeyStorage );
+  bool BeginLoad( void* O, QStorageKind AStorageKind );
   void EndLoad( QStorageKind AStorageKind );
-  void BeginSave( QObject *O, QStorageKind AStorageKind );
+  void BeginSave( void* O, QStorageKind AStorageKind );
   void EndSave( QStorageKind AStorageKind );
-};
-
-class QStorageMainWindow : public QMainWindow
-{
-  CS_OBJECT( QStorageMainWindow )
-
-  public:
-    QStorageMainWindow( QWidget *parent = nullptr
-                      , Qt::WindowFlags flags = Qt::EmptyFlag );
-    ~QStorageMainWindow();
-    QStorageKind m_StorageKind = QStorageKind::File;
-    QStorage *m_Storage = nullptr;
-  private:
-    using inherited = QMainWindow;
-  protected:
-    void closeEvent( QCloseEvent *event ) override;
-};
-
-class QStorageDialog : public QDialog
-{
-  CS_OBJECT( QStorageDialog )
-
-  public:
-    QStorageDialog( QWidget *parent = nullptr
-                  , Qt::WindowFlags flags = Qt::WindowFlags() );
-    ~QStorageDialog();
-  private:
-    using inherited = QDialog;
 };
 
 class QStoragerMainWindow : public QStorager
@@ -216,8 +189,8 @@ class QStoragerMainWindow : public QStorager
   private:
     using inherited = QStorager;
   public:
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
+    virtual void LoadFromStream( void *AObject, QDataStream &ST );
+    virtual void SaveToStream(   void *AObject, QDataStream &ST );
 };
 
 class QStoragerDialog : public QStorager
@@ -228,8 +201,8 @@ class QStoragerDialog : public QStorager
   private:
     using inherited = QStorager;
   public:
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
+    virtual void LoadFromStream( void *AObject, QDataStream &ST );
+    virtual void SaveToStream(   void *AObject, QDataStream &ST );
 };
 
 extern const QChar CharPercent;
@@ -254,10 +227,10 @@ enum class QNumberWordDiapazon : int
 void RetranslateStrings();
 QString StringOfChar( QChar C, int Count );
 QNumberWordDiapazon NumberWordDiapazon( char16_t C, bool B );
-QString __fastcall ThreeNumberToWords( const QString &S
-                                     , int P
-                                     , QGender AGender
-                                     , QNumberWordDiapazon &ADiapazon );
+QString ThreeNumberToWords( const QString &S
+                          , int P
+                          , QGender AGender
+                          , QNumberWordDiapazon &ADiapazon );
 QString StringNumberToWords( QString AStringNumber
                            , QGender AGender
                            , QString (&ACounted)[3]
