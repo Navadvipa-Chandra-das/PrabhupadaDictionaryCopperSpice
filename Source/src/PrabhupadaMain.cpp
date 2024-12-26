@@ -29,7 +29,7 @@ int main( int argc, char *argv[] )
   QClassicLog::StartLog( "Prabhupada.log" );
   QApplication a(argc, argv);
 
-  QStorage AStorage;
+  QStorageDB AStorage;
 
   QStoragerPrabhupadaDictionary*       AStoragerPrabhupadaDictionary       = new QStoragerPrabhupadaDictionary();
   QStoragerLanguageVector*             AStoragerLanguageVector             = new QStoragerLanguageVector();

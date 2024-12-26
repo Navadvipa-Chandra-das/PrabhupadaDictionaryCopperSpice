@@ -37,8 +37,6 @@ class QPrabhupadaDictionaryWindow : public QMainWindow {
 
     void PrepareDictionary();
     void FirstShow();
-    void LoadFromStream( QDataStream &ST );
-    void SaveToStream( QDataStream &ST );
   private:
     using inherited = QMainWindow;
 
@@ -154,8 +152,10 @@ class QPrabhupadaDictionaryWindow : public QMainWindow {
     QMenu *menuGo_Bookmarks;
     QToolBar *tbPrabhupada;
 
-    void setupUi(QMainWindow *QPrabhupadaDictionaryWindow);
-    void retranslateUi(QMainWindow *QPrabhupadaDictionaryWindow);
+    void setupUi();
+    void retranslateUi();
+  private :
+    void RetranslateIcon();
 };
 
 
@@ -163,7 +163,7 @@ class QStoragerPrabhupadaDictionaryWindow : public QStoragerMainWindow
 {
   public:
     QStoragerPrabhupadaDictionaryWindow();
-    ~QStoragerPrabhupadaDictionaryWindow();
+    virtual ~QStoragerPrabhupadaDictionaryWindow();
   private:
     using inherited = QStoragerMainWindow;
   public:

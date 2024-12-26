@@ -24,7 +24,7 @@ QPrabhupadaDictionaryWindow::QPrabhupadaDictionaryWindow( QPrabhupadaDictionary 
   : inherited( parent, flags )
   , m_PrabhupadaDictionary( APrabhupadaDictionary )
 {
-  setupUi( this );
+  setupUi();
   tbvPrabhupadaDictionary->verticalHeader()->hide();
   tbvPrabhupadaDictionary->setModel( m_PrabhupadaDictionary );
   Connects();
@@ -406,7 +406,7 @@ void QPrabhupadaDictionaryWindow::ActionSaveAllLetterToFile()
 void QPrabhupadaDictionaryWindow::changeEvent( QEvent *event )
 {
   if ( event->type() == QEvent::LanguageChange ) {
-    retranslateUi( this );
+    retranslateUi();
   }
 
   inherited::changeEvent( event );
@@ -437,37 +437,6 @@ void QPrabhupadaDictionaryWindow::closeEvent( QCloseEvent *event )
 void QPrabhupadaDictionaryWindow::actionExit_Program()
 {
   close();
-}
-
-void QPrabhupadaDictionaryWindow::LoadFromStream( QDataStream &ST )
-{
-  // 1
-  QByteArray AS;
-  ST >> AS;
-  splSanskritTranslate->restoreState( AS );
-  // 2
-  ST >> AS;
-  tbvPrabhupadaDictionary->horizontalHeader()->restoreState( AS );
-  // 3
-  m_Storage->LoadFromStream( ST );
-  // 4
-  QStorage::LoadFromStream( ComboBoxSanskrit, ST );
-  // 5
-  QStorage::LoadFromStream( ComboBoxTranslate, ST );
-}
-
-void QPrabhupadaDictionaryWindow::SaveToStream( QDataStream &ST )
-{
-  // 1
-  ST << splSanskritTranslate->saveState();
-  // 2
-  ST << tbvPrabhupadaDictionary->horizontalHeader()->saveState();
-  // 3
-  m_Storage->SaveToStream( ST );
-  // 4
-  QStorage::SaveToStream( ComboBoxSanskrit, ST );
-  // 5
-  QStorage::SaveToStream( ComboBoxTranslate, ST );
 }
 
 void QPrabhupadaDictionaryWindow::PrepareDictionary()
@@ -751,180 +720,235 @@ void QPrabhupadaDictionaryWindow::actionGo_to_bookmark_9()
   actionGo_to_bookmark( 9 );
 }
 
-void QPrabhupadaDictionaryWindow::setupUi(QMainWindow *QPrabhupadaDictionaryWindow)
+void QPrabhupadaDictionaryWindow::RetranslateIcon()
 {
-  if ( QPrabhupadaDictionaryWindow->objectName().isEmpty() ) {
-    QPrabhupadaDictionaryWindow->setObjectName("QPrabhupadaDictionaryWindow" );
+  QIcon AIcon;
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "PrabhupadaDictionary"
+                                            , "ico"
+                                            , nullptr
+                                            , true );
+  setWindowIcon( AIcon );
+
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "Find"
+                                            , "png"
+                                            , m_actionFind
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "CaseSensitive"
+                                            , "png"
+                                            , m_actionCaseSensitive
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "Delete"
+                                            , "png"
+                                            , m_actionDelete
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "Insert"
+                                            , "png"
+                                            , m_actionInsert
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "RemoveDuplicates"
+                                            , "png"
+                                            , m_actionRemove_Duplicates
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "WhatsThis"
+                                            , "png"
+                                            , m_actionWhats_This_mode
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "GoToRow"
+                                            , "png"
+                                            , m_actionGoToRow
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "About"
+                                            , "png"
+                                            , m_actionAbout
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "SaveBukva"
+                                            , "png"
+                                            , m_ActionSaveAllLetterToFile
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "DeleteAllBookmarks"
+                                            , "png"
+                                            , m_actionDeleteAllBookmarks
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "RegularExpression"
+                                            , "png"
+                                            , m_actionRegularExpression
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "AutoPercentBegin"
+                                            , "png"
+                                            , m_actionAutoPercentBegin
+                                            , true );
+  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
+                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "AutoPercentEnd"
+                                            , "png"
+                                            , m_actionAutoPercentEnd
+                                            , true );
+}
+
+void QPrabhupadaDictionaryWindow::setupUi()
+{
+  if ( objectName().isEmpty() ) {
+    setObjectName( "QPrabhupadaDictionaryWindow" );
   }
-  QPrabhupadaDictionaryWindow->resize(320, 480);
-  QPrabhupadaDictionaryWindow->setMinimumSize(QSize(320, 480));
-  QIcon icon;
-  icon.addFile( QString::fromUtf8( "./resources/Images/PrabhupadaDictionary.ico" ), QSize(), QIcon::Normal, QIcon::Off );
-  QPrabhupadaDictionaryWindow->setWindowIcon(icon);
-  m_actionFind = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionFind->setObjectName("actionFind");
-  QIcon icon1;
-  icon1.addFile(QString::fromUtf8("./resources/Images/Find.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionFind->setIcon(icon1);
-  m_actionFind->setIconVisibleInMenu(true);
-  m_actionCaseSensitive = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionCaseSensitive->setObjectName("actionCaseSensitive");
-  m_actionCaseSensitive->setCheckable(true);
-  QIcon icon2;
-  icon2.addFile(QString::fromUtf8("./resources/Images/CaseSensitive.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionCaseSensitive->setIcon(icon2);
-  m_actionDelete = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionDelete->setObjectName("actionDelete");
-  QIcon icon3;
-  icon3.addFile(QString::fromUtf8("./resources/Images/Delete.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionDelete->setIcon(icon3);
-  m_actionInsert = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionInsert->setObjectName("actionInsert");
-  QIcon icon4;
-  icon4.addFile(QString::fromUtf8("./resources/Images/Insert.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionInsert->setIcon(icon4);
-  m_actionRemove_Duplicates = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionRemove_Duplicates->setObjectName("actionRemove_Duplicates");
-  QIcon icon5;
-  icon5.addFile(QString::fromUtf8("./resources/Images/RemoveDuplicates.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionRemove_Duplicates->setIcon(icon5);
-  m_actionSet_Bookmark_0 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_0->setObjectName("actionSet_Bookmark_0");
-  m_actionSet_Bookmark_1 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_1->setObjectName("actionSet_Bookmark_1");
-  m_actionSet_Bookmark_2 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_2->setObjectName("actionSet_Bookmark_2");
-  m_actionSet_Bookmark_3 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_3->setObjectName("actionSet_Bookmark_3");
-  m_actionSet_Bookmark_4 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_4->setObjectName("actionSet_Bookmark_4");
-  m_actionSet_Bookmark_5 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_5->setObjectName("actionSet_Bookmark_5");
-  m_actionSet_Bookmark_6 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_6->setObjectName("actionSet_Bookmark_6");
-  m_actionSet_Bookmark_7 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_7->setObjectName("actionSet_Bookmark_7");
-  m_actionSet_Bookmark_8 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_8->setObjectName("actionSet_Bookmark_8");
-  m_actionSet_Bookmark_9 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionSet_Bookmark_9->setObjectName("actionSet_Bookmark_9");
-  m_actionGo_to_bookmark_0 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_0->setObjectName("actionGo_to_bookmark_0");
-  m_actionGo_to_bookmark_1 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_1->setObjectName("actionGo_to_bookmark_1");
-  m_actionGo_to_bookmark_2 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_2->setObjectName("actionGo_to_bookmark_2");
-  m_actionGo_to_bookmark_3 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_3->setObjectName("actionGo_to_bookmark_3");
-  m_actionGo_to_bookmark_4 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_4->setObjectName("actionGo_to_bookmark_4");
-  m_actionGo_to_bookmark_5 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_5->setObjectName("actionGo_to_bookmark_5");
-  m_actionGo_to_bookmark_6 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_6->setObjectName("actionGo_to_bookmark_6");
-  m_actionGo_to_bookmark_7 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_7->setObjectName("actionGo_to_bookmark_7");
-  m_actionGo_to_bookmark_8 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_8->setObjectName("actionGo_to_bookmark_8");
-  m_actionGo_to_bookmark_9 = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGo_to_bookmark_9->setObjectName("actionGo_to_bookmark_9");
-  m_actionWhats_This_mode = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionWhats_This_mode->setObjectName("actionWhats_This_mode");
-  QIcon icon6;
-  icon6.addFile(QString::fromUtf8("./resources/Images/WhatsThis.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionWhats_This_mode->setIcon(icon6);
-  m_actionGoToRow = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionGoToRow->setObjectName("actionGoToRow");
-  QIcon icon7;
-  icon7.addFile(QString::fromUtf8("./resources/Images/GoToRow.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionGoToRow->setIcon(icon7);
-  m_actionAbout = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionAbout->setObjectName("actionAbout");
-  QIcon icon8;
-  icon8.addFile(QString::fromUtf8("./resources/Images/About.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionAbout->setIcon(icon8);
-  m_ActionSaveAllLetterToFile = new QAction(QPrabhupadaDictionaryWindow);
-  m_ActionSaveAllLetterToFile->setObjectName("ActionSaveAllLetterToFile");
-  QIcon icon9;
-  icon9.addFile(QString::fromUtf8("./resources/Images/SaveBukva.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_ActionSaveAllLetterToFile->setIcon(icon9);
-  m_actionDeleteAllBookmarks = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionDeleteAllBookmarks->setObjectName("actionDeleteAllBookmarks");
-  QIcon icon10;
-  icon10.addFile(QString::fromUtf8("./resources/Images/DeleteAllBookmarks.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionDeleteAllBookmarks->setIcon(icon10);
-  m_actionRegularExpression = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionRegularExpression->setObjectName("actionRegularExpression");
-  m_actionRegularExpression->setCheckable(true);
-  QIcon icon11;
-  icon11.addFile(QString::fromUtf8("./resources/Images/RegularExpression.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionRegularExpression->setIcon(icon11);
-  m_actionAutoPercentBegin = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionAutoPercentBegin->setObjectName("actionAutoPercentBegin");
-  m_actionAutoPercentBegin->setCheckable(true);
-  QIcon icon12;
-  icon12.addFile(QString::fromUtf8("./resources/Images/AutoPercentBegin.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionAutoPercentBegin->setIcon(icon12);
-  m_actionAutoPercentEnd = new QAction(QPrabhupadaDictionaryWindow);
-  m_actionAutoPercentEnd->setObjectName("actionAutoPercentEnd");
-  m_actionAutoPercentEnd->setCheckable(true);
-  QIcon icon13;
-  icon13.addFile(QString::fromUtf8("./resources/Images/AutoPercentEnd.png"), QSize(), QIcon::Normal, QIcon::Off);
-  m_actionAutoPercentEnd->setIcon(icon13);
-  centralwidget = new QWidget(QPrabhupadaDictionaryWindow);
-  centralwidget->setObjectName("centralwidget");
+  resize( 320, 480 );
+  setMinimumSize( QSize( 320, 480 ) );
+  m_actionFind = new QAction( this );
+  m_actionFind->setObjectName( "actionFind" );
+
+  m_actionCaseSensitive = new QAction( this );
+  m_actionCaseSensitive->setObjectName( "actionCaseSensitive" );
+  m_actionCaseSensitive->setCheckable( true );
+
+  m_actionDelete = new QAction( this );
+  m_actionDelete->setObjectName( "actionDelete" );
+
+  m_actionInsert = new QAction( this );
+  m_actionInsert->setObjectName( "actionInsert" );
+
+  m_actionRemove_Duplicates = new QAction( this );
+  m_actionRemove_Duplicates->setObjectName( "actionRemove_Duplicates" );
+
+  m_actionSet_Bookmark_0 = new QAction( this );
+  m_actionSet_Bookmark_0->setObjectName( "actionSet_Bookmark_0" );
+  m_actionSet_Bookmark_1 = new QAction( this );
+  m_actionSet_Bookmark_1->setObjectName( "actionSet_Bookmark_1" );
+  m_actionSet_Bookmark_2 = new QAction( this );
+  m_actionSet_Bookmark_2->setObjectName( "actionSet_Bookmark_2" );
+  m_actionSet_Bookmark_3 = new QAction( this );
+  m_actionSet_Bookmark_3->setObjectName( "actionSet_Bookmark_3" );
+  m_actionSet_Bookmark_4 = new QAction( this );
+  m_actionSet_Bookmark_4->setObjectName( "actionSet_Bookmark_4" );
+  m_actionSet_Bookmark_5 = new QAction( this );
+  m_actionSet_Bookmark_5->setObjectName( "actionSet_Bookmark_5" );
+  m_actionSet_Bookmark_6 = new QAction( this );
+  m_actionSet_Bookmark_6->setObjectName( "actionSet_Bookmark_6" );
+  m_actionSet_Bookmark_7 = new QAction( this );
+  m_actionSet_Bookmark_7->setObjectName( "actionSet_Bookmark_7" );
+  m_actionSet_Bookmark_8 = new QAction( this );
+  m_actionSet_Bookmark_8->setObjectName( "actionSet_Bookmark_8" );
+  m_actionSet_Bookmark_9 = new QAction( this );
+  m_actionSet_Bookmark_9->setObjectName( "actionSet_Bookmark_9" );
+
+  m_actionGo_to_bookmark_0 = new QAction( this );
+  m_actionGo_to_bookmark_0->setObjectName( "actionGo_to_bookmark_0" );
+  m_actionGo_to_bookmark_1 = new QAction( this );
+  m_actionGo_to_bookmark_1->setObjectName( "actionGo_to_bookmark_1" );
+  m_actionGo_to_bookmark_2 = new QAction( this );
+  m_actionGo_to_bookmark_2->setObjectName( "actionGo_to_bookmark_2" );
+  m_actionGo_to_bookmark_3 = new QAction( this );
+  m_actionGo_to_bookmark_3->setObjectName( "actionGo_to_bookmark_3" );
+  m_actionGo_to_bookmark_4 = new QAction( this );
+  m_actionGo_to_bookmark_4->setObjectName( "actionGo_to_bookmark_4" );
+  m_actionGo_to_bookmark_5 = new QAction( this );
+  m_actionGo_to_bookmark_5->setObjectName( "actionGo_to_bookmark_5" );
+  m_actionGo_to_bookmark_6 = new QAction( this );
+  m_actionGo_to_bookmark_6->setObjectName( "actionGo_to_bookmark_6" );
+  m_actionGo_to_bookmark_7 = new QAction( this );
+  m_actionGo_to_bookmark_7->setObjectName( "actionGo_to_bookmark_7" );
+  m_actionGo_to_bookmark_8 = new QAction( this );
+  m_actionGo_to_bookmark_8->setObjectName( "actionGo_to_bookmark_8" );
+  m_actionGo_to_bookmark_9 = new QAction( this );
+  m_actionGo_to_bookmark_9->setObjectName( "actionGo_to_bookmark_9" );
+
+  m_actionWhats_This_mode = new QAction( this );
+  m_actionWhats_This_mode->setObjectName( "actionWhats_This_mode" );
+
+  m_actionGoToRow = new QAction( this );
+  m_actionGoToRow->setObjectName( "actionGoToRow" );
+
+  m_actionAbout = new QAction( this );
+  m_actionAbout->setObjectName( "actionAbout" );
+
+  m_ActionSaveAllLetterToFile = new QAction( this );
+  m_ActionSaveAllLetterToFile->setObjectName( "ActionSaveAllLetterToFile" );
+
+  m_actionDeleteAllBookmarks = new QAction( this );
+  m_actionDeleteAllBookmarks->setObjectName( "actionDeleteAllBookmarks" );
+
+  m_actionRegularExpression = new QAction( this );
+  m_actionRegularExpression->setObjectName( "actionRegularExpression" );
+  m_actionRegularExpression->setCheckable( true );
+
+  m_actionAutoPercentBegin = new QAction( this );
+  m_actionAutoPercentBegin->setObjectName( "actionAutoPercentBegin" );
+  m_actionAutoPercentBegin->setCheckable( true );
+
+  m_actionAutoPercentEnd = new QAction( this );
+  m_actionAutoPercentEnd->setObjectName( "actionAutoPercentEnd" );
+  m_actionAutoPercentEnd->setCheckable( true );
+
+  centralwidget = new QWidget( this );
+  centralwidget->setObjectName( "centralwidget" );
+
   vlPrabhuadaMain = new QVBoxLayout(centralwidget);
-  vlPrabhuadaMain->setObjectName("vlPrabhuadaMain");
+  vlPrabhuadaMain->setObjectName( "vlPrabhuadaMain" );
+
   horizontalLayoutLanguage = new QHBoxLayout();
-  horizontalLayoutLanguage->setObjectName("horizontalLayoutLanguage");
+  horizontalLayoutLanguage->setObjectName( "horizontalLayoutLanguage" );
+
   sbFontSize = new QSpinBox(centralwidget);
-  sbFontSize->setObjectName("sbFontSize");
-  sbFontSize->setFocusPolicy(Qt::WheelFocus);
-  sbFontSize->setAlignment(Qt::AlignCenter);
-  sbFontSize->setMinimum(14);
-  sbFontSize->setMaximum(24);
-  sbFontSize->setValue(14);
+  sbFontSize->setObjectName( "sbFontSize" );
+  sbFontSize->setFocusPolicy( Qt::WheelFocus );
+  sbFontSize->setAlignment( Qt::AlignCenter );
+  sbFontSize->setMinimum( 14 );
+  sbFontSize->setMaximum( 24 );
+  sbFontSize->setValue( 14 );
 
-  horizontalLayoutLanguage->addWidget(sbFontSize);
+  horizontalLayoutLanguage->addWidget( sbFontSize );
 
-  ComboBoxLanguage = new QComboBox(centralwidget);
-  ComboBoxLanguage->setObjectName("ComboBoxLanguage");
-  ComboBoxLanguage->setFocusPolicy(Qt::WheelFocus);
+  ComboBoxLanguage = new QComboBox( centralwidget );
+  ComboBoxLanguage->setObjectName( "ComboBoxLanguage" );
+  ComboBoxLanguage->setFocusPolicy( Qt::WheelFocus );
 
-  horizontalLayoutLanguage->addWidget(ComboBoxLanguage);
+  horizontalLayoutLanguage->addWidget( ComboBoxLanguage );
 
-  ComboBoxLanguageUI = new QComboBox(centralwidget);
-  ComboBoxLanguageUI->setObjectName("ComboBoxLanguageUI");
-  ComboBoxLanguageUI->setFocusPolicy(Qt::WheelFocus);
+  ComboBoxLanguageUI = new QComboBox( centralwidget );
+  ComboBoxLanguageUI->setObjectName( "ComboBoxLanguageUI" );
+  ComboBoxLanguageUI->setFocusPolicy( Qt::WheelFocus );
 
-  horizontalLayoutLanguage->addWidget(ComboBoxLanguageUI);
+  horizontalLayoutLanguage->addWidget( ComboBoxLanguageUI );
 
-  horizontalLayoutLanguage->setStretch(0, 1);
-  horizontalLayoutLanguage->setStretch(1, 3);
-  horizontalLayoutLanguage->setStretch(2, 3);
+  horizontalLayoutLanguage->setStretch( 0, 1 );
+  horizontalLayoutLanguage->setStretch( 1, 3 );
+  horizontalLayoutLanguage->setStretch( 2, 3 );
 
-  vlPrabhuadaMain->addLayout(horizontalLayoutLanguage);
+  vlPrabhuadaMain->addLayout( horizontalLayoutLanguage );
 
   horizontalLayoutRow = new QHBoxLayout();
-  horizontalLayoutRow->setObjectName("horizontalLayoutRow");
+  horizontalLayoutRow->setObjectName( "horizontalLayoutRow" );
+
   lineEditRowIndicator = new QLineEdit(centralwidget);
-  lineEditRowIndicator->setObjectName("lineEditRowIndicator");
-  lineEditRowIndicator->setFocusPolicy(Qt::NoFocus);
-  lineEditRowIndicator->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-  lineEditRowIndicator->setReadOnly(true);
+  lineEditRowIndicator->setObjectName( "lineEditRowIndicator" );
+  lineEditRowIndicator->setFocusPolicy( Qt::NoFocus );
+  lineEditRowIndicator->setAlignment( Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter );
+  lineEditRowIndicator->setReadOnly( true );
 
-  horizontalLayoutRow->addWidget(lineEditRowIndicator);
+  horizontalLayoutRow->addWidget( lineEditRowIndicator );
 
-
-  vlPrabhuadaMain->addLayout(horizontalLayoutRow);
+  vlPrabhuadaMain->addLayout( horizontalLayoutRow );
 
   vlDictionary = new QVBoxLayout();
   vlDictionary->setObjectName( "vlDictionary" );
+
   tbvPrabhupadaDictionary = new QTableView( centralwidget );
   tbvPrabhupadaDictionary->setObjectName( "tbvPrabhupadaDictionary" );
+
   QFont font;
   font.setFamily( { QString::fromUtf8( "Gaura Times" ) } );
   font.setPointSize( 14 );
+
   tbvPrabhupadaDictionary->setFont( font );
   tbvPrabhupadaDictionary->setTabKeyNavigation( false );
   tbvPrabhupadaDictionary->setSortingEnabled( true );
@@ -933,114 +957,131 @@ void QPrabhupadaDictionaryWindow::setupUi(QMainWindow *QPrabhupadaDictionaryWind
 
   vlDictionary->addWidget(tbvPrabhupadaDictionary);
 
-  splSanskritTranslate = new QSplitter(centralwidget);
-  splSanskritTranslate->setObjectName("splSanskritTranslate");
-  splSanskritTranslate->setOrientation(Qt::Horizontal);
-  splSanskritTranslate->setChildrenCollapsible(false);
+  splSanskritTranslate = new QSplitter( centralwidget );
+  splSanskritTranslate->setObjectName( "splSanskritTranslate" );
+  splSanskritTranslate->setOrientation( Qt::Horizontal );
+  splSanskritTranslate->setChildrenCollapsible( false );
+
   ComboBoxSanskrit = new QComboBox(splSanskritTranslate);
-  ComboBoxSanskrit->setObjectName("ComboBoxSanskrit");
+  ComboBoxSanskrit->setObjectName( "ComboBoxSanskrit" );
   ComboBoxSanskrit->setFont(font);
-  ComboBoxSanskrit->setEditable(true);
-  splSanskritTranslate->addWidget(ComboBoxSanskrit);
-  ComboBoxTranslate = new QComboBox(splSanskritTranslate);
-  ComboBoxTranslate->setObjectName("ComboBoxTranslate");
-  ComboBoxTranslate->setFont(font);
-  ComboBoxTranslate->setEditable(true);
-  splSanskritTranslate->addWidget(ComboBoxTranslate);
+  ComboBoxSanskrit->setEditable( true );
 
-  vlDictionary->addWidget(splSanskritTranslate);
+  splSanskritTranslate->addWidget( ComboBoxSanskrit );
 
+  ComboBoxTranslate = new QComboBox( splSanskritTranslate );
+  ComboBoxTranslate->setObjectName( "ComboBoxTranslate" );
+  ComboBoxTranslate->setFont( font );
+  ComboBoxTranslate->setEditable( true );
 
-  vlPrabhuadaMain->addLayout(vlDictionary);
+  splSanskritTranslate->addWidget( ComboBoxTranslate );
 
-  QPrabhupadaDictionaryWindow->setCentralWidget(centralwidget);
-  mbPrabupadaDictionary = new QMenuBar(QPrabhupadaDictionaryWindow);
-  mbPrabupadaDictionary->setObjectName("mbPrabupadaDictionary");
-  mbPrabupadaDictionary->setGeometry(QRect(0, 0, 320, 22));
-  QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-  sizePolicy.setHorizontalStretch(0);
-  sizePolicy.setVerticalStretch(0);
+  vlDictionary->addWidget( splSanskritTranslate );
+
+  vlPrabhuadaMain->addLayout( vlDictionary );
+
+  setCentralWidget( centralwidget );
+
+  mbPrabupadaDictionary = new QMenuBar( this );
+  mbPrabupadaDictionary->setObjectName( "mbPrabupadaDictionary" );
+  mbPrabupadaDictionary->setGeometry( QRect( 0, 0, 320, 22 ) );
+
+  QSizePolicy sizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding );
+  sizePolicy.setHorizontalStretch( 0 );
+  sizePolicy.setVerticalStretch( 0 );
   sizePolicy.setHeightForWidth(mbPrabupadaDictionary->sizePolicy().hasHeightForWidth());
-  mbPrabupadaDictionary->setSizePolicy(sizePolicy);
-  menuAction = new QMenu(mbPrabupadaDictionary);
-  menuAction->setObjectName("menuAction");
-  menuSet_Bookmark = new QMenu(mbPrabupadaDictionary);
-  menuSet_Bookmark->setObjectName("menuSet_Bookmark");
-  menuGo_Bookmarks = new QMenu(mbPrabupadaDictionary);
-  menuGo_Bookmarks->setObjectName("menuGo_Bookmarks");
-  QPrabhupadaDictionaryWindow->setMenuBar(mbPrabupadaDictionary);
-  tbPrabhupada = new QToolBar(QPrabhupadaDictionaryWindow);
-  tbPrabhupada->setObjectName("tbPrabhupada");
-  tbPrabhupada->setOrientation(Qt::Horizontal);
-  tbPrabhupada->setToolButtonStyle(Qt::ToolButtonFollowStyle);
-  tbPrabhupada->setFloatable(true);
-  QPrabhupadaDictionaryWindow->addToolBar(Qt::TopToolBarArea, tbPrabhupada);
-  QWidget::setTabOrder(sbFontSize, ComboBoxLanguage);
-  QWidget::setTabOrder(ComboBoxLanguage, ComboBoxLanguageUI);
-  QWidget::setTabOrder(ComboBoxLanguageUI, lineEditRowIndicator);
-  QWidget::setTabOrder(lineEditRowIndicator, tbvPrabhupadaDictionary);
-  QWidget::setTabOrder(tbvPrabhupadaDictionary, ComboBoxSanskrit);
-  QWidget::setTabOrder(ComboBoxSanskrit, ComboBoxTranslate);
 
-  mbPrabupadaDictionary->addAction(menuAction->menuAction());
-  mbPrabupadaDictionary->addAction(menuSet_Bookmark->menuAction());
-  mbPrabupadaDictionary->addAction(menuGo_Bookmarks->menuAction());
-  menuAction->addAction(m_actionFind);
-  menuAction->addAction(m_actionCaseSensitive);
-  menuAction->addAction(m_actionDelete);
-  menuAction->addAction(m_actionInsert);
-  menuAction->addAction(m_actionRemove_Duplicates);
-  menuAction->addAction(m_actionWhats_This_mode);
-  menuAction->addAction(m_actionGoToRow);
-  menuAction->addAction(m_actionAbout);
-  menuAction->addAction(m_ActionSaveAllLetterToFile);
-  menuAction->addAction(m_actionRegularExpression);
-  menuAction->addAction(m_actionAutoPercentBegin);
-  menuAction->addAction(m_actionAutoPercentEnd);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_0);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_1);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_2);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_3);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_4);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_5);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_6);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_7);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_8);
-  menuSet_Bookmark->addAction(m_actionSet_Bookmark_9);
-  menuSet_Bookmark->addAction(m_actionDeleteAllBookmarks);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_0);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_1);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_2);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_3);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_4);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_5);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_6);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_7);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_8);
-  menuGo_Bookmarks->addAction(m_actionGo_to_bookmark_9);
-  tbPrabhupada->addAction(m_actionDelete);
-  tbPrabhupada->addAction(m_actionFind);
-  tbPrabhupada->addAction(m_actionInsert);
-  tbPrabhupada->addAction(m_actionWhats_This_mode);
-  tbPrabhupada->addAction(m_actionCaseSensitive);
-  tbPrabhupada->addAction(m_actionRemove_Duplicates);
-  tbPrabhupada->addAction(m_actionGoToRow);
-  tbPrabhupada->addAction(m_actionAbout);
-  tbPrabhupada->addAction(m_actionRegularExpression);
-  tbPrabhupada->addAction(m_actionAutoPercentBegin);
-  tbPrabhupada->addAction(m_actionAutoPercentEnd);
-  tbPrabhupada->addAction(m_actionDeleteAllBookmarks);
+  mbPrabupadaDictionary->setSizePolicy( sizePolicy );
 
-  retranslateUi( this );
+  menuAction = new QMenu( mbPrabupadaDictionary );
+  menuAction->setObjectName( "menuAction" );
 
-  QMetaObject::connectSlotsByName(QPrabhupadaDictionaryWindow);
+  menuSet_Bookmark = new QMenu( mbPrabupadaDictionary );
+  menuSet_Bookmark->setObjectName( "menuSet_Bookmark" );
+
+  menuGo_Bookmarks = new QMenu( mbPrabupadaDictionary );
+  menuGo_Bookmarks->setObjectName( "menuGo_Bookmarks" );
+
+  setMenuBar( mbPrabupadaDictionary );
+
+  tbPrabhupada = new QToolBar( this );
+  tbPrabhupada->setObjectName( "tbPrabhupada" );
+  tbPrabhupada->setOrientation( Qt::Horizontal );
+  tbPrabhupada->setToolButtonStyle( Qt::ToolButtonFollowStyle );
+  tbPrabhupada->setFloatable( true );
+
+  addToolBar( Qt::TopToolBarArea, tbPrabhupada );
+
+  QWidget::setTabOrder( sbFontSize, ComboBoxLanguage );
+  QWidget::setTabOrder( ComboBoxLanguage, ComboBoxLanguageUI );
+  QWidget::setTabOrder( ComboBoxLanguageUI, lineEditRowIndicator );
+  QWidget::setTabOrder( lineEditRowIndicator, tbvPrabhupadaDictionary );
+  QWidget::setTabOrder( tbvPrabhupadaDictionary, ComboBoxSanskrit );
+  QWidget::setTabOrder( ComboBoxSanskrit, ComboBoxTranslate );
+
+  mbPrabupadaDictionary->addAction( menuAction->menuAction() );
+  mbPrabupadaDictionary->addAction( menuSet_Bookmark->menuAction() );
+  mbPrabupadaDictionary->addAction( menuGo_Bookmarks->menuAction() );
+
+  menuAction->addAction( m_actionFind );
+  menuAction->addAction( m_actionCaseSensitive );
+  menuAction->addAction( m_actionDelete );
+  menuAction->addAction( m_actionInsert );
+  menuAction->addAction( m_actionRemove_Duplicates );
+  menuAction->addAction( m_actionWhats_This_mode );
+  menuAction->addAction( m_actionGoToRow );
+  menuAction->addAction( m_actionAbout );
+  menuAction->addAction( m_ActionSaveAllLetterToFile );
+  menuAction->addAction( m_actionRegularExpression );
+  menuAction->addAction( m_actionAutoPercentBegin );
+  menuAction->addAction( m_actionAutoPercentEnd );
+
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_0 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_1 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_2 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_3 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_4 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_5 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_6 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_7 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_8 );
+  menuSet_Bookmark->addAction( m_actionSet_Bookmark_9 );
+  menuSet_Bookmark->addAction( m_actionDeleteAllBookmarks );
+
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_0 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_1 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_2 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_3 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_4 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_5 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_6 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_7 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_8 );
+  menuGo_Bookmarks->addAction( m_actionGo_to_bookmark_9 );
+
+  tbPrabhupada->addAction( m_actionDelete );
+  tbPrabhupada->addAction( m_actionFind );
+  tbPrabhupada->addAction( m_actionInsert );
+  tbPrabhupada->addAction( m_actionWhats_This_mode );
+  tbPrabhupada->addAction( m_actionCaseSensitive );
+  tbPrabhupada->addAction( m_actionRemove_Duplicates );
+  tbPrabhupada->addAction( m_actionGoToRow );
+  tbPrabhupada->addAction( m_actionAbout );
+  tbPrabhupada->addAction( m_actionRegularExpression );
+  tbPrabhupada->addAction( m_actionAutoPercentBegin );
+  tbPrabhupada->addAction( m_actionAutoPercentEnd );
+  tbPrabhupada->addAction( m_actionDeleteAllBookmarks );
+
+  retranslateUi();
 } // setupUi
 
-void QPrabhupadaDictionaryWindow::retranslateUi(QMainWindow *QPrabhupadaDictionaryWindow)
+void QPrabhupadaDictionaryWindow::retranslateUi()
 {
-  QPrabhupadaDictionaryWindow->setWindowTitle( tr( "Словарь Шрилы Прабхупады" ) );
+  QClassicLog::Log( "retranslateUi!!!" );
+
+  setWindowTitle( tr( "Словарь Шрилы Прабхупады" ) );
   #if !QT_NO_WHATSTHIS
-    QPrabhupadaDictionaryWindow->setWhatsThis( tr( "Словарь Его Божественной Милости основателя-ачарьи Международного Общества сознания Кришны Шри Шримад Абхая Чаранаравидны Бхактиведанты Свами Прабхупады! Познакомиться с его книгами можно на сайте vedabase.io" ) );
+    setWhatsThis( tr( "Словарь Его Божественной Милости основателя-ачарьи Международного Общества сознания Кришны Шри Шримад Абхая Чаранаравидны Бхактиведанты Свами Прабхупады! Познакомиться с его книгами можно на сайте vedabase.io" ) );
   #endif // !QT_NO_WHATSTHIS
 
   m_actionFind->setText( tr( "&Найти" ) );
@@ -1197,6 +1238,8 @@ void QPrabhupadaDictionaryWindow::retranslateUi(QMainWindow *QPrabhupadaDictiona
   menuGo_Bookmarks->setTitle( tr( "&К закладке" ) );
 
   tbPrabhupada->setWindowTitle( tr( "Прабхупада" ) );
+
+  RetranslateIcon();
 } // retranslateUi
 
 QStoragerPrabhupadaDictionaryWindow::QStoragerPrabhupadaDictionaryWindow()
@@ -1213,7 +1256,18 @@ void QStoragerPrabhupadaDictionaryWindow::LoadFromStream( void *AObject, QDataSt
   inherited::LoadFromStream( AObject, ST );
   QPrabhupadaDictionaryWindow *O = static_cast< QPrabhupadaDictionaryWindow* >( AObject );
   // 1
-  O->LoadFromStream( ST );
+  QByteArray AS;
+  ST >> AS;
+  O->splSanskritTranslate->restoreState( AS );
+  // 2
+  ST >> AS;
+  O->tbvPrabhupadaDictionary->horizontalHeader()->restoreState( AS );
+  // 3
+  O->m_Storage->LoadFromStream( ST );
+  // 4
+  QStorage::LoadFromStream( O->ComboBoxSanskrit, ST );
+  // 5
+  QStorage::LoadFromStream( O->ComboBoxTranslate, ST );
 }
 
 void QStoragerPrabhupadaDictionaryWindow::SaveToStream( void *AObject, QDataStream &ST )
@@ -1221,5 +1275,13 @@ void QStoragerPrabhupadaDictionaryWindow::SaveToStream( void *AObject, QDataStre
   inherited::SaveToStream( AObject, ST );
   QPrabhupadaDictionaryWindow *O = static_cast< QPrabhupadaDictionaryWindow* >( AObject );
   // 1
-  O->SaveToStream( ST );
+  ST << O->splSanskritTranslate->saveState();
+  // 2
+  ST << O->tbvPrabhupadaDictionary->horizontalHeader()->saveState();
+  // 3
+  O->m_Storage->SaveToStream( ST );
+  // 4
+  QStorage::SaveToStream( O->ComboBoxSanskrit, ST );
+  // 5
+  QStorage::SaveToStream( O->ComboBoxTranslate, ST );
 }

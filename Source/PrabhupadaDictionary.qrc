@@ -1,6 +1,4 @@
 <RCC>
-  <qresource prefix="ToolButton">
-  </qresource>
   <qresource prefix="Icon">
     <file>resources/Images/PrabhupadaDictionary.ico</file>
   </qresource>

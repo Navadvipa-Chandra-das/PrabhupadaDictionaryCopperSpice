@@ -16,11 +16,51 @@ class QEmitValue : public QObject
     TValueType m_Value;
     bool m_NeedMainWork = true;
     int m_Stop = 0;
-    QEmitValue() = delete;
-    QEmitValue( TValueType Value )
-      : inherited()
+    QEmitValue( QObject *parent = nullptr ) = delete;
+    QEmitValue( const QEmitValue& A )
+      : m_Value       ( A.m_Value )
+      , m_NeedMainWork( A.m_NeedMainWork )
+      , m_Stop        ( A.m_Stop )
+    {
+    };
+    QEmitValue( QEmitValue&& A )
+      : m_Value       ( std::move( A.m_Value ) )
+      , m_NeedMainWork( std::move( A.m_NeedMainWork ) )
+      , m_Stop        ( std::move( A.m_Stop ) )
+    {
+    };
+    QEmitValue& operator = ( const QEmitValue& A )
+    {
+      m_Value        = A.m_PrabhupadaFindOptions;
+      m_NeedMainWork = A.m_Value;
+      m_Stop         = A.m_Stop;
+
+      return *this;
+    };
+    QEmitValue& operator = ( QEmitValue&& A )
+    {
+      m_Value        = std::move( A.m_PrabhupadaFindOptions );
+      m_NeedMainWork = std::move( A.m_Value );
+      m_Stop         = std::move( A.m_Stop );
+
+      return *this;
+    };
+    bool operator == ( const QEmitValue& A )
+    {
+      return m_Value        == A.m_Value &&
+             m_NeedMainWork == A.m_NeedMainWork &&
+             m_Stop         == A.m_Stop;
+    };
+    bool operator != ( const QEmitValue& A )
+    {
+      return m_Value        != A.m_Value ||
+             m_NeedMainWork != A.m_NeedMainWork ||
+             m_Stop         != A.m_Stop;
+    };
+    QEmitValue( TValueType Value, QObject *parent = nullptr )
+      : inherited( parent )
       , m_Value( Value ) {};
-    ~QEmitValue() {};
+    virtual ~QEmitValue() {};
 
     CS_SIGNAL_1( Public, void SignalValueChanged( TValueType Value ) )
     CS_SIGNAL_2( SignalValueChanged, Value )
@@ -67,125 +107,151 @@ class QMapMemoryStorage : public std::map< QString, std::unique_ptr< QDataStream
     QMapMemoryStorage();
     ~QMapMemoryStorage();
     void LoadFromStream( QDataStream &ST );
-    void SaveToStream( QDataStream &ST );
+    void SaveToStream(   QDataStream &ST );
 };
 
 class QStorager
 {
   public:
     QStorager();
-    ~QStorager();
+    virtual ~QStorager();
     virtual void LoadFromStream( void *AObject, QDataStream &ST ) = 0;
     virtual void SaveToStream(   void *AObject, QDataStream &ST ) = 0;
 };
 
-class QStorage : public QObject
+class QStorage
 {
-  CS_OBJECT( QStorage )
+  protected:
+    QFile *m_File = nullptr;
+    QSaveFile *m_SaveFile = nullptr;
+    QDataStream *m_Stream = nullptr;
+    QString m_FileName;
+    QByteArray *m_ByteArray;
+    QMapMemoryStorage m_MapMemoryStorage;
+    void PrepareFileName( void* O, QStorageKind AStorageKind, const QString& AKeyStorage );
+    bool BeginLoad( QStorageKind AStorageKind );
+    void EndLoad( QStorageKind AStorageKind );
+    void BeginSave( QStorageKind AStorageKind );
+    void EndSave( QStorageKind AStorageKind );
+    virtual bool BeginLoadDB() { return false; };
+    virtual void EndLoadDB() {};
+    virtual void BeginSaveDB() {};
+    virtual void EndSaveDB() {};
+  public:
+    QStorage();
+    QStorage( QStorage&& A );
+    QStorage( const QStorage& A );
+    virtual ~QStorage();
+    QStorage& operator = ( const QStorage& A );
+    QStorage& operator = ( QStorage&& A );
 
-public:
-  QStorage();
-  ~QStorage();
+    bool m_Enabled = true;
+    qint8 m_Version = 0;
 
-  bool m_Enabled = true;
-  qint8 m_Version = 0;
-  QSqlDatabase* m_Database = nullptr;
-  QString m_Schema;
+    void setEnabled( bool Value );
+    virtual QString PrefixKeyStorage() { return ""; };
+    QString KeyStorage( QObject *O, QStorageKind AStorageKind );
+    virtual void ResetSettings() {};
 
-  void SetDatabase( QSqlDatabase* Value );
-  void setEnabled( bool Value );
-  QString PrefixKeyStorage();
-  QString KeyStorage( QObject *O, QStorageKind AStorageKind );
-  void ResetSettings();
+    static int MaxHistoryComboBox;
+    static void PrepareHistoryComboBox( QComboBox *CB, int MaxCount = MaxHistoryComboBox );
+    static void LoadFromStream( QComboBox *CB, QDataStream &ST );
+    static void SaveToStream( QComboBox *CB, QDataStream &ST );
 
-  static int MaxHistoryComboBox;
-  static void PrepareHistoryComboBox( QComboBox *CB, int MaxCount = MaxHistoryComboBox );
-  static void LoadFromStream( QComboBox *CB, QDataStream &ST );
-  static void SaveToStream( QComboBox *CB, QDataStream &ST );
-
-  template< class TMap, class TKey, class TValue >
-  static void LoadMap( TMap &MP, QDataStream &ST )
-  {
-    // 1
-    std::size_t L;
-    ST >> L;
-    // 2
-    TKey AKey;
-    TValue AValue;
-    for ( std::size_t I = 0; I < L; ++I ) {
-      ST >> AKey;
-      ST >> AValue;
-      MP[ AKey ] = AValue;
+    template< class TMap, class TKey, class TValue >
+    static void LoadMap( TMap &MP, QDataStream &ST )
+    {
+      // 1
+      std::size_t L;
+      ST >> L;
+      // 2
+      TKey AKey;
+      TValue AValue;
+      for ( std::size_t I = 0; I < L; ++I ) {
+        ST >> AKey;
+        ST >> AValue;
+        MP[ AKey ] = AValue;
+      }
     }
-  }
 
-  template< class TMap >
-  static void SaveMap( TMap &MP, QDataStream &ST )
-  {
-    // 1
-    ST << MP.size();
-    // 2
-    for ( typename TMap::iterator I = MP.begin(); I != MP.end(); ++I ) {
-      ST << (*I).first;
-      ST << (*I).second;
+    template< class TMap >
+    static void SaveMap( TMap &MP, QDataStream &ST )
+    {
+      // 1
+      ST << MP.size();
+      // 2
+      for ( typename TMap::iterator I = MP.begin(); I != MP.end(); ++I ) {
+        ST << (*I).first;
+        ST << (*I).second;
+      }
     }
-  }
 
-  template< class TVector, class TValue >
-  static void LoadVector( TVector &VC, QDataStream &ST )
-  {
-    // 1
-    std::size_t L;
-    ST >> L;
-    // 2
-    TValue AValue;
-    for ( std::size_t I = 0; I < L; ++I ) {
-      ST >> AValue;
-      VC.push_back( AValue );
+    template< class TVector, class TValue >
+    static void LoadVector( TVector &VC, QDataStream &ST )
+    {
+      // 1
+      std::size_t L;
+      ST >> L;
+      // 2
+      TValue AValue;
+      for ( std::size_t I = 0; I < L; ++I ) {
+        ST >> AValue;
+        VC.push_back( AValue );
+      }
     }
-  }
 
-  template< class TVector >
-  static void SaveVector( TVector &VC, QDataStream &ST )
-  {
-    // 1
-    ST << VC.size();
-    // 2
-    for ( typename TVector::iterator I = VC.begin(); I != VC.end(); ++I ) {
-      ST << (*I);
+    template< class TVector >
+    static void SaveVector( TVector &VC, QDataStream &ST )
+    {
+      // 1
+      ST << VC.size();
+      // 2
+      for ( typename TVector::iterator I = VC.begin(); I != VC.end(); ++I ) {
+        ST << (*I);
+      }
     }
-  }
 
-  bool LoadObject( void* O,    QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
-  void SaveObject( void* O,    QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
-  void RemoveMemory( void* O, const QString& AKeyStorage = "" );
-  void ClearMemory() { m_MapMemoryStorage.clear(); };
+    bool LoadObject( void* O,    QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
+    void SaveObject( void* O,    QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
+    void RemoveMemory( void* O, const QString& AKeyStorage = "" );
+    void ClearMemory() { m_MapMemoryStorage.clear(); };
 
-  void SaveToStreamPrepareHistory( QComboBox *CB, QDataStream &ST, int HistoryCount );
-  void LoadFromStream( QDataStream &ST );
-  void SaveToStream( QDataStream &ST );
-private:
-  using inherited = QObject;
-  QSqlQuery* m_Query = nullptr;
-  QFile *m_File = nullptr;
-  QSaveFile *m_SaveFile = nullptr;
-  QDataStream *m_Stream = nullptr;
-  QString m_FileName;
-  QByteArray *m_ByteArray;
-  QString m_SQL;
-  QMapMemoryStorage m_MapMemoryStorage;
-  void PrepareFileName( void* O, QStorageKind AStorageKind, const QString& AKeyStorage );
-  bool BeginLoad( void* O, QStorageKind AStorageKind );
-  void EndLoad( QStorageKind AStorageKind );
-  void BeginSave( void* O, QStorageKind AStorageKind );
-  void EndSave( QStorageKind AStorageKind );
+    void SaveToStreamPrepareHistory( QComboBox *CB, QDataStream &ST, int HistoryCount );
+    void LoadFromStream( QDataStream &ST );
+    void SaveToStream( QDataStream &ST );
+};
+
+class QStorageDB : public QStorage
+{
+  private:
+    using inherited = QStorage;
+  public:
+    QStorageDB();
+    virtual ~QStorageDB();
+    QStorageDB( QStorageDB&& A );
+    QStorageDB( const QStorageDB& A );
+    QStorageDB& operator = ( const QStorageDB& A );
+    QStorageDB& operator = ( QStorageDB&& A );
+
+    QSqlDatabase* m_Database = nullptr;
+    QString m_Schema;
+    void SetDatabase( QSqlDatabase* Value );
+    virtual QString PrefixKeyStorage() override;
+    virtual void ResetSettings() override;
+  protected:
+    QSqlQuery* m_Query = nullptr;
+    QString m_SQL;
+    virtual bool BeginLoadDB() override;
+    virtual void EndLoadDB() override;
+    virtual void BeginSaveDB() override;
+    virtual void EndSaveDB() override;
 };
 
 class QStoragerMainWindow : public QStorager
 {
   public:
     QStoragerMainWindow();
-    ~QStoragerMainWindow();
+    virtual ~QStoragerMainWindow();
   private:
     using inherited = QStorager;
   public:
@@ -197,7 +263,7 @@ class QStoragerDialog : public QStorager
 {
   public:
     QStoragerDialog();
-    ~QStoragerDialog();
+    virtual ~QStoragerDialog();
   private:
     using inherited = QStorager;
   public:
@@ -244,7 +310,11 @@ class QClassicLog : public QObject
   CS_OBJECT( QClassicLog )
 
   public:
-    QClassicLog( QWidget *parent = nullptr );
+    QClassicLog( QObject *parent = nullptr );
+    QClassicLog( QClassicLog&& A ) = delete;
+    QClassicLog( const QClassicLog& A ) = delete;
+    QClassicLog& operator = ( const QClassicLog& A ) = delete;
+    QClassicLog& operator = ( QClassicLog&& A ) = delete;
     ~QClassicLog();
     static QSaveFile *m_SaveFile;
     static QTextStream *m_Stream;

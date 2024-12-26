@@ -26,7 +26,7 @@ class QPrabhupadaGoToLineDialog : public QDialog
   public:
     QPrabhupadaGoToLineDialog() = delete;
     QPrabhupadaGoToLineDialog( QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags() );
-    ~QPrabhupadaGoToLineDialog();
+    virtual ~QPrabhupadaGoToLineDialog();
     QStorage *m_Storage;
 
     CS_SIGNAL_1( Public, void SignalGoToLine( int Value ) )
@@ -61,7 +61,7 @@ class QStoragerPrabhupadaGoToLineDialog : public QStoragerDialog
 {
   public:
     QStoragerPrabhupadaGoToLineDialog();
-    ~QStoragerPrabhupadaGoToLineDialog();
+    virtual ~QStoragerPrabhupadaGoToLineDialog();
   private:
     using inherited = QStoragerDialog;
   public:

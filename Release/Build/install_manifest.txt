@@ -20,6 +20,7 @@ D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/About.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/AutoPercentBegin.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/AutoPercentEnd.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/CaseSensitive.png
+D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/CaseSensitive_RU-RU.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/Delete.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/DeleteAllBookmarks.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/Find.png

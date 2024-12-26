@@ -54,7 +54,7 @@ class QStoragerPrabhupadaAboutDialog : public QStoragerDialog
 {
   public:
     QStoragerPrabhupadaAboutDialog();
-    ~QStoragerPrabhupadaAboutDialog();
+    virtual ~QStoragerPrabhupadaAboutDialog();
   private:
     using inherited = QStoragerDialog;
   public:

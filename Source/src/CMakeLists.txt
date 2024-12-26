@@ -149,6 +149,7 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/About.png         
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/AutoPercentBegin.png     DESTINATION ./resources/Images)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/AutoPercentEnd.png       DESTINATION ./resources/Images)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/CaseSensitive.png        DESTINATION ./resources/Images)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/CaseSensitive_RU-RU.png  DESTINATION ./resources/Images)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/Delete.png               DESTINATION ./resources/Images)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/DeleteAllBookmarks.png   DESTINATION ./resources/Images)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/Images/Find.png                 DESTINATION ./resources/Images)

@@ -246,7 +246,7 @@ class QPrabhupadaZakladkaMap : public std::map< unsigned short, QPrabhupadaZakla
     QPrabhupadaZakladkaMap();
     ~QPrabhupadaZakladkaMap();
     void LoadFromStream( QDataStream &ST );
-    void SaveToStream( QDataStream &ST );
+    void SaveToStream(   QDataStream &ST );
 };
 
 class QLanguageInfo
@@ -284,7 +284,7 @@ class QStoragerLanguageVector : public QStorager
 {
   public:
     QStoragerLanguageVector();
-    ~QStoragerLanguageVector();
+    virtual ~QStoragerLanguageVector();
   private:
     using inherited = QStorager;
   public:
@@ -306,7 +306,7 @@ class QLanguageIndex : public QEmitInt
     QLanguageVector& m_LanguageVector;
     void PrepareComboBox( QComboBox *CB );
     void ComboBoxAddItem( QComboBox *CB, const QString &S );
-    inline QLanguageInfo& LanguageInfo() { return m_LanguageVector.m_Vector[ m_Value ]; };
+    inline QLanguageInfo& LanguageInfo() { return m_LanguageVector.m_Vector[ (std::size_t)m_Value ]; };
     void LoadFromStream( QDataStream &ST );
     void SaveToStream( QDataStream &ST );
   protected:
@@ -316,7 +316,7 @@ class QStoragerLanguageIndex : public QStorager
 {
   public:
     QStoragerLanguageIndex();
-    ~QStoragerLanguageIndex();
+    virtual ~QStoragerLanguageIndex();
   private:
     using inherited = QStorager;
   public:
@@ -330,10 +330,10 @@ class QPrabhupadaDictionary : public QAbstractTableModel
   public:
     using inherited = QAbstractTableModel;
     QSqlDatabase *m_DB = nullptr;
-    QStorage* m_Storage;
+    QStorageDB* m_Storage;
     bool m_FilterSlovarIsEmpty = true;
     QPrabhupadaDictionary( QObject *parent = nullptr );
-    ~QPrabhupadaDictionary();
+    virtual ~QPrabhupadaDictionary();
     QTranslator m_Translator;
     QLanguageVector m_LanguageVector;
     QLanguageIndex m_LanguageIndex   = QLanguageIndex( QLanguageIndex::RussianIndex, m_LanguageVector );
@@ -359,6 +359,7 @@ class QPrabhupadaDictionary : public QAbstractTableModel
 
     static const QString PrabhupadaDictionaryFiles;
     static const QString PrabhupadaDictionaryLang;
+    static const QString PrabhupadaDictionaryImages;
     static QPrabhupadaPrimer PrabhupadaPrimer;
     static void PreparePrabhupadaPrimer();
     static QString RemoveDiacritics( const QString& S );
@@ -372,13 +373,18 @@ class QPrabhupadaDictionary : public QAbstractTableModel
     QVariant data( const QModelIndex &index, int role = Qt::DisplayRole ) const override;
     QVariant headerData( int section, Qt::Orientation orientation, int role ) const override;
 
-    inline const QFilterSlovar& GetFilterSlovar() const { return m_LanguageVector.m_Vector[ m_LanguageIndex.m_Value ].m_FilterSlovar; };
+    inline const QFilterSlovar& GetFilterSlovar() const { return m_LanguageVector.m_Vector[ (std::size_t)m_LanguageIndex.m_Value ].m_FilterSlovar; };
     void sortByColumn( int column, Qt::SortOrder order );
     void OrderByChanged( QPrabhupadaDictionaryOrderBy Value );
     void CaseSensitiveChanged( bool Value );
     void RegularExpressionChanged( bool Value );
     void AutoPercentBeginChanged( bool Value );
     void AutoPercentEndChanged( bool Value );
+    void SetRetranslateIcon( QIcon& AIcon
+                           , const QString& AFileName
+                           , const QString& AFileExt
+                           , QAction* AAction
+                           , bool AIconVisibleInMenu );
   protected:
 };
 
@@ -386,7 +392,7 @@ class QStoragerPrabhupadaDictionary : public QStorager
 {
   public:
     QStoragerPrabhupadaDictionary();
-    ~QStoragerPrabhupadaDictionary();
+    virtual ~QStoragerPrabhupadaDictionary();
   private:
     using inherited = QStorager;
   public:
