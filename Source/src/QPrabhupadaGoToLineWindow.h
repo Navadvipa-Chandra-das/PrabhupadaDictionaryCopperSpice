@@ -24,7 +24,11 @@ class QPrabhupadaGoToLineDialog : public QDialog
   CS_OBJECT( QPrabhupadaGoToLineDialog )
 
   public:
-    QPrabhupadaGoToLineDialog() = delete;
+    QPrabhupadaGoToLineDialog()                                                  = delete;
+    QPrabhupadaGoToLineDialog( const QPrabhupadaGoToLineDialog& A )              = delete;
+    QPrabhupadaGoToLineDialog( QPrabhupadaGoToLineDialog&& A )                   = delete;
+    QPrabhupadaGoToLineDialog& operator = ( const QPrabhupadaGoToLineDialog& A ) = delete;
+    QPrabhupadaGoToLineDialog& operator = ( QPrabhupadaGoToLineDialog&& A )      = delete;
     QPrabhupadaGoToLineDialog( QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags() );
     virtual ~QPrabhupadaGoToLineDialog();
     QStorage *m_Storage;

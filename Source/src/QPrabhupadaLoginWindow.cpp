@@ -61,44 +61,6 @@ void QPrabhupadaLoginDialog::Emits()
   m_PrabhupadaDictionary->m_LanguageUIIndex.EmitValueChanged();
 }
 
-void QPrabhupadaLoginDialog::LoadFromStream( QDataStream &ST )
-{
-  // 1
-  QStorage::LoadFromStream( ComboBoxUserName, ST );
-  // 2
-  QStorage::LoadFromStream( ComboBoxDatabaseName, ST );
-  // 3
-  QStorage::LoadFromStream( ComboBoxHostName, ST );
-  // 4
-  QStorage::LoadFromStream( ComboBoxPort, ST );
-  // 5
-  QStorage::LoadFromStream( ComboBoxSchema, ST );
-  // 6
-  bool B;
-  ST >> B;
-  if ( B ) {
-    radioButtonSQLite->setChecked( true );
-  } else {
-    radioButtonPostgreSQL->setChecked( true );
-  }
-}
-
-void QPrabhupadaLoginDialog::SaveToStream( QDataStream &ST )
-{
-  // 1
-  QStorage::SaveToStream( ComboBoxUserName, ST );
-  // 2
-  QStorage::SaveToStream( ComboBoxDatabaseName, ST );
-  // 3
-  QStorage::SaveToStream( ComboBoxHostName, ST );
-  // 4
-  QStorage::SaveToStream( ComboBoxPort, ST );
-  // 5
-  QStorage::SaveToStream( ComboBoxSchema, ST );
-  // 6
-  ST << radioButtonSQLite->isChecked();
-}
-
 void QPrabhupadaLoginDialog::pushButtonOKClicked()
 {
   accept();
@@ -372,18 +334,44 @@ QStoragerPrabhupadaLoginDialog::~QStoragerPrabhupadaLoginDialog()
 {
 }
 
-void QStoragerPrabhupadaLoginDialog::LoadFromStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaLoginDialog::LoadFromStream( void *AObject, QDataStream &ST )
 {
   inherited::LoadFromStream( AObject, ST );
   QPrabhupadaLoginDialog *O = static_cast< QPrabhupadaLoginDialog* >( AObject );
   // 1
-  O->LoadFromStream( ST );
+  QStorage::LoadFromStream( O->ComboBoxUserName, ST );
+  // 2
+  QStorage::LoadFromStream( O->ComboBoxDatabaseName, ST );
+  // 3
+  QStorage::LoadFromStream( O->ComboBoxHostName, ST );
+  // 4
+  QStorage::LoadFromStream( O->ComboBoxPort, ST );
+  // 5
+  QStorage::LoadFromStream( O->ComboBoxSchema, ST );
+  // 6
+  bool B;
+  ST >> B;
+  if ( B ) {
+    O->radioButtonSQLite->setChecked( true );
+  } else {
+    O->radioButtonPostgreSQL->setChecked( true );
+  }
 }
 
-void QStoragerPrabhupadaLoginDialog::SaveToStream( QObject *AObject, QDataStream &ST )
+void QStoragerPrabhupadaLoginDialog::SaveToStream( void *AObject, QDataStream &ST )
 {
   inherited::SaveToStream( AObject, ST );
   QPrabhupadaLoginDialog *O = static_cast< QPrabhupadaLoginDialog* >( AObject );
   // 1
-  O->SaveToStream( ST );
+  QStorage::SaveToStream( O->ComboBoxUserName, ST );
+  // 2
+  QStorage::SaveToStream( O->ComboBoxDatabaseName, ST );
+  // 3
+  QStorage::SaveToStream( O->ComboBoxHostName, ST );
+  // 4
+  QStorage::SaveToStream( O->ComboBoxPort, ST );
+  // 5
+  QStorage::SaveToStream( O->ComboBoxSchema, ST );
+  // 6
+  ST << O->radioButtonSQLite->isChecked();
 }

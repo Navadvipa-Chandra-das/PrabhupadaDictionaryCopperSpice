@@ -24,11 +24,13 @@ class QPrabhupadaAboutDialog : public QDialog
   CS_OBJECT( QPrabhupadaAboutDialog )
 
   public:
-  QPrabhupadaAboutDialog() = delete;
-  QPrabhupadaAboutDialog( QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags() );
-  ~QPrabhupadaAboutDialog();
-    virtual void LoadFromStream( QDataStream &ST );
-    virtual void SaveToStream( QDataStream &ST );
+    QPrabhupadaAboutDialog()                                               = delete;
+    QPrabhupadaAboutDialog( const QPrabhupadaAboutDialog& A )              = delete;
+    QPrabhupadaAboutDialog( QPrabhupadaAboutDialog&& A )                   = delete;
+    QPrabhupadaAboutDialog& operator = ( const QPrabhupadaAboutDialog& A ) = delete;
+    QPrabhupadaAboutDialog& operator = ( QPrabhupadaAboutDialog&& A )      = delete;
+    QPrabhupadaAboutDialog( QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags() );
+    ~QPrabhupadaAboutDialog();
   private:
     using inherited = QDialog;
   protected:
@@ -37,8 +39,6 @@ class QPrabhupadaAboutDialog : public QDialog
     QVBoxLayout *verticalLayoutPrabhupada;
     QVBoxLayout *verticalLayoutRowNumber;
     QFormLayout *formLayout;
-    //QLabel *LabelRowNumber;
-    //QComboBox *ComboBoxRowNumber;
     QTabWidget *TabWidgetAbout;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;

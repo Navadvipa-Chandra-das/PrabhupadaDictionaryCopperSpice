@@ -244,7 +244,19 @@ class QPrabhupadaZakladkaMap : public std::map< unsigned short, QPrabhupadaZakla
     using inherited = std::map< unsigned short, QPrabhupadaZakladka >;
   public:
     QPrabhupadaZakladkaMap();
+    QPrabhupadaZakladkaMap( const QPrabhupadaZakladkaMap& A );
+    QPrabhupadaZakladkaMap( QPrabhupadaZakladkaMap&& A );
     ~QPrabhupadaZakladkaMap();
+    QPrabhupadaZakladkaMap& operator = ( const QPrabhupadaZakladkaMap& A );
+    QPrabhupadaZakladkaMap& operator = ( QPrabhupadaZakladkaMap&& A );
+    bool operator == ( const QPrabhupadaZakladkaMap& A )
+    {
+      return *this == A;
+    }
+    bool operator != ( const QPrabhupadaZakladkaMap& A )
+    {
+      return *this != A;
+    }
     void LoadFromStream( QDataStream &ST );
     void SaveToStream(   QDataStream &ST );
 };
@@ -253,7 +265,22 @@ class QLanguageInfo
 {
   public:
     QLanguageInfo();
-    QLanguageInfo( const QLanguageInfo &A );
+    QLanguageInfo( const QLanguageInfo& A );
+    QLanguageInfo( QLanguageInfo&& A );
+    QLanguageInfo& operator = ( const QLanguageInfo& A );
+    QLanguageInfo& operator = ( QLanguageInfo&& A );
+    bool operator == ( const QLanguageInfo& A )
+    {
+      return m_ID            == A.m_ID &&
+             m_Language      == A.m_Language &&
+             m_LanguageSlovo == A.m_LanguageSlovo;
+    }
+    bool operator != ( const QLanguageInfo& A )
+    {
+      return m_ID            != A.m_ID ||
+             m_Language      != A.m_Language ||
+             m_LanguageSlovo != A.m_LanguageSlovo;
+    }
     ~QLanguageInfo();
 
     int m_ID;
@@ -264,6 +291,20 @@ class QLanguageInfo
     QPrabhupadaZakladkaMap m_PrabhupadaZakladkaMap;
 };
 
+inline bool operator == ( const QLanguageInfo& A, const QLanguageInfo& B )
+{
+  return A.m_ID            == B.m_ID &&
+         A.m_Language      == B.m_Language &&
+         A.m_LanguageSlovo == B.m_LanguageSlovo;
+}
+
+inline bool operator != ( const QLanguageInfo& A, const QLanguageInfo& B )
+{
+  return A.m_ID            != B.m_ID ||
+         A.m_Language      != B.m_Language ||
+         A.m_LanguageSlovo != B.m_LanguageSlovo;
+}
+
 class QLanguageVector : public QObject
 {
   CS_OBJECT( QLanguageVector )
@@ -271,6 +312,18 @@ class QLanguageVector : public QObject
     using inherited = QObject;
   public:
     QLanguageVector();
+    QLanguageVector( const QLanguageVector& A );
+    QLanguageVector( QLanguageVector&& A );
+    QLanguageVector& operator = ( const QLanguageVector& A );
+    QLanguageVector& operator = ( QLanguageVector&& A );
+    bool operator == ( const QLanguageVector& A )
+    {
+      return m_Vector == A.m_Vector;
+    }
+    bool operator != ( const QLanguageVector& A )
+    {
+      return m_Vector != A.m_Vector;
+    }
     ~QLanguageVector();
     using  QVectorType = std::vector< QLanguageInfo >;
     QVectorType m_Vector;
@@ -301,12 +354,15 @@ class QLanguageIndex : public QEmitInt
     QLanguageIndex() = delete;
     QLanguageIndex( int Value
                   , QLanguageVector& ALanguageVector );
+    QLanguageIndex( const QLanguageIndex& A );
+    QLanguageIndex( QLanguageIndex&& A );
     ~QLanguageIndex();
+    QLanguageIndex& operator = ( const QLanguageIndex& A );
+    QLanguageIndex& operator = ( QLanguageIndex&& A );
     static const int RussianIndex = 4;
     QLanguageVector& m_LanguageVector;
     void PrepareComboBox( QComboBox *CB );
     void ComboBoxAddItem( QComboBox *CB, const QString &S );
-    inline QLanguageInfo& LanguageInfo() { return m_LanguageVector.m_Vector[ (std::size_t)m_Value ]; };
     void LoadFromStream( QDataStream &ST );
     void SaveToStream( QDataStream &ST );
   protected:
@@ -333,6 +389,8 @@ class QPrabhupadaDictionary : public QAbstractTableModel
     QStorageDB* m_Storage;
     bool m_FilterSlovarIsEmpty = true;
     QPrabhupadaDictionary( QObject *parent = nullptr );
+    QPrabhupadaDictionary( const QPrabhupadaDictionary& A ) = delete;
+    QPrabhupadaDictionary( QPrabhupadaDictionary&& A ) = delete;
     virtual ~QPrabhupadaDictionary();
     QTranslator m_Translator;
     QLanguageVector m_LanguageVector;
@@ -373,7 +431,6 @@ class QPrabhupadaDictionary : public QAbstractTableModel
     QVariant data( const QModelIndex &index, int role = Qt::DisplayRole ) const override;
     QVariant headerData( int section, Qt::Orientation orientation, int role ) const override;
 
-    inline const QFilterSlovar& GetFilterSlovar() const { return m_LanguageVector.m_Vector[ (std::size_t)m_LanguageIndex.m_Value ].m_FilterSlovar; };
     void sortByColumn( int column, Qt::SortOrder order );
     void OrderByChanged( QPrabhupadaDictionaryOrderBy Value );
     void CaseSensitiveChanged( bool Value );

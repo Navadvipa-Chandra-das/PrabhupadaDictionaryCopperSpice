@@ -24,14 +24,6 @@ QPrabhupadaAboutDialog::~QPrabhupadaAboutDialog()
 {
 }
 
-void QPrabhupadaAboutDialog::LoadFromStream( QDataStream &ST )
-{
-}
-
-void QPrabhupadaAboutDialog::SaveToStream( QDataStream &ST )
-{
-}
-
 void QPrabhupadaAboutDialog::changeEvent( QEvent *event )
 {
   if ( event->type() == QEvent::LanguageChange ) {
@@ -114,15 +106,13 @@ QStoragerPrabhupadaAboutDialog::~QStoragerPrabhupadaAboutDialog()
 void QStoragerPrabhupadaAboutDialog::LoadFromStream( void *AObject, QDataStream &ST )
 {
   inherited::LoadFromStream( AObject, ST );
-  QPrabhupadaAboutDialog *O = static_cast< QPrabhupadaAboutDialog* >( AObject );
+  // QPrabhupadaAboutDialog *O = static_cast< QPrabhupadaAboutDialog* >( AObject );
   // 1
-  O->LoadFromStream( ST );
 }
 
 void QStoragerPrabhupadaAboutDialog::SaveToStream( void *AObject, QDataStream &ST )
 {
   inherited::SaveToStream( AObject, ST );
-  QPrabhupadaAboutDialog *O = static_cast< QPrabhupadaAboutDialog* >( AObject );
+  // QPrabhupadaAboutDialog *O = static_cast< QPrabhupadaAboutDialog* >( AObject );
   // 1
-  O->SaveToStream( ST );
 }

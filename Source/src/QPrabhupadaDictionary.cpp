@@ -154,6 +154,40 @@ QLanguageInfo::QLanguageInfo( const QLanguageInfo &A )
 {
 }
 
+QLanguageInfo::QLanguageInfo( QLanguageInfo&& A )
+  : m_ID                   ( std::move( A.m_ID ) )
+  , m_Language             ( std::move( A.m_Language ) )
+  , m_LanguageSlovo        ( std::move( A.m_LanguageSlovo ) )
+  , m_CurrentRow           ( std::move( A.m_CurrentRow ) )
+  , m_FilterSlovar         ( std::move( A.m_FilterSlovar ) )
+  , m_PrabhupadaZakladkaMap( std::move( A.m_PrabhupadaZakladkaMap ) )
+{
+}
+
+QLanguageInfo& QLanguageInfo::operator = ( const QLanguageInfo& A )
+{
+  m_ID                    = A.m_ID;
+  m_Language              = A.m_Language;
+  m_LanguageSlovo         = A.m_LanguageSlovo;
+  m_CurrentRow            = A.m_CurrentRow;
+  m_FilterSlovar          = A.m_FilterSlovar;
+  m_PrabhupadaZakladkaMap = A.m_PrabhupadaZakladkaMap;
+
+  return *this;
+}
+
+QLanguageInfo& QLanguageInfo::operator = ( QLanguageInfo&& A )
+{
+  m_ID                    = std::move( A.m_ID );
+  m_Language              = std::move( A.m_Language );
+  m_LanguageSlovo         = std::move( A.m_LanguageSlovo );
+  m_CurrentRow            = std::move( A.m_CurrentRow );
+  m_FilterSlovar          = std::move( A.m_FilterSlovar );
+  m_PrabhupadaZakladkaMap = std::move( A.m_PrabhupadaZakladkaMap );
+
+  return *this;
+}
+
 QLanguageInfo::~QLanguageInfo()
 {
 }
@@ -161,6 +195,33 @@ QLanguageInfo::~QLanguageInfo()
 QLanguageVector::QLanguageVector()
   : inherited()
 {
+}
+
+QLanguageVector::QLanguageVector( const QLanguageVector& A )
+  : m_Vector     ( A.m_Vector )
+  , m_LoadSuccess( A.m_LoadSuccess )
+{
+}
+QLanguageVector::QLanguageVector( QLanguageVector&& A )
+  : m_Vector     ( std::move( A.m_Vector ) )
+  , m_LoadSuccess( std::move( A.m_LoadSuccess ) )
+{
+}
+
+QLanguageVector& QLanguageVector::operator = ( const QLanguageVector& A )
+{
+  m_Vector      = A.m_Vector;
+  m_LoadSuccess = A.m_LoadSuccess;
+
+  return *this;
+}
+
+QLanguageVector& QLanguageVector::operator = ( QLanguageVector&& A )
+{
+  m_Vector      = std::move( A.m_Vector );
+  m_LoadSuccess = std::move( A.m_LoadSuccess );
+
+  return *this;
 }
 
 QLanguageVector::~QLanguageVector()
@@ -321,6 +382,7 @@ QPrabhupadaFindOptions::~QPrabhupadaFindOptions()
 {
 }
 
+
 QPrabhupadaFindOptions& QPrabhupadaFindOptions::operator = ( const QPrabhupadaFindOptions& A )
 {
   m_CaseSensitive     = A.m_CaseSensitive;
@@ -427,8 +489,32 @@ QPrabhupadaZakladkaMap::QPrabhupadaZakladkaMap()
 {
 }
 
+QPrabhupadaZakladkaMap::QPrabhupadaZakladkaMap( const QPrabhupadaZakladkaMap& A )
+  : inherited( A )
+{
+}
+
+QPrabhupadaZakladkaMap::QPrabhupadaZakladkaMap( QPrabhupadaZakladkaMap&& A )
+  : inherited( std::move( A ) )
+{
+}
+
 QPrabhupadaZakladkaMap::~QPrabhupadaZakladkaMap()
 {
+}
+
+QPrabhupadaZakladkaMap& QPrabhupadaZakladkaMap::operator = ( const QPrabhupadaZakladkaMap& A )
+{
+  inherited::operator = ( A );
+
+  return *this;
+}
+
+QPrabhupadaZakladkaMap& QPrabhupadaZakladkaMap::operator = ( QPrabhupadaZakladkaMap&& A )
+{
+  inherited::operator = ( std::move( A ) );
+
+  return *this;
 }
 
 void QPrabhupadaZakladkaMap::LoadFromStream( QDataStream &ST )
@@ -463,8 +549,36 @@ QLanguageIndex::QLanguageIndex( int Value
 {
 }
 
+QLanguageIndex::QLanguageIndex( const QLanguageIndex& A )
+  : inherited( A )
+  , m_LanguageVector( A.m_LanguageVector )
+{
+}
+
+QLanguageIndex::QLanguageIndex( QLanguageIndex&& A )
+  : inherited( std::move( A ) )
+  , m_LanguageVector( std::move( A.m_LanguageVector ) )
+{
+}
+
 QLanguageIndex::~QLanguageIndex()
 {
+}
+
+QLanguageIndex& QLanguageIndex::operator = ( const QLanguageIndex& A )
+{
+  m_Value          = A.m_Value;
+  m_LanguageVector = A.m_LanguageVector;
+
+  return *this;
+}
+
+QLanguageIndex& QLanguageIndex::operator = ( QLanguageIndex&& A )
+{
+  m_Value          = std::move( A.m_Value );
+  m_LanguageVector = std::move( A.m_LanguageVector );
+
+  return *this;
 }
 
 void QLanguageIndex::PrepareComboBox( QComboBox *CB )
@@ -591,13 +705,13 @@ QString QPrabhupadaDictionary::RemoveDiacritics( const QString& S )
 
 bool QPrabhupadaDictionary::PrabhupadaCompareLess( const QString& A, const QString& B )
 {
-  std::size_t AL = A.length()
-            , BL = B.length();
+  QString8::size_type AL = A.length()
+                    , BL = B.length();
 
-  int L = std::min( AL, BL );
+  QString8::size_type L = std::min( AL, BL );
 
   int AV, BV;
-  for ( int i = 0; i < L; ++i ) {
+  for ( QString8::size_type i = 0; i < L; ++i ) {
     AV = PrabhupadaPrimer[ A[ i ] ].m_Ves;
     BV = PrabhupadaPrimer[ B[ i ] ].m_Ves;
     if ( AV == BV ) {
@@ -617,13 +731,13 @@ bool QPrabhupadaDictionary::PrabhupadaCompareLess( const QString& A, const QStri
 
 bool QPrabhupadaDictionary::PrabhupadaCompareMore( const QString& A, const QString& B )
 {
-  std::size_t AL = A.length()
-            , BL = B.length();
+  QString8::size_type AL = A.length()
+                    , BL = B.length();
 
-  int L = std::min( AL, BL );
+  QString8::size_type L = std::min( AL, BL );
 
   int AV, BV;
-  for ( int i = 0; i < L; ++i ) {
+  for ( QString8::size_type i = 0; i < L; ++i ) {
     AV = PrabhupadaPrimer[ A[ i ] ].m_Ves;
     BV = PrabhupadaPrimer[ B[ i ] ].m_Ves;
     if ( AV == BV ) {
@@ -710,7 +824,7 @@ void QPrabhupadaDictionary::PreparePrabhupadaSlovarVector()
                          "    %1\"SANSKRIT\" a\n"
                          "where\n"
                          "    a.\"LANGUAGE\" = :LANGUAGE;" ).formatArgs( m_Schema ) );
-    qu.bindValue( ":LANGUAGE", m_LanguageVector.m_Vector[ m_LanguageIndex.m_Value ].m_Language );
+    qu.bindValue( ":LANGUAGE", m_LanguageVector.m_Vector[ (std::size_t)m_LanguageIndex.m_Value ].m_Language );
     qu.exec();
     QSanskritTranslate *ST;
 
@@ -727,7 +841,7 @@ void QPrabhupadaDictionary::PreparePrabhupadaSlovarVector()
       m_PrabhupadaSlovarVector.push_back( ST );
     }
     m_PrabhupadaOrder.EmitValueChanged( true );
-    /*emit */endResetModel();
+    endResetModel();
     m_LanguageIndex.m_NeedMainWork = false;
   }
 }
@@ -1014,7 +1128,7 @@ void QPrabhupadaDictionary::OrderByChanged( QPrabhupadaDictionaryOrderBy Value )
 void QPrabhupadaDictionary::CaseSensitiveChanged( bool Value )
 {
   if ( m_CaseSensitive.m_NeedMainWork ) {
-    QLanguageInfo& YI = m_LanguageVector.m_Vector[ m_LanguageIndex.m_Value ];
+    QLanguageInfo& YI = m_LanguageVector.m_Vector[ (std::size_t)m_LanguageIndex.m_Value ];
     YI.m_FilterSlovar.m_PrabhupadaFindOptions.m_CaseSensitive = Value;
     m_CaseSensitive.m_NeedMainWork = false;
   }
@@ -1023,7 +1137,7 @@ void QPrabhupadaDictionary::CaseSensitiveChanged( bool Value )
 void QPrabhupadaDictionary::RegularExpressionChanged( bool Value )
 {
   if ( m_RegularExpression.m_NeedMainWork ) {
-    QLanguageInfo& YI = m_LanguageVector.m_Vector[ m_LanguageIndex.m_Value ];
+    QLanguageInfo& YI = m_LanguageVector.m_Vector[ (std::size_t)m_LanguageIndex.m_Value ];
     YI.m_FilterSlovar.m_PrabhupadaFindOptions.m_RegularExpression = Value;
     m_RegularExpression.m_NeedMainWork = false;
   }
@@ -1032,7 +1146,7 @@ void QPrabhupadaDictionary::RegularExpressionChanged( bool Value )
 void QPrabhupadaDictionary::AutoPercentBeginChanged( bool Value )
 {
   if ( m_AutoPercentBegin.m_NeedMainWork ) {
-    QLanguageInfo& YI = m_LanguageVector.m_Vector[ m_LanguageIndex.m_Value ];
+    QLanguageInfo& YI = m_LanguageVector.m_Vector[ (std::size_t)m_LanguageIndex.m_Value ];
     YI.m_FilterSlovar.m_PrabhupadaFindOptions.m_AutoPercentBegin = Value;
     m_AutoPercentBegin.m_NeedMainWork = false;
   }
@@ -1041,7 +1155,7 @@ void QPrabhupadaDictionary::AutoPercentBeginChanged( bool Value )
 void QPrabhupadaDictionary::AutoPercentEndChanged( bool Value )
 {
   if ( m_AutoPercentEnd.m_NeedMainWork ) {
-    QLanguageInfo& YI = m_LanguageVector.m_Vector[ m_LanguageIndex.m_Value ];
+    QLanguageInfo& YI = m_LanguageVector.m_Vector[ (std::size_t)m_LanguageIndex.m_Value ];
     YI.m_FilterSlovar.m_PrabhupadaFindOptions.m_AutoPercentEnd = Value;
     m_AutoPercentEnd.m_NeedMainWork = false;
   }
@@ -1055,7 +1169,7 @@ void QPrabhupadaDictionary::SetRetranslateIcon( QIcon& AIcon
 {
   QString L = "", AFileNameTest;
   QFile F;
-  QLanguageInfo& YI = m_LanguageVector.m_Vector[ m_LanguageUIIndex.m_Value ];
+  QLanguageInfo& YI = m_LanguageVector.m_Vector[ (std::size_t)m_LanguageUIIndex.m_Value ];
   L = "_" + YI.m_Language;
   AFileNameTest = AFileName + L + "." + AFileExt;
   F.setFileName( AFileNameTest );

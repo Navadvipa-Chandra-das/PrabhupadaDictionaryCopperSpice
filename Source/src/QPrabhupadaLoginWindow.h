@@ -25,7 +25,11 @@ class QPrabhupadaLoginDialog : public QDialog
 
   public:
     QPrabhupadaLoginDialog( QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags() ) = delete;
-    QPrabhupadaLoginDialog() = delete;
+    QPrabhupadaLoginDialog()                                               = delete;
+    QPrabhupadaLoginDialog( const QPrabhupadaLoginDialog& A )              = delete;
+    QPrabhupadaLoginDialog( QPrabhupadaLoginDialog&& A )                   = delete;
+    QPrabhupadaLoginDialog& operator = ( const QPrabhupadaLoginDialog& A ) = delete;
+    QPrabhupadaLoginDialog& operator = ( QPrabhupadaLoginDialog&& A )      = delete;
     QPrabhupadaLoginDialog( QPrabhupadaDictionary *APrabhupadaDictionary
                           , QWidget *parent = nullptr
                           , Qt::WindowFlags flags = Qt::WindowFlags() );
@@ -48,9 +52,6 @@ class QPrabhupadaLoginDialog : public QDialog
   protected:
     void changeEvent( QEvent *event ) override;
   public:
-    virtual void LoadFromStream( QDataStream &ST );
-    virtual void SaveToStream( QDataStream &ST );
-
     QVBoxLayout *LayoutPrabhupadaLogin;
     QHBoxLayout *LayoutSQL;
     QRadioButton *radioButtonSQLite;
@@ -89,8 +90,8 @@ class QStoragerPrabhupadaLoginDialog : public QStoragerDialog
   private:
     using inherited = QStoragerDialog;
   public:
-    virtual void LoadFromStream( QObject *AObject, QDataStream &ST );
-    virtual void SaveToStream( QObject *AObject, QDataStream &ST );
+    virtual void LoadFromStream( void *AObject, QDataStream &ST ) override;
+    virtual void SaveToStream(   void *AObject, QDataStream &ST ) override;
 };
 
 #endif

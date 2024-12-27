@@ -25,10 +25,14 @@ class QPrabhupadaDictionaryWindow : public QMainWindow {
     int m_TranslateHeaderSize = 50;
     bool m_StartResize = false;
 
-    QPrabhupadaDictionaryWindow() = delete;
+    QPrabhupadaDictionaryWindow()                                                    = delete;
+    QPrabhupadaDictionaryWindow( const QPrabhupadaDictionaryWindow& A )              = delete;
+    QPrabhupadaDictionaryWindow( QPrabhupadaDictionaryWindow&& A )                   = delete;
     QPrabhupadaDictionaryWindow( QPrabhupadaDictionary *APrabhupadaDictionary
                                , QWidget *parent = nullptr
                                , Qt::WindowFlags flags = Qt::WindowFlags() );
+    QPrabhupadaDictionaryWindow& operator = ( const QPrabhupadaDictionaryWindow& A ) = delete;
+    QPrabhupadaDictionaryWindow& operator = ( QPrabhupadaDictionaryWindow&& A )      = delete;
     ~QPrabhupadaDictionaryWindow();
 
     QPrabhupadaDictionary *m_PrabhupadaDictionary;

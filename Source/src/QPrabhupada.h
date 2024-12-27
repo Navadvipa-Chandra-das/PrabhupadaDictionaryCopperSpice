@@ -16,15 +16,20 @@ class QEmitValue : public QObject
     TValueType m_Value;
     bool m_NeedMainWork = true;
     int m_Stop = 0;
-    QEmitValue( QObject *parent = nullptr ) = delete;
+    QEmitValue( QObject *parent = nullptr )
+      : inherited( parent )
+    {
+    };
     QEmitValue( const QEmitValue& A )
-      : m_Value       ( A.m_Value )
+      : inherited( A.parent() )
+      , m_Value       ( A.m_Value )
       , m_NeedMainWork( A.m_NeedMainWork )
       , m_Stop        ( A.m_Stop )
     {
     };
     QEmitValue( QEmitValue&& A )
-      : m_Value       ( std::move( A.m_Value ) )
+      : inherited( A.parent() )
+      , m_Value       ( std::move( A.m_Value ) )
       , m_NeedMainWork( std::move( A.m_NeedMainWork ) )
       , m_Stop        ( std::move( A.m_Stop ) )
     {

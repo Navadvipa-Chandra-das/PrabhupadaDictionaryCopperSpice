@@ -4,5 +4,5 @@ set now=%now::=.%
 set now=%now: =0%
 set now=_%DATE:~-4%.%DATE:~3,2%.%DATE:~0,2%_%now%
 "C:\PRG\7-Zip\7z.exe" -t7z -scsUTF-8 a PrabhupadaDictionary%now%.7z -ir@PrabhupadaDictionary.inc -xr@PrabhupadaDictionary.exc
-copy PrabhupadaDictionary%now%.7z D:\Arhive\PrabhupadaDictionary.7z
-copy PrabhupadaDictionary%now%.7z E:\Arhive\PrabhupadaDictionary.7z
+copy PrabhupadaDictionary%now%.7z D:\Arhive\PrabhupadaDictionaryCopperSpice.7z
+copy PrabhupadaDictionary%now%.7z E:\Arhive\PrabhupadaDictionaryCopperSpice.7z

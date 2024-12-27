@@ -269,7 +269,7 @@ void QPrabhupadaDictionaryWindow::FontSizeChanged( int Value )
 
 void QPrabhupadaDictionaryWindow::actionFind()
 {
-  QFilterSlovar& FS = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ m_PrabhupadaDictionary->m_LanguageIndex.m_Value ].m_FilterSlovar;
+  QFilterSlovar& FS = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ].m_FilterSlovar;
 
   FS.m_PrabhupadaFindOptions = QPrabhupadaFindOptions( m_PrabhupadaDictionary->m_CaseSensitive.m_Value
                             , m_PrabhupadaDictionary->m_RegularExpression.m_Value
@@ -360,7 +360,8 @@ void QPrabhupadaDictionaryWindow::actionAbout()
 
 void QPrabhupadaDictionaryWindow::actionDeleteAllBookmarks()
 {
-  m_PrabhupadaDictionary->m_LanguageIndex.LanguageInfo().m_PrabhupadaZakladkaMap.clear();
+  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
+  YI.m_PrabhupadaZakladkaMap.clear();
 }
 
 void QPrabhupadaDictionaryWindow::ActionSaveAllLetterToFile()
@@ -368,9 +369,9 @@ void QPrabhupadaDictionaryWindow::ActionSaveAllLetterToFile()
   QMessageBox::StandardButton reply;
 
   reply = QMessageBox::question( this
-                  , tr( "Пожалуйста, внимание!" )
-                 , tr( "Собираем все буквы в файл?" )
-                 , QMessageBox::Yes | QMessageBox::No );
+                               , tr( "Пожалуйста, внимание!" )
+                               , tr( "Собираем все буквы в файл?" )
+                               , QMessageBox::Yes | QMessageBox::No );
 
   if ( reply == QMessageBox::Yes ) {
     QString S, SB;
@@ -590,7 +591,7 @@ void QPrabhupadaDictionaryWindow::FirstShow()
 
 void QPrabhupadaDictionaryWindow::actionSet_Bookmark( unsigned short B )
 {
-  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageIndex.LanguageInfo();
+  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
   QPrabhupadaZakladkaMap::iterator I = YI.m_PrabhupadaZakladkaMap.find( B );
   QModelIndex CI = tbvPrabhupadaDictionary->currentIndex();
   int ARowNum  = CI.row()
@@ -656,7 +657,7 @@ void QPrabhupadaDictionaryWindow::actionSet_Bookmark_9()
 
 void QPrabhupadaDictionaryWindow::actionGo_to_bookmark( unsigned short B )
 {
-  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
+  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
   QPrabhupadaZakladkaMap::iterator ZI = YI.m_PrabhupadaZakladkaMap.find( B );
   if ( ZI != YI.m_PrabhupadaZakladkaMap.end() ) {
     QPrabhupadaZakladka& PrabhupadaZakladka = YI.m_PrabhupadaZakladkaMap[ B ];
@@ -1077,8 +1078,6 @@ void QPrabhupadaDictionaryWindow::setupUi()
 
 void QPrabhupadaDictionaryWindow::retranslateUi()
 {
-  QClassicLog::Log( "retranslateUi!!!" );
-
   setWindowTitle( tr( "Словарь Шрилы Прабхупады" ) );
   #if !QT_NO_WHATSTHIS
     setWhatsThis( tr( "Словарь Его Божественной Милости основателя-ачарьи Международного Общества сознания Кришны Шри Шримад Абхая Чаранаравидны Бхактиведанты Свами Прабхупады! Познакомиться с его книгами можно на сайте vedabase.io" ) );
