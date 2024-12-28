@@ -20,13 +20,13 @@ D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/About.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/AutoPercentBegin.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/AutoPercentEnd.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/CaseSensitive.png
-D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/CaseSensitive_RU-RU.png
+D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/RU-RU/CaseSensitive.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/Delete.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/DeleteAllBookmarks.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/Find.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/GoToRow.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/Insert.png
-D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/PrabhupadaDictionary.png
+D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/PrabhupadaDictionary.ico
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/RegularExpression.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/RemoveDuplicates.png
 D:/CopperSpicePrg/PrabhupadaDictionary/Release/Bin/./resources/Images/SaveBukva.png

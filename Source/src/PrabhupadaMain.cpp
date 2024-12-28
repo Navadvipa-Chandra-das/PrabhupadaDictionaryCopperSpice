@@ -42,7 +42,7 @@ int main( int argc, char *argv[] )
   APrabhupadaDictionary.m_Storage = &AStorage;
   a.setObjectName( APrabhupadaDictionary.objectName() );
 
-  AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageVector,  QStorageKind::File, AStoragerLanguageVector );
+  AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageVector,  QStorageKind::File, AStoragerLanguageVector, "m_LanguageVector.ini" );
   AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageUIIndex, QStorageKind::File, AStoragerLanguageIndex  );
 
   QPrabhupadaLoginDialog *APrabhupadaLoginDialog = new QPrabhupadaLoginDialog( &APrabhupadaDictionary, nullptr, Qt::WindowContextHelpButtonHint | Qt::WindowCloseButtonHint );

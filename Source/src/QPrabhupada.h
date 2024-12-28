@@ -36,16 +36,16 @@ class QEmitValue : public QObject
     };
     QEmitValue& operator = ( const QEmitValue& A )
     {
-      m_Value        = A.m_PrabhupadaFindOptions;
-      m_NeedMainWork = A.m_Value;
+      m_Value        = A.m_Value;
+      m_NeedMainWork = A.m_NeedMainWork;
       m_Stop         = A.m_Stop;
 
       return *this;
     };
     QEmitValue& operator = ( QEmitValue&& A )
     {
-      m_Value        = std::move( A.m_PrabhupadaFindOptions );
-      m_NeedMainWork = std::move( A.m_Value );
+      m_Value        = std::move( A.m_Value );
+      m_NeedMainWork = std::move( A.m_NeedMainWork );
       m_Stop         = std::move( A.m_Stop );
 
       return *this;
@@ -309,6 +309,12 @@ QString StringNumberToWords( QString AStringNumber
 void PrabhupadaMessage( const QString &msg
                       , const QString &title = ""
                       , QWidget *parent = nullptr );
+void SetRetranslateIcon( QIcon& AIcon
+                       , const QString& ADir
+                       , const QString& AFileName
+                       , QAction* AAction
+                       , bool AIconVisibleInMenu
+                       , const QString& ALanguage );
 
 class QClassicLog : public QObject
 {

@@ -125,7 +125,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/./resources/Images" TYPE FILE FILES "D:/CopperSpicePrg/PrabhupadaDictionary/Source/src/../resources/Images/CaseSensitive_RU-RU.png")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/./resources/Images/RU-RU" TYPE FILE FILES "D:/CopperSpicePrg/PrabhupadaDictionary/Source/src/../resources/Images/RU-RU/CaseSensitive.png")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -149,7 +149,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/./resources/Images" TYPE FILE FILES "D:/CopperSpicePrg/PrabhupadaDictionary/Source/src/../resources/Images/PrabhupadaDictionary.png")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/./resources/Images" TYPE FILE FILES "D:/CopperSpicePrg/PrabhupadaDictionary/Source/src/../resources/Images/PrabhupadaDictionary.ico")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)

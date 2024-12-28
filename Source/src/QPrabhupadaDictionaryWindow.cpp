@@ -269,12 +269,12 @@ void QPrabhupadaDictionaryWindow::FontSizeChanged( int Value )
 
 void QPrabhupadaDictionaryWindow::actionFind()
 {
-  QFilterSlovar& FS = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ].m_FilterSlovar;
+  QFilterSlovar& FS = m_PrabhupadaDictionary->m_LanguageVector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ].m_FilterSlovar;
 
   FS.m_PrabhupadaFindOptions = QPrabhupadaFindOptions( m_PrabhupadaDictionary->m_CaseSensitive.m_Value
-                            , m_PrabhupadaDictionary->m_RegularExpression.m_Value
-                            , m_PrabhupadaDictionary->m_AutoPercentBegin.m_Value
-                            , m_PrabhupadaDictionary->m_AutoPercentEnd.m_Value );
+                                                     , m_PrabhupadaDictionary->m_RegularExpression.m_Value
+                                                     , m_PrabhupadaDictionary->m_AutoPercentBegin.m_Value
+                                                     , m_PrabhupadaDictionary->m_AutoPercentEnd.m_Value );
   FS.SetSanskrit ( ComboBoxSanskrit ->currentText() );
   FS.SetTranslate( ComboBoxTranslate->currentText() );
 
@@ -360,7 +360,7 @@ void QPrabhupadaDictionaryWindow::actionAbout()
 
 void QPrabhupadaDictionaryWindow::actionDeleteAllBookmarks()
 {
-  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
+  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
   YI.m_PrabhupadaZakladkaMap.clear();
 }
 
@@ -416,20 +416,19 @@ void QPrabhupadaDictionaryWindow::changeEvent( QEvent *event )
 void QPrabhupadaDictionaryWindow::closeEvent( QCloseEvent *event )
 {
   if ( m_Storage ) {
-    QStoragerPrabhupadaDictionary* AStoragerPrabhupadaDictionary       = new QStoragerPrabhupadaDictionary();
-    QStoragerLanguageIndex*        AStoragerLanguageIndex              = new QStoragerLanguageIndex();
-    QStoragerLanguageVector*       AStoragerLanguageVector             = new QStoragerLanguageVector();
+    QStoragerPrabhupadaDictionary*       AStoragerPrabhupadaDictionary       = new QStoragerPrabhupadaDictionary();
+    QStoragerLanguageIndex*              AStoragerLanguageIndex              = new QStoragerLanguageIndex();
+    QStoragerLanguageVector*             AStoragerLanguageVector             = new QStoragerLanguageVector();
+    QStoragerPrabhupadaDictionaryWindow* AStoragerPrabhupadaDictionaryWindow = new QStoragerPrabhupadaDictionaryWindow();
 
     m_Storage->SaveObject( m_PrabhupadaDictionary,                     QStorageKind::DB,   AStoragerPrabhupadaDictionary );
     m_Storage->SaveObject( &m_PrabhupadaDictionary->m_LanguageUIIndex, QStorageKind::File, AStoragerLanguageIndex );
-    m_Storage->SaveObject( &m_PrabhupadaDictionary->m_LanguageVector,  QStorageKind::File, AStoragerLanguageVector );
+    m_Storage->SaveObject( &m_PrabhupadaDictionary->m_LanguageVector,  QStorageKind::File, AStoragerLanguageVector, "m_LanguageVector.ini" );
+    m_Storage->SaveObject( this,                                       m_StorageKind,      AStoragerPrabhupadaDictionaryWindow );
 
     delete AStoragerPrabhupadaDictionary;
     delete AStoragerLanguageVector;
     delete AStoragerLanguageIndex;
-
-    QStoragerPrabhupadaDictionaryWindow* AStoragerPrabhupadaDictionaryWindow = new QStoragerPrabhupadaDictionaryWindow();
-    m_Storage->SaveObject( this, m_StorageKind, AStoragerPrabhupadaDictionaryWindow );
     delete AStoragerPrabhupadaDictionaryWindow;
   }
   inherited::closeEvent( event );
@@ -558,7 +557,7 @@ void QPrabhupadaDictionaryWindow::PrabhupadaTableResized()
   if ( WidthNew > SBW )
     WidthNew -= SBW;
 
-  TV->setColumnWidth( 0, m_SanskitHeaderSize * WidthNew / WidthOld );
+  TV->setColumnWidth( 0, m_SanskitHeaderSize   * WidthNew / WidthOld );
   TV->setColumnWidth( 1, m_TranslateHeaderSize * WidthNew / WidthOld );
 }
 
@@ -591,7 +590,7 @@ void QPrabhupadaDictionaryWindow::FirstShow()
 
 void QPrabhupadaDictionaryWindow::actionSet_Bookmark( unsigned short B )
 {
-  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
+  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
   QPrabhupadaZakladkaMap::iterator I = YI.m_PrabhupadaZakladkaMap.find( B );
   QModelIndex CI = tbvPrabhupadaDictionary->currentIndex();
   int ARowNum  = CI.row()
@@ -599,8 +598,8 @@ void QPrabhupadaDictionaryWindow::actionSet_Bookmark( unsigned short B )
   if ( I == YI.m_PrabhupadaZakladkaMap.end() ) {
     YI.m_PrabhupadaZakladkaMap[ B ] = QPrabhupadaZakladka( ARowNum, AColumnNum, m_PrabhupadaDictionary->m_PrabhupadaFilterSlovar.m_Value );
   } else {
-    (*I).second.m_RowNum     = ARowNum;
-    (*I).second.m_ColumnNum  = AColumnNum;
+    (*I).second.m_RowNum       = ARowNum;
+    (*I).second.m_ColumnNum    = AColumnNum;
     (*I).second.m_FilterSlovar = m_PrabhupadaDictionary->m_PrabhupadaFilterSlovar.m_Value;
   }
 }
@@ -657,7 +656,7 @@ void QPrabhupadaDictionaryWindow::actionSet_Bookmark_9()
 
 void QPrabhupadaDictionaryWindow::actionGo_to_bookmark( unsigned short B )
 {
-  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector.m_Vector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
+  QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector[ (std::size_t)m_PrabhupadaDictionary->m_LanguageIndex.m_Value ];
   QPrabhupadaZakladkaMap::iterator ZI = YI.m_PrabhupadaZakladkaMap.find( B );
   if ( ZI != YI.m_PrabhupadaZakladkaMap.end() ) {
     QPrabhupadaZakladka& PrabhupadaZakladka = YI.m_PrabhupadaZakladkaMap[ B ];
@@ -665,7 +664,7 @@ void QPrabhupadaDictionaryWindow::actionGo_to_bookmark( unsigned short B )
     m_PrabhupadaDictionary->m_PrabhupadaFilterSlovar.SetValue( PrabhupadaZakladka.m_FilterSlovar );
     // Осуществляем переход по номеру строки и столбца!
     QModelIndex I = m_PrabhupadaDictionary->index( PrabhupadaZakladka.m_RowNum
-                            , PrabhupadaZakladka.m_ColumnNum );
+                                                 , PrabhupadaZakladka.m_ColumnNum );
     tbvPrabhupadaDictionary->setCurrentIndex( I );
     tbvPrabhupadaDictionary->scrollTo( I );
   }
@@ -724,78 +723,73 @@ void QPrabhupadaDictionaryWindow::actionGo_to_bookmark_9()
 void QPrabhupadaDictionaryWindow::RetranslateIcon()
 {
   QIcon AIcon;
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "PrabhupadaDictionary"
-                                            , "ico"
-                                            , nullptr
-                                            , true );
+  QString ALanguage;
+
+  std::size_t L  = m_PrabhupadaDictionary->m_LanguageVector.size()
+            , UI = (std::size_t)m_PrabhupadaDictionary->m_LanguageUIIndex.m_Value;
+  if ( UI >= 0 && L > UI ) {
+    QLanguageInfo& YI = m_PrabhupadaDictionary->m_LanguageVector[ UI ];
+    ALanguage = YI.m_Language;
+  }
+
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "PrabhupadaDictionary.ico"
+                    , nullptr
+                    , true, ALanguage );
   setWindowIcon( AIcon );
 
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "Find"
-                                            , "png"
-                                            , m_actionFind
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "CaseSensitive"
-                                            , "png"
-                                            , m_actionCaseSensitive
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "Delete"
-                                            , "png"
-                                            , m_actionDelete
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "Insert"
-                                            , "png"
-                                            , m_actionInsert
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "RemoveDuplicates"
-                                            , "png"
-                                            , m_actionRemove_Duplicates
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "WhatsThis"
-                                            , "png"
-                                            , m_actionWhats_This_mode
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "GoToRow"
-                                            , "png"
-                                            , m_actionGoToRow
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "About"
-                                            , "png"
-                                            , m_actionAbout
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "SaveBukva"
-                                            , "png"
-                                            , m_ActionSaveAllLetterToFile
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "DeleteAllBookmarks"
-                                            , "png"
-                                            , m_actionDeleteAllBookmarks
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "RegularExpression"
-                                            , "png"
-                                            , m_actionRegularExpression
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "AutoPercentBegin"
-                                            , "png"
-                                            , m_actionAutoPercentBegin
-                                            , true );
-  m_PrabhupadaDictionary->SetRetranslateIcon( AIcon
-                                            , QPrabhupadaDictionary::PrabhupadaDictionaryImages + "AutoPercentEnd"
-                                            , "png"
-                                            , m_actionAutoPercentEnd
-                                            , true );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "Find.png"
+                    , m_actionFind
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "CaseSensitive.png"
+                    , m_actionCaseSensitive
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "Delete.png"
+                    , m_actionDelete
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "Insert.png"
+                    , m_actionInsert
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "RemoveDuplicates.png"
+                    , m_actionRemove_Duplicates
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "WhatsThis.png"
+                    , m_actionWhats_This_mode
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "GoToRow.png"
+                    , m_actionGoToRow
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "About.png"
+                    , m_actionAbout
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "SaveBukva.png"
+                    , m_ActionSaveAllLetterToFile
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "DeleteAllBookmarks.png"
+                    , m_actionDeleteAllBookmarks
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "RegularExpression.png"
+                    , m_actionRegularExpression
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "AutoPercentBegin.png"
+                    , m_actionAutoPercentBegin
+                    , true, ALanguage );
+  SetRetranslateIcon( AIcon
+                    , QPrabhupadaDictionary::PrabhupadaDictionaryImages, "AutoPercentEnd.png"
+                    , m_actionAutoPercentEnd
+                    , true, ALanguage );
 }
 
 void QPrabhupadaDictionaryWindow::setupUi()

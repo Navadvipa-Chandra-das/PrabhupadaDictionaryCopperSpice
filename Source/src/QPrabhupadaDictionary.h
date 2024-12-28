@@ -305,30 +305,19 @@ inline bool operator != ( const QLanguageInfo& A, const QLanguageInfo& B )
          A.m_LanguageSlovo != B.m_LanguageSlovo;
 }
 
-class QLanguageVector : public QObject
+class QLanguageVector : public std::vector< QLanguageInfo >
 {
-  CS_OBJECT( QLanguageVector )
   private:
-    using inherited = QObject;
+    using inherited = std::vector< QLanguageInfo >;
   public:
     QLanguageVector();
     QLanguageVector( const QLanguageVector& A );
     QLanguageVector( QLanguageVector&& A );
     QLanguageVector& operator = ( const QLanguageVector& A );
     QLanguageVector& operator = ( QLanguageVector&& A );
-    bool operator == ( const QLanguageVector& A )
-    {
-      return m_Vector == A.m_Vector;
-    }
-    bool operator != ( const QLanguageVector& A )
-    {
-      return m_Vector != A.m_Vector;
-    }
     ~QLanguageVector();
-    using  QVectorType = std::vector< QLanguageInfo >;
-    QVectorType m_Vector;
     bool m_LoadSuccess = false;
-    std::size_t FindLanguage( const QString &S );
+    bool FindLanguage( const QString &S, std::size_t& AResultIndex );
     void LoadFromStream( QDataStream &ST );
     void SaveToStream( QDataStream &ST );
 };
@@ -437,11 +426,6 @@ class QPrabhupadaDictionary : public QAbstractTableModel
     void RegularExpressionChanged( bool Value );
     void AutoPercentBeginChanged( bool Value );
     void AutoPercentEndChanged( bool Value );
-    void SetRetranslateIcon( QIcon& AIcon
-                           , const QString& AFileName
-                           , const QString& AFileExt
-                           , QAction* AAction
-                           , bool AIconVisibleInMenu );
   protected:
 };
 

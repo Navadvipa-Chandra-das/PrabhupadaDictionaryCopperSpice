@@ -927,6 +927,27 @@ void PrabhupadaMessage( const QString &msg
   msgB.exec();
 }
 
+void SetRetranslateIcon( QIcon& AIcon
+                       , const QString& ADir
+                       , const QString& AFileName
+                       , QAction* AAction
+                       , bool AIconVisibleInMenu
+                       , const QString& ALanguage )
+{
+  QString AFileNameTest;
+  QFile F;
+  AFileNameTest = ADir + ALanguage + "/" + AFileName;
+  F.setFileName( AFileNameTest );
+  if ( !F.exists() ) {
+    AFileNameTest = ADir + AFileName;
+  }
+  AIcon.addFile( AFileNameTest, QSize(), QIcon::Normal, QIcon::Off );
+  if ( AAction != nullptr ) {
+    AAction->setIcon( AIcon );
+    AAction->setIconVisibleInMenu( true );
+  }
+}
+
 QSaveFile*   QClassicLog::m_SaveFile = nullptr;
 QTextStream* QClassicLog::m_Stream   = nullptr;
 
