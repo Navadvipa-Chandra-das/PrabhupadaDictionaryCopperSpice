@@ -43,9 +43,6 @@ class QPrabhupadaGoToLineDialog : public QDialog
   protected:
     void changeEvent( QEvent *event ) override;
   public:
-    virtual void LoadFromStream( QDataStream &ST );
-    virtual void SaveToStream( QDataStream &ST );
-
     QVBoxLayout *verticalLayoutPrabhupada;
     QVBoxLayout *verticalLayoutRowNumber;
     QFormLayout *formLayout;

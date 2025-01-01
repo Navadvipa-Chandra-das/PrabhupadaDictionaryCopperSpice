@@ -288,9 +288,7 @@ QString QStorage::KeyStorage( QObject *O, QStorageKind AStorageKind )
   return R;
 }
 
-int QStorage::MaxHistoryComboBox = 30;
-
-void QStorage::PrepareHistoryComboBox( QComboBox *CB, int MaxCount )
+void PrepareHistoryComboBox( QComboBox *CB, int MaxCount )
 {
   if ( CB->isEditable() ) {
     QString S = CB->currentText();
@@ -311,7 +309,7 @@ void QStorage::PrepareHistoryComboBox( QComboBox *CB, int MaxCount )
   }
 }
 
-void QStorage::LoadFromStream( QComboBox *CB, QDataStream &ST )
+void LoadFromStreamComboBox( QComboBox *CB, QDataStream &ST )
 {
   // 1
   QStringList SL;
@@ -323,7 +321,7 @@ void QStorage::LoadFromStream( QComboBox *CB, QDataStream &ST )
   CB->setCurrentText( S );
 }
 
-void QStorage::SaveToStream( QComboBox *CB, QDataStream &ST )
+void SaveToStreamComboBox( QComboBox *CB, QDataStream &ST )
 {
   // 1, 2
   QStringList SL;
@@ -334,10 +332,10 @@ void QStorage::SaveToStream( QComboBox *CB, QDataStream &ST )
   ST << SL << CB->currentText();
 }
 
-void QStorage::SaveToStreamPrepareHistory( QComboBox *CB, QDataStream &ST, int HistoryCount )
+void SaveToStreamPrepareHistory( QComboBox *CB, QDataStream &ST, int HistoryCount )
 {
   PrepareHistoryComboBox( CB, HistoryCount );
-  SaveToStream( CB, ST );
+  SaveToStreamComboBox( CB, ST );
 }
 
 void QStorage::LoadFromStream( QDataStream &ST )
@@ -570,6 +568,146 @@ void QStoragerDialog::SaveToStream( void *AObject, QDataStream &ST )
   QDialog *O = static_cast< QDialog* >( AObject );
   // 1
   ST << O->saveGeometry();
+}
+
+QLanguageInfo::QLanguageInfo()
+{
+}
+
+QLanguageInfo::QLanguageInfo( const QLanguageInfo &A )
+  : m_ID                   ( A.m_ID )
+  , m_Language             ( A.m_Language )
+  , m_LanguageSlovo        ( A.m_LanguageSlovo )
+{
+}
+
+QLanguageInfo::QLanguageInfo( QLanguageInfo&& A )
+  : m_ID                   ( std::move( A.m_ID ) )
+  , m_Language             ( std::move( A.m_Language ) )
+  , m_LanguageSlovo        ( std::move( A.m_LanguageSlovo ) )
+{
+}
+
+QLanguageInfo& QLanguageInfo::operator = ( const QLanguageInfo& A )
+{
+  m_ID                    = A.m_ID;
+  m_Language              = A.m_Language;
+  m_LanguageSlovo         = A.m_LanguageSlovo;
+
+  return *this;
+}
+
+QLanguageInfo& QLanguageInfo::operator = ( QLanguageInfo&& A )
+{
+  m_ID                    = std::move( A.m_ID );
+  m_Language              = std::move( A.m_Language );
+  m_LanguageSlovo         = std::move( A.m_LanguageSlovo );
+
+  return *this;
+}
+
+QLanguageInfo::~QLanguageInfo()
+{
+}
+
+void QLanguageInfo::LoadFromStream( QDataStream& ST )
+{
+  ST >> m_ID;
+  ST >> m_Language;
+  ST >> m_LanguageSlovo;
+}
+
+void QLanguageInfo::SaveToStream( QDataStream& ST )
+{
+  ST << m_ID;
+  ST << m_Language;
+  ST << m_LanguageSlovo;
+}
+
+QLanguageVector::QLanguageVector()
+  : inherited()
+{
+}
+
+QLanguageVector::QLanguageVector( const QLanguageVector& A )
+  : inherited( A )
+  , m_LoadSuccess( A.m_LoadSuccess )
+{
+}
+
+QLanguageVector::QLanguageVector( QLanguageVector&& A )
+  : inherited( std::move( A ) )
+  , m_LoadSuccess( std::move( A.m_LoadSuccess ) )
+{
+}
+
+QLanguageVector& QLanguageVector::operator = ( const QLanguageVector& A )
+{
+  inherited::operator = ( A );
+  m_LoadSuccess = A.m_LoadSuccess;
+
+  return *this;
+}
+
+QLanguageVector& QLanguageVector::operator = ( QLanguageVector&& A )
+{
+  inherited::operator = ( std::move( A ) );
+  m_LoadSuccess = std::move( A.m_LoadSuccess );
+
+  return *this;
+}
+
+QLanguageVector::~QLanguageVector()
+{
+  for ( iterator I = begin(); I != end(); ++I ) {
+    delete *I;
+  }
+}
+
+void QLanguageVector::Clear()
+{
+  for ( iterator I = begin(); I != end(); ++I ) {
+    delete *I;
+  }
+  clear();
+  m_LoadSuccess = false;
+}
+
+bool QLanguageVector::FindLanguage( const QString &S, std::size_t& AResultIndex )
+{
+  std::size_t L = size(), I = 0;
+  for( ; I < L; ++I ) {
+    if ( operator[]( I )->m_Language == S ) {
+      AResultIndex = I;
+      return true;
+    }
+  }
+  return false;
+}
+
+void QLanguageVector::LoadFromStream( QDataStream &ST )
+{
+  // 1
+  clear();
+  std::size_t L;
+  ST >> L;
+  QLanguageInfo* YI;
+  for ( std::size_t I = 0; I < L; ++I ) {
+    YI = NewLanguageInfo();
+    YI->LoadFromStream( ST );
+    push_back( YI );
+  }
+  m_LoadSuccess = L > 0;
+}
+
+void QLanguageVector::SaveToStream( QDataStream &ST )
+{
+  // 1
+  std::size_t L = size();
+  ST << L;
+  for ( iterator I = begin(); I != end(); ++I ) {
+    (*I)->SaveToStream( ST );
+  }
 }
 
 const QChar CharPercent   = '%';

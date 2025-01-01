@@ -32,16 +32,6 @@ QPrabhupadaGoToLineDialog::~QPrabhupadaGoToLineDialog()
 {
 }
 
-void QPrabhupadaGoToLineDialog::LoadFromStream( QDataStream &ST )
-{
-  QStorage::LoadFromStream( ComboBoxRowNumber, ST );
-}
-
-void QPrabhupadaGoToLineDialog::SaveToStream( QDataStream &ST )
-{
-  QStorage::SaveToStream( ComboBoxRowNumber, ST );
-}
-
 void QPrabhupadaGoToLineDialog::changeEvent( QEvent *event )
 {
   if ( event->type() == QEvent::LanguageChange ) {
@@ -153,7 +143,7 @@ void QStoragerPrabhupadaGoToLineDialog::LoadFromStream( void *AObject, QDataStre
   inherited::LoadFromStream( AObject, ST );
   QPrabhupadaGoToLineDialog *O = static_cast< QPrabhupadaGoToLineDialog* >( AObject );
   // 1
-  O->LoadFromStream( ST );
+  LoadFromStream( O->ComboBoxRowNumber, ST );
 }
 
 void QStoragerPrabhupadaGoToLineDialog::SaveToStream( void *AObject, QDataStream &ST )
@@ -161,5 +151,5 @@ void QStoragerPrabhupadaGoToLineDialog::SaveToStream( void *AObject, QDataStream
   inherited::SaveToStream( AObject, ST );
   QPrabhupadaGoToLineDialog *O = static_cast< QPrabhupadaGoToLineDialog* >( AObject );
   // 1
-  O->SaveToStream( ST );
+  SaveToStream( O->ComboBoxRowNumber, ST );
 }

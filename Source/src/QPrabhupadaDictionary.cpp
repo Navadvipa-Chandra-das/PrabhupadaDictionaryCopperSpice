@@ -152,7 +152,7 @@ QPrabhupadaSlovarVector::~QPrabhupadaSlovarVector()
 
 void QPrabhupadaSlovarVector::Clear()
 {
-  for ( QPrabhupadaSlovarVector::iterator I = begin(); I != end(); ++I ) {
+  for ( iterator I = begin(); I != end(); ++I ) {
     delete *I;
   }
   clear();
@@ -362,141 +362,80 @@ void QPrabhupadaZakladkaMap::SaveToStream( QDataStream &ST )
   }
 }
 
-QLanguageInfo::QLanguageInfo()
+QLanguageInfoPrabhupadaDictionary::QLanguageInfoPrabhupadaDictionary()
+  : inherited()
 {
 }
 
-QLanguageInfo::QLanguageInfo( const QLanguageInfo &A )
-  : m_ID                   ( A.m_ID )
-  , m_Language             ( A.m_Language )
-  , m_LanguageSlovo        ( A.m_LanguageSlovo )
-  , m_CurrentRow           ( A.m_CurrentRow )
-  , m_FilterSlovar         ( A.m_FilterSlovar )
+QLanguageInfoPrabhupadaDictionary::QLanguageInfoPrabhupadaDictionary( const QLanguageInfoPrabhupadaDictionary &A )
+  : inherited( A )
+  , m_PrabhupadaZakladka   ( A.m_PrabhupadaZakladka )
   , m_PrabhupadaZakladkaMap( A.m_PrabhupadaZakladkaMap )
 {
 }
 
-QLanguageInfo::QLanguageInfo( QLanguageInfo&& A )
-  : m_ID                   ( std::move( A.m_ID ) )
-  , m_Language             ( std::move( A.m_Language ) )
-  , m_LanguageSlovo        ( std::move( A.m_LanguageSlovo ) )
-  , m_CurrentRow           ( std::move( A.m_CurrentRow ) )
-  , m_FilterSlovar         ( std::move( A.m_FilterSlovar ) )
+QLanguageInfoPrabhupadaDictionary::QLanguageInfoPrabhupadaDictionary( QLanguageInfoPrabhupadaDictionary&& A )
+  : inherited( std::move( A ) )
+  , m_PrabhupadaZakladka   ( std::move( A.m_PrabhupadaZakladka ) )
   , m_PrabhupadaZakladkaMap( std::move( A.m_PrabhupadaZakladkaMap ) )
 {
 }
 
-QLanguageInfo& QLanguageInfo::operator = ( const QLanguageInfo& A )
+QLanguageInfoPrabhupadaDictionary& QLanguageInfoPrabhupadaDictionary::operator = ( const QLanguageInfoPrabhupadaDictionary& A )
 {
-  m_ID                    = A.m_ID;
-  m_Language              = A.m_Language;
-  m_LanguageSlovo         = A.m_LanguageSlovo;
-  m_CurrentRow            = A.m_CurrentRow;
-  m_FilterSlovar          = A.m_FilterSlovar;
+  inherited::operator = ( A );
+  m_PrabhupadaZakladka    = A.m_PrabhupadaZakladka;
   m_PrabhupadaZakladkaMap = A.m_PrabhupadaZakladkaMap;
 
   return *this;
 }
 
-QLanguageInfo& QLanguageInfo::operator = ( QLanguageInfo&& A )
+QLanguageInfoPrabhupadaDictionary& QLanguageInfoPrabhupadaDictionary::operator = ( QLanguageInfoPrabhupadaDictionary&& A )
 {
-  m_ID                    = std::move( A.m_ID );
-  m_Language              = std::move( A.m_Language );
-  m_LanguageSlovo         = std::move( A.m_LanguageSlovo );
-  m_CurrentRow            = std::move( A.m_CurrentRow );
-  m_FilterSlovar          = std::move( A.m_FilterSlovar );
+  inherited::operator = ( std::move( A ) );
+  m_PrabhupadaZakladka    = std::move( A.m_PrabhupadaZakladka );
   m_PrabhupadaZakladkaMap = std::move( A.m_PrabhupadaZakladkaMap );
 
   return *this;
 }
 
-QLanguageInfo::~QLanguageInfo()
+QLanguageInfoPrabhupadaDictionary::~QLanguageInfoPrabhupadaDictionary()
 {
 }
 
-QLanguageVector::QLanguageVector()
+void QLanguageInfoPrabhupadaDictionary::LoadFromStream( QDataStream& ST )
+{
+  inherited::LoadFromStream( ST );
+
+  m_PrabhupadaZakladka.LoadFromStream( ST );
+  m_PrabhupadaZakladkaMap.LoadFromStream( ST );
+}
+
+void QLanguageInfoPrabhupadaDictionary::SaveToStream( QDataStream& ST )
+{
+  inherited::SaveToStream( ST );
+
+  m_PrabhupadaZakladka.SaveToStream( ST );
+  m_PrabhupadaZakladkaMap.SaveToStream( ST );
+}
+
+QLanguageVectorPrabhupadaDictionary::QLanguageVectorPrabhupadaDictionary()
   : inherited()
 {
 }
 
-QLanguageVector::QLanguageVector( const QLanguageVector& A )
+QLanguageVectorPrabhupadaDictionary::QLanguageVectorPrabhupadaDictionary( const QLanguageVectorPrabhupadaDictionary& A )
   : inherited( A )
-  , m_LoadSuccess( A.m_LoadSuccess )
 {
 }
 
-QLanguageVector::QLanguageVector( QLanguageVector&& A )
+QLanguageVectorPrabhupadaDictionary::QLanguageVectorPrabhupadaDictionary( QLanguageVectorPrabhupadaDictionary&& A )
   : inherited( std::move( A ) )
-  , m_LoadSuccess( std::move( A.m_LoadSuccess ) )
 {
 }
 
-QLanguageVector& QLanguageVector::operator = ( const QLanguageVector& A )
+QLanguageVectorPrabhupadaDictionary::~QLanguageVectorPrabhupadaDictionary()
 {
-  inherited::operator = ( A );
-  m_LoadSuccess = A.m_LoadSuccess;
-
-  return *this;
-}
-
-QLanguageVector& QLanguageVector::operator = ( QLanguageVector&& A )
-{
-  inherited::operator = ( std::move( A ) );
-  m_LoadSuccess = std::move( A.m_LoadSuccess );
-
-  return *this;
-}
-
-QLanguageVector::~QLanguageVector()
-{
-}
-
-bool QLanguageVector::FindLanguage( const QString &S, std::size_t& AResultIndex )
-{
-  std::size_t L = size(), I = 0;
-  for( ; I < L; ++I ) {
-    if ( operator[]( I ).m_Language == S ) {
-      AResultIndex = I;
-      return true;
-    }
-  }
-  return false;
-}
-
-void QLanguageVector::LoadFromStream( QDataStream &ST )
-{
-  // 1
-  clear();
-  std::size_t L;
-  ST >> L;
-  QLanguageInfo YI;
-  for ( std::size_t I = 0; I < L; ++I ) {
-    ST >> YI.m_ID;
-    ST >> YI.m_Language;
-    ST >> YI.m_LanguageSlovo;
-
-    ST >> YI.m_CurrentRow;
-    YI.m_FilterSlovar.LoadFromStream( ST );
-    YI.m_PrabhupadaZakladkaMap.LoadFromStream( ST );
-    push_back( YI );
-  }
-  m_LoadSuccess = L > 0;
-}
-
-void QLanguageVector::SaveToStream( QDataStream &ST )
-{
-  // 1
-  std::size_t L = size();
-  ST << L;
-  for ( iterator I = begin(); I != end(); ++I ) {
-    ST << (*I).m_ID;
-    ST << (*I).m_Language;
-    ST << (*I).m_LanguageSlovo;
-
-    ST << (*I).m_CurrentRow;
-    (*I).m_FilterSlovar.SaveToStream( ST );
-    (*I).m_PrabhupadaZakladkaMap.SaveToStream( ST );
-  }
 }
 
 QStoragerLanguageVector::QStoragerLanguageVector()
@@ -515,15 +454,11 @@ void QStoragerLanguageVector::LoadFromStream( void *AObject, QDataStream &ST )
   O->clear();
   std::size_t L;
   ST >> L;
-  QLanguageInfo YI;
+  QLanguageInfo* YI;
   for ( std::size_t I = 0; I < L; ++I ) {
-    ST >> YI.m_ID;
-    ST >> YI.m_Language;
-    ST >> YI.m_LanguageSlovo;
+    YI = O->NewLanguageInfo();
 
-    ST >> YI.m_CurrentRow;
-    YI.m_FilterSlovar.LoadFromStream( ST );
-    YI.m_PrabhupadaZakladkaMap.LoadFromStream( ST );
+    YI->LoadFromStream( ST );
     O->push_back( YI );
   }
   O->m_LoadSuccess = L > 0;
@@ -536,13 +471,7 @@ void QStoragerLanguageVector::SaveToStream( void *AObject, QDataStream &ST )
   std::size_t L = O->size();
   ST << L;
   for ( QLanguageVector::iterator I = O->begin(); I != O->end(); ++I ) {
-    ST << (*I).m_ID;
-    ST << (*I).m_Language;
-    ST << (*I).m_LanguageSlovo;
-
-    ST << (*I).m_CurrentRow;
-    (*I).m_FilterSlovar.SaveToStream( ST );
-    (*I).m_PrabhupadaZakladkaMap.SaveToStream( ST );
+    (*I)->SaveToStream( ST );
   }
 }
 
@@ -592,7 +521,7 @@ void QLanguageIndex::PrepareComboBox( QComboBox *CB )
     CB->clear();
 
     for ( QLanguageVector::iterator i = m_LanguageVector.begin(); i != m_LanguageVector.end(); ++i ) {
-      CB->addItem( ( *i ).m_LanguageSlovo );
+      CB->addItem( ( *i )->m_LanguageSlovo );
     }
     CB->setCurrentIndex( m_Value );
     QObject::connect( CB
@@ -795,12 +724,14 @@ void QPrabhupadaDictionary::PrepareLanguageAndMaxID()
                         "    %1\"LANGUAGES\" a\n"
                         "order by a.\"LANGUAGE_WORD\";" ).formatArgs( m_Schema ) );
 
-      QLanguageInfo YI;
+      QLanguageInfo* YI;
 
       while ( qu.next() ) {
-        YI.m_ID            = qu.value( 0 ).toInt();
-        YI.m_Language      = qu.value( 1 ).toString();
-        YI.m_LanguageSlovo = qu.value( 2 ).toString();
+        YI = m_LanguageVector.NewLanguageInfo();
+
+        YI->m_ID            = qu.value( 0 ).toInt();
+        YI->m_Language      = qu.value( 1 ).toString();
+        YI->m_LanguageSlovo = qu.value( 2 ).toString();
 
         m_LanguageVector.push_back( YI );
       }
@@ -827,7 +758,7 @@ void QPrabhupadaDictionary::PreparePrabhupadaSlovarVector()
                          "    %1\"SANSKRIT\" a\n"
                          "where\n"
                          "    a.\"LANGUAGE\" = :LANGUAGE;" ).formatArgs( m_Schema ) );
-    qu.bindValue( ":LANGUAGE", m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ].m_Language );
+    qu.bindValue( ":LANGUAGE", m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ]->m_Language );
     qu.exec();
     QSanskritTranslate *ST;
 
@@ -877,7 +808,8 @@ void QPrabhupadaDictionary::LanguageIndexChanged( int Value )
     std::size_t L = m_LanguageVector.size();
     if ( Value >= 0 && L > Value ) {
       PreparePrabhupadaSlovarVector();
-      m_PrabhupadaFilterSlovar.SetValue( m_LanguageVector[ Value ].m_FilterSlovar );
+      //!!! set PrabhupadaZacladka
+      m_PrabhupadaFilterSlovar.SetValue( static_cast< QLanguageInfoPrabhupadaDictionary* >( m_LanguageVector[ Value ] )->m_PrabhupadaZakladka.m_FilterSlovar );
     }
   }
 }
@@ -887,7 +819,7 @@ void QPrabhupadaDictionary::LanguageUIIndexChanged( int Value )
   if ( m_LanguageUIIndex.m_NeedMainWork ) {
     std::size_t L = m_LanguageVector.size();
     if ( Value >= 0 && L > Value ) {
-      QString AFileTranslate = "PrabhupadaDictionary_" + m_LanguageVector[ Value ].m_Language + ".qm";
+      QString AFileTranslate = "PrabhupadaDictionary_" + m_LanguageVector[ Value ]->m_Language + ".qm";
       if ( m_Translator.load( AFileTranslate, PrabhupadaDictionaryLang ) ) {
         qApp->installTranslator( &m_Translator );
         QGuiApplication::setApplicationDisplayName( tr( "Словарь Шрилы Прабхупады!" ) );
@@ -1131,8 +1063,9 @@ void QPrabhupadaDictionary::OrderByChanged( QPrabhupadaDictionaryOrderBy Value )
 void QPrabhupadaDictionary::CaseSensitiveChanged( bool Value )
 {
   if ( m_CaseSensitive.m_NeedMainWork ) {
-    QLanguageInfo& YI = m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ];
-    YI.m_FilterSlovar.m_PrabhupadaFindOptions.m_CaseSensitive = Value;
+    QLanguageInfo* YI = m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ];
+    QLanguageInfoPrabhupadaDictionary* YI_PrabhupadaDictionary = static_cast< QLanguageInfoPrabhupadaDictionary* >( YI );
+    YI_PrabhupadaDictionary->m_PrabhupadaZakladka.m_FilterSlovar.m_PrabhupadaFindOptions.m_CaseSensitive = Value;
     m_CaseSensitive.m_NeedMainWork = false;
   }
 }
@@ -1140,8 +1073,9 @@ void QPrabhupadaDictionary::CaseSensitiveChanged( bool Value )
 void QPrabhupadaDictionary::RegularExpressionChanged( bool Value )
 {
   if ( m_RegularExpression.m_NeedMainWork ) {
-    QLanguageInfo& YI = m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ];
-    YI.m_FilterSlovar.m_PrabhupadaFindOptions.m_RegularExpression = Value;
+    QLanguageInfo* YI = m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ];
+    QLanguageInfoPrabhupadaDictionary* YI_PrabhupadaDictionary = static_cast< QLanguageInfoPrabhupadaDictionary* >( YI );
+    YI_PrabhupadaDictionary->m_PrabhupadaZakladka.m_FilterSlovar.m_PrabhupadaFindOptions.m_RegularExpression = Value;
     m_RegularExpression.m_NeedMainWork = false;
   }
 }
@@ -1149,8 +1083,9 @@ void QPrabhupadaDictionary::RegularExpressionChanged( bool Value )
 void QPrabhupadaDictionary::AutoPercentBeginChanged( bool Value )
 {
   if ( m_AutoPercentBegin.m_NeedMainWork ) {
-    QLanguageInfo& YI = m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ];
-    YI.m_FilterSlovar.m_PrabhupadaFindOptions.m_AutoPercentBegin = Value;
+    QLanguageInfo* YI = m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ];
+    QLanguageInfoPrabhupadaDictionary* YI_PrabhupadaDictionary = static_cast< QLanguageInfoPrabhupadaDictionary* >( YI );
+    YI_PrabhupadaDictionary->m_PrabhupadaZakladka.m_FilterSlovar.m_PrabhupadaFindOptions.m_AutoPercentBegin = Value;
     m_AutoPercentBegin.m_NeedMainWork = false;
   }
 }
@@ -1158,8 +1093,9 @@ void QPrabhupadaDictionary::AutoPercentBeginChanged( bool Value )
 void QPrabhupadaDictionary::AutoPercentEndChanged( bool Value )
 {
   if ( m_AutoPercentEnd.m_NeedMainWork ) {
-    QLanguageInfo& YI = m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ];
-    YI.m_FilterSlovar.m_PrabhupadaFindOptions.m_AutoPercentEnd = Value;
+    QLanguageInfo* YI = m_LanguageVector[ (std::size_t)m_LanguageIndex.m_Value ];
+    QLanguageInfoPrabhupadaDictionary* YI_PrabhupadaDictionary = static_cast< QLanguageInfoPrabhupadaDictionary* >( YI );
+    YI_PrabhupadaDictionary->m_PrabhupadaZakladka.m_FilterSlovar.m_PrabhupadaFindOptions.m_AutoPercentEnd = Value;
     m_AutoPercentEnd.m_NeedMainWork = false;
   }
 }

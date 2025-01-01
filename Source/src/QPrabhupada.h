@@ -158,11 +158,6 @@ class QStorage
     QString KeyStorage( QObject *O, QStorageKind AStorageKind );
     virtual void ResetSettings() {};
 
-    static int MaxHistoryComboBox;
-    static void PrepareHistoryComboBox( QComboBox *CB, int MaxCount = MaxHistoryComboBox );
-    static void LoadFromStream( QComboBox *CB, QDataStream &ST );
-    static void SaveToStream( QComboBox *CB, QDataStream &ST );
-
     template< class TMap, class TKey, class TValue >
     static void LoadMap( TMap &MP, QDataStream &ST )
     {
@@ -221,7 +216,6 @@ class QStorage
     void RemoveMemory( void* O, const QString& AKeyStorage = "" );
     void ClearMemory() { m_MapMemoryStorage.clear(); };
 
-    void SaveToStreamPrepareHistory( QComboBox *CB, QDataStream &ST, int HistoryCount );
     void LoadFromStream( QDataStream &ST );
     void SaveToStream( QDataStream &ST );
 };
@@ -252,6 +246,12 @@ class QStorageDB : public QStorage
     virtual void EndSaveDB() override;
 };
 
+const int MaxHistoryComboBox = 30;
+void PrepareHistoryComboBox( QComboBox *CB, int MaxCount = MaxHistoryComboBox );
+void LoadFromStreamComboBox( QComboBox *CB, QDataStream &ST );
+void SaveToStreamComboBox( QComboBox *CB, QDataStream &ST );
+void SaveToStreamPrepareHistory( QComboBox *CB, QDataStream &ST, int HistoryCount );
+
 class QStoragerMainWindow : public QStorager
 {
   public:
@@ -274,6 +274,60 @@ class QStoragerDialog : public QStorager
   public:
     virtual void LoadFromStream( void *AObject, QDataStream &ST );
     virtual void SaveToStream(   void *AObject, QDataStream &ST );
+};
+
+class QLanguageInfo
+{
+  public:
+    QLanguageInfo();
+    QLanguageInfo( const QLanguageInfo& A );
+    QLanguageInfo( QLanguageInfo&& A );
+    QLanguageInfo& operator = ( const QLanguageInfo& A );
+    QLanguageInfo& operator = ( QLanguageInfo&& A );
+    bool operator == ( const QLanguageInfo& A )
+    {
+      return m_ID == A.m_ID;
+    }
+    bool operator != ( const QLanguageInfo& A )
+    {
+      return m_ID != A.m_ID;
+    }
+    ~QLanguageInfo();
+
+    int m_ID;
+    QString m_Language;
+    QString m_LanguageSlovo;
+    virtual void LoadFromStream( QDataStream& ST );
+    virtual void SaveToStream( QDataStream& ST );
+};
+
+inline bool operator == ( const QLanguageInfo& A, const QLanguageInfo& B )
+{
+  return A.m_ID == B.m_ID;
+}
+
+inline bool operator != ( const QLanguageInfo& A, const QLanguageInfo& B )
+{
+  return A.m_ID != B.m_ID;
+}
+
+class QLanguageVector : public std::vector< QLanguageInfo* >
+{
+  private:
+    using inherited = std::vector< QLanguageInfo* >;
+  public:
+    QLanguageVector();
+    QLanguageVector( const QLanguageVector& A );
+    QLanguageVector( QLanguageVector&& A );
+    QLanguageVector& operator = ( const QLanguageVector& A );
+    QLanguageVector& operator = ( QLanguageVector&& A );
+    virtual ~QLanguageVector();
+    bool m_LoadSuccess = false;
+    void Clear();
+    bool FindLanguage( const QString &S, std::size_t& AResultIndex );
+    virtual void LoadFromStream( QDataStream &ST );
+    virtual void SaveToStream( QDataStream &ST );
+    virtual QLanguageInfo* NewLanguageInfo() { return new QLanguageInfo(); };
 };
 
 extern const QChar CharPercent;

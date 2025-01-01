@@ -131,11 +131,11 @@ bool QPrabhupadaLoginDialog::Connect( QSqlDatabase *DB )
   WidgetToDatabase( DB );
   bool B = DB->open();
   if ( B ) {
-    QStorage::PrepareHistoryComboBox( ComboBoxUserName );
-    QStorage::PrepareHistoryComboBox( ComboBoxDatabaseName );
-    QStorage::PrepareHistoryComboBox( ComboBoxHostName );
-    QStorage::PrepareHistoryComboBox( ComboBoxPort );
-    QStorage::PrepareHistoryComboBox( ComboBoxSchema );
+    PrepareHistoryComboBox( ComboBoxUserName );
+    PrepareHistoryComboBox( ComboBoxDatabaseName );
+    PrepareHistoryComboBox( ComboBoxHostName );
+    PrepareHistoryComboBox( ComboBoxPort );
+    PrepareHistoryComboBox( ComboBoxSchema );
   }
   return B;
 }
@@ -339,15 +339,15 @@ void QStoragerPrabhupadaLoginDialog::LoadFromStream( void *AObject, QDataStream 
   inherited::LoadFromStream( AObject, ST );
   QPrabhupadaLoginDialog *O = static_cast< QPrabhupadaLoginDialog* >( AObject );
   // 1
-  QStorage::LoadFromStream( O->ComboBoxUserName, ST );
+  LoadFromStreamComboBox( O->ComboBoxUserName, ST );
   // 2
-  QStorage::LoadFromStream( O->ComboBoxDatabaseName, ST );
+  LoadFromStreamComboBox( O->ComboBoxDatabaseName, ST );
   // 3
-  QStorage::LoadFromStream( O->ComboBoxHostName, ST );
+  LoadFromStreamComboBox( O->ComboBoxHostName, ST );
   // 4
-  QStorage::LoadFromStream( O->ComboBoxPort, ST );
+  LoadFromStreamComboBox( O->ComboBoxPort, ST );
   // 5
-  QStorage::LoadFromStream( O->ComboBoxSchema, ST );
+  LoadFromStreamComboBox( O->ComboBoxSchema, ST );
   // 6
   bool B;
   ST >> B;
@@ -363,15 +363,15 @@ void QStoragerPrabhupadaLoginDialog::SaveToStream( void *AObject, QDataStream &S
   inherited::SaveToStream( AObject, ST );
   QPrabhupadaLoginDialog *O = static_cast< QPrabhupadaLoginDialog* >( AObject );
   // 1
-  QStorage::SaveToStream( O->ComboBoxUserName, ST );
+  SaveToStreamComboBox( O->ComboBoxUserName, ST );
   // 2
-  QStorage::SaveToStream( O->ComboBoxDatabaseName, ST );
+  SaveToStreamComboBox( O->ComboBoxDatabaseName, ST );
   // 3
-  QStorage::SaveToStream( O->ComboBoxHostName, ST );
+  SaveToStreamComboBox( O->ComboBoxHostName, ST );
   // 4
-  QStorage::SaveToStream( O->ComboBoxPort, ST );
+  SaveToStreamComboBox( O->ComboBoxPort, ST );
   // 5
-  QStorage::SaveToStream( O->ComboBoxSchema, ST );
+  SaveToStreamComboBox( O->ComboBoxSchema, ST );
   // 6
   ST << O->radioButtonSQLite->isChecked();
 }
