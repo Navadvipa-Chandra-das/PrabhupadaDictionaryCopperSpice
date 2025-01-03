@@ -143,7 +143,7 @@ void QStoragerPrabhupadaGoToLineDialog::LoadFromStream( void *AObject, QDataStre
   inherited::LoadFromStream( AObject, ST );
   QPrabhupadaGoToLineDialog *O = static_cast< QPrabhupadaGoToLineDialog* >( AObject );
   // 1
-  LoadFromStream( O->ComboBoxRowNumber, ST );
+  LoadFromStreamComboBox( O->ComboBoxRowNumber, ST );
 }
 
 void QStoragerPrabhupadaGoToLineDialog::SaveToStream( void *AObject, QDataStream &ST )
@@ -151,5 +151,5 @@ void QStoragerPrabhupadaGoToLineDialog::SaveToStream( void *AObject, QDataStream
   inherited::SaveToStream( AObject, ST );
   QPrabhupadaGoToLineDialog *O = static_cast< QPrabhupadaGoToLineDialog* >( AObject );
   // 1
-  SaveToStream( O->ComboBoxRowNumber, ST );
+  SaveToStreamComboBox( O->ComboBoxRowNumber, ST );
 }

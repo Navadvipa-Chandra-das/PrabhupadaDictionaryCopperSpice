@@ -109,8 +109,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-3g440s"
-      binary: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-3g440s"
+      source: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-jjrggc"
+      binary: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-jjrggc"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -119,11 +119,11 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-3g440s'
+        Change Dir: 'D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-jjrggc'
         
-        Run Build Command(s): C:/Prg/Ninja/ninja.exe -v cmTC_f2498
-        [1/2] C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_f2498.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_f2498.dir\\ /FS -c C:\\Prg\\cmake-3.31.1-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Prg\\cmake-3.31.1-windows-x86_64\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1942 --intdir=CMakeFiles\\cmTC_f2498.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_f2498.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_f2498.exe /implib:cmTC_f2498.lib /pdb:cmTC_f2498.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s): C:/Prg/Ninja/ninja.exe -v cmTC_5f01a
+        [1/2] C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo   /DWIN32 /D_WINDOWS  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_5f01a.dir\\CMakeCCompilerABI.c.obj /FdCMakeFiles\\cmTC_5f01a.dir\\ /FS -c C:\\Prg\\cmake-3.31.1-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Prg\\cmake-3.31.1-windows-x86_64\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1942 --intdir=CMakeFiles\\cmTC_5f01a.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_5f01a.dir\\CMakeCCompilerABI.c.obj  /out:cmTC_5f01a.exe /implib:cmTC_5f01a.lib /pdb:cmTC_5f01a.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -
@@ -163,8 +163,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-ryihze"
-      binary: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-ryihze"
+      source: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-31g574"
+      binary: "D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-31g574"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -174,11 +174,11 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-ryihze'
+        Change Dir: 'D:/CopperSpicePrg/PrabhupadaDictionary/Release/Build/CMakeFiles/CMakeScratch/TryCompile-31g574'
         
-        Run Build Command(s): C:/Prg/Ninja/ninja.exe -v cmTC_e0b06
-        [1/2] C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /GR /EHsc  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_e0b06.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_e0b06.dir\\ /FS -c C:\\Prg\\cmake-3.31.1-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp
-        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Prg\\cmake-3.31.1-windows-x86_64\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1942 --intdir=CMakeFiles\\cmTC_e0b06.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_e0b06.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_e0b06.exe /implib:cmTC_e0b06.lib /pdb:cmTC_e0b06.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
+        Run Build Command(s): C:/Prg/Ninja/ninja.exe -v cmTC_2d209
+        [1/2] C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\cl.exe  /nologo /TP   /DWIN32 /D_WINDOWS /GR /EHsc  /Zi /Ob0 /Od /RTC1 -MDd /showIncludes /FoCMakeFiles\\cmTC_2d209.dir\\CMakeCXXCompilerABI.cpp.obj /FdCMakeFiles\\cmTC_2d209.dir\\ /FS -c C:\\Prg\\cmake-3.31.1-windows-x86_64\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp
+        [2/2] C:\\Windows\\system32\\cmd.exe /C "cd . && C:\\Prg\\cmake-3.31.1-windows-x86_64\\bin\\cmake.exe -E vs_link_exe --msvc-ver=1942 --intdir=CMakeFiles\\cmTC_2d209.dir --rc=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\rc.exe --mt=C:\\PROGRA~2\\WI3CF2~1\\10\\bin\\100226~1.0\\x64\\mt.exe --manifests  -- C:\\PROGRA~1\\MICROS~3\\2022\\COMMUN~1\\VC\\Tools\\MSVC\\1442~1.344\\bin\\Hostx64\\x64\\link.exe /nologo CMakeFiles\\cmTC_2d209.dir\\CMakeCXXCompilerABI.cpp.obj  /out:cmTC_2d209.exe /implib:cmTC_2d209.lib /pdb:cmTC_2d209.pdb /version:0.0 /machine:x64  /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
         
       exitCode: 0
   -

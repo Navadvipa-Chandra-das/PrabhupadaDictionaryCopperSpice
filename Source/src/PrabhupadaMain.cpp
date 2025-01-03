@@ -27,13 +27,14 @@ int main( int argc, char *argv[] )
 {
   int Result = 0;
   QClassicLog::StartLog( "Prabhupada.log" );
-  QApplication a(argc, argv);
+  QApplication a( argc, argv );
 
   QStorageDB AStorage;
 
   QPrabhupadaDictionary APrabhupadaDictionary( nullptr );
   APrabhupadaDictionary.setObjectName( "PrabhupadaDictionary" );
   APrabhupadaDictionary.m_Storage = &AStorage;
+
   a.setObjectName( APrabhupadaDictionary.objectName() );
 
   LoadObject< QStoragerLanguageVector >( &APrabhupadaDictionary.m_LanguageVector, &AStorage, QStorageKind::File, "m_LanguageVector.ini" );

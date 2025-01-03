@@ -329,13 +329,14 @@ void QPrabhupadaDictionaryWindow::actionWhats_This_mode()
   } else {
     QWhatsThis::enterWhatsThisMode();
   }
-  // QString A[3];
-  // A[ 0 ] = "рубль";
-  // A[ 1 ] = "рубля";
-  // A[ 2 ] = "рублей";
-  // QString W = StringNumberToWords( ComboBoxSanskrit->currentText(), QGender::Male, A, true );
-  // PrabhupadaLog( W );
-  // PrabhupadaMessage( W );
+
+  QString A[3];
+  A[ 0 ] = "рубль";
+  A[ 1 ] = "рубля";
+  A[ 2 ] = "рублей";
+  QString W = StringNumberToWords( ComboBoxSanskrit->currentText(), QGender::Male, A, true );
+  PrabhupadaLog( W );
+  PrabhupadaMessage( W );
 }
 
 void QPrabhupadaDictionaryWindow::actionGoToRow()

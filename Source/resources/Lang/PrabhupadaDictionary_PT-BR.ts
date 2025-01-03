@@ -4,396 +4,396 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="527"/>
+        <location filename="../../src/QPrabhupada.cpp" line="905"/>
         <source>тысяча</source>
         <translation>mil</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="528"/>
+        <location filename="../../src/QPrabhupada.cpp" line="906"/>
         <source>тысячи</source>
         <translation>milhares</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="529"/>
+        <location filename="../../src/QPrabhupada.cpp" line="907"/>
         <source>тысяч</source>
         <translation>milhares</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="531"/>
+        <location filename="../../src/QPrabhupada.cpp" line="909"/>
         <source>миллион</source>
         <translation>um milhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="532"/>
+        <location filename="../../src/QPrabhupada.cpp" line="910"/>
         <source>миллиона</source>
         <translation>milhões</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="533"/>
+        <location filename="../../src/QPrabhupada.cpp" line="911"/>
         <source>миллионов</source>
         <translation>milhões</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="535"/>
+        <location filename="../../src/QPrabhupada.cpp" line="913"/>
         <source>миллиард</source>
         <translation>bilhões</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="536"/>
+        <location filename="../../src/QPrabhupada.cpp" line="914"/>
         <source>миллиарда</source>
         <translation>bilhões</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="537"/>
+        <location filename="../../src/QPrabhupada.cpp" line="915"/>
         <source>миллиардов</source>
         <translation>bilhões</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="539"/>
+        <location filename="../../src/QPrabhupada.cpp" line="917"/>
         <source>триллион</source>
         <translation>trilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="540"/>
+        <location filename="../../src/QPrabhupada.cpp" line="918"/>
         <source>триллиона</source>
         <translation>trilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="541"/>
+        <location filename="../../src/QPrabhupada.cpp" line="919"/>
         <source>триллионов</source>
         <translation>trilhões</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="543"/>
+        <location filename="../../src/QPrabhupada.cpp" line="921"/>
         <source>квадриллион</source>
         <translation>quatrilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="544"/>
+        <location filename="../../src/QPrabhupada.cpp" line="922"/>
         <source>квадриллиона</source>
         <translation>quatrilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="545"/>
+        <location filename="../../src/QPrabhupada.cpp" line="923"/>
         <source>квадриллионов</source>
         <translation>quatrilhões</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="547"/>
+        <location filename="../../src/QPrabhupada.cpp" line="925"/>
         <source>квинтиллион</source>
         <translation>quintilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="548"/>
+        <location filename="../../src/QPrabhupada.cpp" line="926"/>
         <source>квинтиллиона</source>
         <translation>quintilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="549"/>
+        <location filename="../../src/QPrabhupada.cpp" line="927"/>
         <source>квинтиллионов</source>
         <translation>quintilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="551"/>
+        <location filename="../../src/QPrabhupada.cpp" line="929"/>
         <source>секстиллион</source>
         <translation>sextilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="552"/>
+        <location filename="../../src/QPrabhupada.cpp" line="930"/>
         <source>секстиллиона</source>
         <translation>sextilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="553"/>
+        <location filename="../../src/QPrabhupada.cpp" line="931"/>
         <source>секстиллионов</source>
         <translation>sextilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="555"/>
+        <location filename="../../src/QPrabhupada.cpp" line="933"/>
         <source>септиллион</source>
         <translation>septilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="556"/>
+        <location filename="../../src/QPrabhupada.cpp" line="934"/>
         <source>септиллиона</source>
         <translation>septilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="557"/>
+        <location filename="../../src/QPrabhupada.cpp" line="935"/>
         <source>септиллионов</source>
         <translation>septilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="559"/>
+        <location filename="../../src/QPrabhupada.cpp" line="937"/>
         <source>окталлион</source>
         <translation>octallion</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="560"/>
+        <location filename="../../src/QPrabhupada.cpp" line="938"/>
         <source>окталлиона</source>
         <translation>octallion</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="561"/>
+        <location filename="../../src/QPrabhupada.cpp" line="939"/>
         <source>окталлионов</source>
         <translation>octallions</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="563"/>
+        <location filename="../../src/QPrabhupada.cpp" line="941"/>
         <source>ноналлион</source>
         <translation>nonallion</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="564"/>
+        <location filename="../../src/QPrabhupada.cpp" line="942"/>
         <source>ноналлиона</source>
         <translation>nonallion</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="565"/>
+        <location filename="../../src/QPrabhupada.cpp" line="943"/>
         <source>ноналлионов</source>
         <translation>nonallions</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="567"/>
+        <location filename="../../src/QPrabhupada.cpp" line="945"/>
         <source>дециллион</source>
         <translation>decilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="568"/>
+        <location filename="../../src/QPrabhupada.cpp" line="946"/>
         <source>дециллиона</source>
         <translation>decilhão</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="569"/>
+        <location filename="../../src/QPrabhupada.cpp" line="947"/>
         <source>дециллионов</source>
         <translation>decilhões</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="571"/>
+        <location filename="../../src/QPrabhupada.cpp" line="949"/>
         <source>-ллион&apos; </source>
         <translation>-lhão&apos; </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="572"/>
+        <location filename="../../src/QPrabhupada.cpp" line="950"/>
         <source>-ллиона&apos; </source>
         <translation>-hão&apos; </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="573"/>
+        <location filename="../../src/QPrabhupada.cpp" line="951"/>
         <source>-ллионов&apos; </source>
         <translation>-lhões&apos; </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="575"/>
+        <location filename="../../src/QPrabhupada.cpp" line="953"/>
         <source>один </source>
         <translation>um </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="576"/>
+        <location filename="../../src/QPrabhupada.cpp" line="954"/>
         <source>одно </source>
         <translation>um </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="577"/>
+        <location filename="../../src/QPrabhupada.cpp" line="955"/>
         <source>одна </source>
         <translation>um </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="579"/>
-        <location filename="../../src/QPrabhupada.cpp" line="580"/>
+        <location filename="../../src/QPrabhupada.cpp" line="957"/>
+        <location filename="../../src/QPrabhupada.cpp" line="958"/>
         <source>два </source>
         <translation>dois </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="581"/>
+        <location filename="../../src/QPrabhupada.cpp" line="959"/>
         <source>две </source>
         <translation>dois </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="583"/>
+        <location filename="../../src/QPrabhupada.cpp" line="961"/>
         <source>сто </source>
         <translation>cem </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="584"/>
+        <location filename="../../src/QPrabhupada.cpp" line="962"/>
         <source>двести </source>
         <translation>duzentos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="585"/>
+        <location filename="../../src/QPrabhupada.cpp" line="963"/>
         <source>триста </source>
         <translation>trezentos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="586"/>
+        <location filename="../../src/QPrabhupada.cpp" line="964"/>
         <source>четыреста </source>
         <translation>quatrocentos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="587"/>
+        <location filename="../../src/QPrabhupada.cpp" line="965"/>
         <source>пятьсот </source>
         <translation>quinhentos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="588"/>
+        <location filename="../../src/QPrabhupada.cpp" line="966"/>
         <source>шестьсот </source>
         <translation>seiscentos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="589"/>
+        <location filename="../../src/QPrabhupada.cpp" line="967"/>
         <source>семьсот </source>
         <translation>setecentos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="590"/>
+        <location filename="../../src/QPrabhupada.cpp" line="968"/>
         <source>восемьсот </source>
         <translation>oitocentos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="591"/>
+        <location filename="../../src/QPrabhupada.cpp" line="969"/>
         <source>девятьсот </source>
         <translation>novecentos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="593"/>
+        <location filename="../../src/QPrabhupada.cpp" line="971"/>
         <source>десять </source>
         <translation>dez </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="594"/>
+        <location filename="../../src/QPrabhupada.cpp" line="972"/>
         <source>одиннадцать </source>
         <translation>onze </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="595"/>
+        <location filename="../../src/QPrabhupada.cpp" line="973"/>
         <source>двенадцать </source>
         <translation>doze </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="596"/>
+        <location filename="../../src/QPrabhupada.cpp" line="974"/>
         <source>тринадцать </source>
         <translation>treze </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="597"/>
+        <location filename="../../src/QPrabhupada.cpp" line="975"/>
         <source>четырнадцать </source>
         <translation>quatorze </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="598"/>
+        <location filename="../../src/QPrabhupada.cpp" line="976"/>
         <source>пятнадцать </source>
         <translation>quinze </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="599"/>
+        <location filename="../../src/QPrabhupada.cpp" line="977"/>
         <source>шестнадцать </source>
         <translation>dezesseis </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="600"/>
+        <location filename="../../src/QPrabhupada.cpp" line="978"/>
         <source>семнадцать </source>
         <translation>dezessete </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="601"/>
+        <location filename="../../src/QPrabhupada.cpp" line="979"/>
         <source>восемнадцать </source>
         <translation>dezoito </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="602"/>
+        <location filename="../../src/QPrabhupada.cpp" line="980"/>
         <source>девятнадцать </source>
         <translation>dezenove </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="604"/>
+        <location filename="../../src/QPrabhupada.cpp" line="982"/>
         <source>двадцать </source>
         <translation>vinte </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="605"/>
+        <location filename="../../src/QPrabhupada.cpp" line="983"/>
         <source>тридцать </source>
         <translation>trinta </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="606"/>
+        <location filename="../../src/QPrabhupada.cpp" line="984"/>
         <source>сорок </source>
         <translation>quarenta </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="607"/>
+        <location filename="../../src/QPrabhupada.cpp" line="985"/>
         <source>пятьдесят </source>
         <translation>cinquenta </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="608"/>
+        <location filename="../../src/QPrabhupada.cpp" line="986"/>
         <source>шестьдесят </source>
         <translation>sessenta </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="609"/>
+        <location filename="../../src/QPrabhupada.cpp" line="987"/>
         <source>семьдесят </source>
         <translation>setenta </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="610"/>
+        <location filename="../../src/QPrabhupada.cpp" line="988"/>
         <source>восемьдесят </source>
         <translation>oitenta </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="611"/>
+        <location filename="../../src/QPrabhupada.cpp" line="989"/>
         <source>девяносто </source>
         <translation>noventa </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="613"/>
+        <location filename="../../src/QPrabhupada.cpp" line="991"/>
         <source>три </source>
         <translation>três </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="614"/>
+        <location filename="../../src/QPrabhupada.cpp" line="992"/>
         <source>четыре </source>
         <translation>quatro </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="615"/>
+        <location filename="../../src/QPrabhupada.cpp" line="993"/>
         <source>пять </source>
         <translation>cinco </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="616"/>
+        <location filename="../../src/QPrabhupada.cpp" line="994"/>
         <source>шесть </source>
         <translation>seis </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="617"/>
+        <location filename="../../src/QPrabhupada.cpp" line="995"/>
         <source>семь </source>
         <translation>sete </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="618"/>
+        <location filename="../../src/QPrabhupada.cpp" line="996"/>
         <source>восемь </source>
         <translation>oito </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="619"/>
+        <location filename="../../src/QPrabhupada.cpp" line="997"/>
         <source>девять </source>
         <translation>nove </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="621"/>
+        <location filename="../../src/QPrabhupada.cpp" line="999"/>
         <source>ноль </source>
         <translation>zero </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="622"/>
+        <location filename="../../src/QPrabhupada.cpp" line="1000"/>
         <source>минус </source>
         <translation>menos </translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupada.cpp" line="671"/>
-        <location filename="../../src/QPrabhupada.cpp" line="681"/>
-        <location filename="../../src/QPrabhupada.cpp" line="696"/>
-        <location filename="../../src/QPrabhupada.cpp" line="737"/>
+        <location filename="../../src/QPrabhupada.cpp" line="1049"/>
+        <location filename="../../src/QPrabhupada.cpp" line="1059"/>
+        <location filename="../../src/QPrabhupada.cpp" line="1074"/>
+        <location filename="../../src/QPrabhupada.cpp" line="1115"/>
         <source>Ошибочное число </source>
         <translation>Número errado </translation>
     </message>
@@ -401,7 +401,7 @@
 <context>
     <name>QPrabhupadaAboutDialog</name>
     <message>
-        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="94"/>
+        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="86"/>
         <source>О программе</source>
         <translation>Sobre o programa</translation>
     </message>
@@ -414,22 +414,22 @@
         <translation type="vanished">&lt;html&gt;&lt;head / &gt;&lt;body&gt;&lt;p&gt;digite o número da linha e pressione Enter para ir até ela!&lt; / p&gt;&lt; / body&gt;&lt; / html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="95"/>
+        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="87"/>
         <source>Поехали!</source>
         <translation>Vamos!</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="97"/>
+        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="89"/>
         <source>Return</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="99"/>
+        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="91"/>
         <source>Задний ход!</source>
         <translation>Marcha à ré!</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="101"/>
+        <location filename="../../src/QPrabhupadaAboutWindow.cpp" line="93"/>
         <source>Esc</source>
         <translation></translation>
     </message>
@@ -437,22 +437,22 @@
 <context>
     <name>QPrabhupadaDictionary</name>
     <message>
-        <location filename="../../src/QPrabhupadaDictionary.cpp" line="775"/>
+        <location filename="../../src/QPrabhupadaDictionary.cpp" line="678"/>
         <source>Словарь Шрилы Прабхупады!</source>
         <translation>O Dicionário De Srila Prabhupada!</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionary.cpp" line="933"/>
+        <location filename="../../src/QPrabhupadaDictionary.cpp" line="846"/>
         <source>Санскрит</source>
         <translation>Sânscrito</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionary.cpp" line="935"/>
+        <location filename="../../src/QPrabhupadaDictionary.cpp" line="848"/>
         <source>Перевод</source>
         <translation>Tradução</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionary.cpp" line="779"/>
+        <location filename="../../src/QPrabhupadaDictionary.cpp" line="682"/>
         <source>Не удалось загрузить файл перевода </source>
         <translation>Não foi possível carregar o ficheiro de tradução </translation>
     </message>
@@ -460,377 +460,377 @@
 <context>
     <name>QPrabhupadaDictionaryWindow</name>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1037"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1043"/>
         <source>Словарь Шрилы Прабхупады</source>
         <translation>O Dicionário De Srila Prabhupada</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1164"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1170"/>
         <source>Размер шрифта</source>
         <translation>Tamanho da letra</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1167"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1173"/>
         <source>Язык словаря</source>
         <translation>Idioma do dicionário</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1170"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1176"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Язык программы словаря&lt;br/&gt;Шрилы Прабхупады&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;linguagem do programa de dicionário&lt;br/&gt;Srila Prabhupada&lt; / p &gt; &lt; / body &gt; &lt; / html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1176"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1182"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Индикатор, который показывает номер текущей строки, а также общее количество строк в таблице!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head / &gt;&lt;body&gt;&lt;p&gt;um indicador que mostra o número da linha atual, bem como o número total de linhas na tabela!&lt; / p&gt;&lt; / body&gt;&lt; / html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1173"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1179"/>
         <source>Текущая строка / всего строк</source>
         <translation>Linha atual / total de linhas</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1182"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1188"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Поиск по санскриту!&lt;/p&gt;&lt;p&gt;Можно использовать регулярные выражения!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt; p&gt;Pesquisar em sânscrito!&lt; / p&gt; &lt; p&gt;Você pode usar expressões regulares!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1179"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1185"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Поиск по санскриту!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt; p&gt;Pesquisar em sânscrito!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1188"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1194"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Поиск по переводу!&lt;/p&gt;&lt;p&gt;Можно использовать регулярные выражения!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt; p&gt;pesquisa por tradução!&lt; / p&gt; &lt; p&gt;Você pode usar expressões regulares!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1185"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1191"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Поиск по переводу!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt; p&gt;pesquisa por tradução!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1191"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1197"/>
         <source>&amp;Действие</source>
         <translation>&amp;Ação</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1192"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1198"/>
         <source>&amp;Установить закладку</source>
         <translation>&amp;Favorito</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1193"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1199"/>
         <source>&amp;К закладке</source>
         <translation>&amp;Ir para o favorito</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1042"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1048"/>
         <source>&amp;Найти</source>
         <translation>&amp;Encontrar</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1155"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1161"/>
         <source>Сохранить буквы в файл</source>
         <translation>Salvar cartas em um arquivo</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1156"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1162"/>
         <source>&amp;Удалить все закладки</source>
         <translation>&amp;Apagar todos os favoritos</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1158"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1164"/>
         <source>Ctrl+Alt+0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1160"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1166"/>
         <source>Регулярные выра&amp;жения</source>
         <translation>Expre&amp;ssões regulares</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1161"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1167"/>
         <source>Авто % в на&amp;чале</source>
         <translation>Auto % no &amp;início</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1162"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1168"/>
         <source>Авто % в кон&amp;це</source>
         <translation>Auto % no &amp;final</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1047"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1053"/>
         <source>&amp;Различать регистр</source>
         <translation>&amp;Distinguir maiúsculas e minúsculas</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1049"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1055"/>
         <source>&amp;Удалить</source>
         <translation>&amp;Remover</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1051"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1057"/>
         <source>Ctrl+Del</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1054"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1060"/>
         <source>&amp;Вставить</source>
         <translation>&amp;Inserir</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1056"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1062"/>
         <source>Ctrl+Ins</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1059"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1065"/>
         <source>Удалить &amp;дубликаты</source>
         <translation>Excluir &amp;Duplicatas</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1061"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1067"/>
         <source>Установить закладку &amp;0</source>
         <translation>Marcar o favorito &amp;0</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1065"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1071"/>
         <source>Установить закладку &amp;1</source>
         <translation>Marcar o favorito &amp;1</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1069"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1075"/>
         <source>Установить закладку &amp;2</source>
         <translation>Marcar o favorito &amp;2</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1073"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1079"/>
         <source>Установить закладку &amp;3</source>
         <translation>Marcar o favorito &amp;3</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1077"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1083"/>
         <source>Установить закладку &amp;4</source>
         <translation>Marcar o favorito &amp;4</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1081"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1087"/>
         <source>Установить закладку &amp;5</source>
         <translation>Marcar o favorito &amp;5</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1085"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1091"/>
         <source>Установить закладку &amp;6</source>
         <translation>Marcar o favorito &amp;6</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1089"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1095"/>
         <source>Установить закладку &amp;7</source>
         <translation>Marcar o favorito &amp;7</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1093"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1099"/>
         <source>Установить закладку &amp;8</source>
         <translation>Marcar o favorito &amp;8</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1097"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1103"/>
         <source>Установить закладку &amp;9</source>
         <translation>Marcar o favorito &amp;9</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1102"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1108"/>
         <source>К закладке &amp;0</source>
         <translation>Ir para a aba &amp;0</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1145"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1151"/>
         <source>Shift+F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1147"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1153"/>
         <source>&amp;Перейти к строке</source>
         <translation>&amp;Ir para a linha</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1149"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1155"/>
         <source>Ctrl+G</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1151"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1157"/>
         <source>&amp;О программе</source>
         <translation>&amp;Sobre o programa</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1153"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1159"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1195"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1201"/>
         <source>Прабхупада</source>
         <translation>Prabhupada</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1063"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1069"/>
         <source>Ctrl+0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1106"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1112"/>
         <source>К закладке &amp;1</source>
         <translation>Ir para a aba &amp;1</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1067"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1073"/>
         <source>Ctrl+1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1110"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1116"/>
         <source>К закладке &amp;2</source>
         <translation>Ir para a aba &amp;2</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1071"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1077"/>
         <source>Ctrl+2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1114"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1120"/>
         <source>К закладке &amp;3</source>
         <translation>Ir para a aba &amp;3</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1075"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1081"/>
         <source>Ctrl+3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1118"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1124"/>
         <source>К закладке &amp;4</source>
         <translation>Ir para a aba &amp;4</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1079"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1085"/>
         <source>Ctrl+4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1122"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1128"/>
         <source>К закладке &amp;5</source>
         <translation>Ir para a aba &amp;5</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1083"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1089"/>
         <source>Ctrl+5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1126"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1132"/>
         <source>К закладке &amp;6</source>
         <translation>Ir para a aba &amp;6</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1087"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1093"/>
         <source>Ctrl+6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1130"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1136"/>
         <source>К закладке &amp;7</source>
         <translation>Ir para a aba &amp;7</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1091"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1097"/>
         <source>Ctrl+7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1134"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1140"/>
         <source>К закладке &amp;8</source>
         <translation>Ir para a aba &amp;8</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1095"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1101"/>
         <source>Ctrl+8</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1138"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1144"/>
         <source>К закладке &amp;9</source>
         <translation>Ir para a aba &amp;9</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1099"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1105"/>
         <source>Ctrl+9</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1039"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1045"/>
         <source>Словарь Его Божественной Милости основателя-ачарьи Международного Общества сознания Кришны Шри Шримад Абхая Чаранаравидны Бхактиведанты Свами Прабхупады! Познакомиться с его книгами можно на сайте vedabase.io</source>
         <translation>Dicionário de Sua Divina Graça o fundador-acharya da Sociedade Internacional da consciência de Krishna Sri Srimad Abhaya Charanaravidna Bhaktivedanta Swami Prabhupada! Você pode conhecer os livros dele no site vedabase.io</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1044"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1050"/>
         <source>Return</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1104"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1110"/>
         <source>Alt+0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1108"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1114"/>
         <source>Alt+1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1112"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1118"/>
         <source>Alt+2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1116"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1122"/>
         <source>Alt+3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1120"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1126"/>
         <source>Alt+4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1124"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1130"/>
         <source>Alt+5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1128"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1134"/>
         <source>Alt+6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1132"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1138"/>
         <source>Alt+7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1136"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1142"/>
         <source>Alt+8</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1140"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1146"/>
         <source>Alt+9</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1143"/>
+        <location filename="../../src/QPrabhupadaDictionaryWindow.cpp" line="1149"/>
         <source>&amp;Режим вопроса</source>
         <translation>&amp;Modo de pergunta</translation>
     </message>
@@ -848,38 +848,38 @@
 <context>
     <name>QPrabhupadaGoToLineDialog</name>
     <message>
-        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="124"/>
+        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="114"/>
         <source>Перейти к строке</source>
         <translation>Ir para a linha</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="125"/>
-        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="130"/>
+        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="115"/>
+        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="120"/>
         <source>Номер строки</source>
         <translation>Número da linha</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="127"/>
+        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="117"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Введите номер строки и нажмите Enter для перехода к ней!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head / &gt;&lt;body&gt;&lt;p&gt;digite o número da linha e pressione Enter para ir até ela!&lt; / p&gt;&lt; / body&gt;&lt; / html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="132"/>
+        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="122"/>
         <source>Поехали!</source>
         <translation>Vamos!</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="134"/>
+        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="124"/>
         <source>Return</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="136"/>
+        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="126"/>
         <source>Задний ход!</source>
         <translation>Marcha à ré!</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="138"/>
+        <location filename="../../src/QPrabhupadaGoToLineWindow.cpp" line="128"/>
         <source>Esc</source>
         <translation></translation>
     </message>
@@ -887,62 +887,62 @@
 <context>
     <name>QPrabhupadaLoginDialog</name>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="348"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="310"/>
         <source>Вход в &quot;Словарь Шрилы Прабхупады&quot;</source>
         <translation>Acesso ao dicionário de Çréla Prabhupäda</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="349"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="311"/>
         <source>Имя пользователя</source>
         <translation>Nome de utilizador</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="350"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="312"/>
         <source>Пароль</source>
         <translation>Senha</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="351"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="313"/>
         <source>Имя базы данных</source>
         <translation>Nome da base de dados</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="352"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="314"/>
         <source>Сервер</source>
         <translation>Servidor</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="353"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="315"/>
         <source>Порт</source>
         <translation>Porto</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="360"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="322"/>
         <source>Сбросить настройки</source>
         <translation>Repor as definições</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="362"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="324"/>
         <source>Поехали!</source>
         <translation>Vamos!</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="363"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="325"/>
         <source>Задний ход!</source>
         <translation>Marcha à ré!</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="354"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="316"/>
         <source>Схема</source>
         <translation>Esquema</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="357"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="319"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Этот флаг сбрасывает все настройки пользователя после входа в программу! Но только те из них, которые хранятся в базе данных! Настройки, хранящиеся в файлах &amp;quot;ini&amp;quot; сбрасывайте простым удалением этих файлов!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head / &gt;&lt;body&gt;&lt;p&gt;este sinalizador redefine todas as configurações do usuário após o login no programa! Mas apenas aqueles que estão armazenados no banco de dados! Redefina as configurações armazenadas nos arquivos &quot;ini&quot; simplesmente excluindo esses arquivos!&lt; / p&gt;&lt; / body&gt;&lt; / html&gt;</translation>
     </message>
     <message>
-        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="361"/>
+        <location filename="../../src/QPrabhupadaLoginWindow.cpp" line="323"/>
         <source>Язык программы</source>
         <translation>Linguagem do programa</translation>
     </message>
