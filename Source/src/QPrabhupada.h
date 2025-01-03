@@ -211,8 +211,8 @@ class QStorage
       }
     }
 
-    bool LoadObject( void* O,    QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
-    void SaveObject( void* O,    QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
+    bool LoadObject( void* O, QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
+    void SaveObject( void* O, QStorageKind AStorageKind, QStorager* ST, const QString& AKeyStorage = "" );
     void RemoveMemory( void* O, const QString& AKeyStorage = "" );
     void ClearMemory() { m_MapMemoryStorage.clear(); };
 
@@ -245,6 +245,35 @@ class QStorageDB : public QStorage
     virtual void BeginSaveDB() override;
     virtual void EndSaveDB() override;
 };
+
+template < class TStoragerType >
+bool LoadObject( void* O, QStorage* AStorage, QStorageKind AStorageKind, const QString& AKeyStorage = "" )
+{
+  TStoragerType* AStorager = new TStoragerType();
+  bool B = AStorage->LoadObject( O, AStorageKind, AStorager, AKeyStorage );
+  delete AStorager;
+  return B;
+}
+
+template < class TStoragerType >
+void SaveObject( void* O, QStorage* AStorage, QStorageKind AStorageKind, const QString& AKeyStorage = "" )
+{
+  TStoragerType* AStorager = new TStoragerType();
+  AStorage->SaveObject( O, AStorageKind, AStorager, AKeyStorage );
+  delete AStorager;
+}
+
+template < class TStoragerType >
+void StoragerDialogExec( QDialog* ADialog, QStorage* AStorage, QStorageKind AStorageKind, const QString& AKeyStorage = "" )
+{
+  TStoragerType* AStorager = new TStoragerType();
+
+  AStorage->LoadObject( ADialog, AStorageKind, AStorager, AKeyStorage );
+  ADialog->exec();
+  AStorage->SaveObject( ADialog, AStorageKind, AStorager, AKeyStorage );
+
+  delete AStorager;
+}
 
 const int MaxHistoryComboBox = 30;
 void PrepareHistoryComboBox( QComboBox *CB, int MaxCount = MaxHistoryComboBox );
@@ -328,6 +357,53 @@ class QLanguageVector : public std::vector< QLanguageInfo* >
     virtual void LoadFromStream( QDataStream &ST );
     virtual void SaveToStream( QDataStream &ST );
     virtual QLanguageInfo* NewLanguageInfo() { return new QLanguageInfo(); };
+};
+
+class QStoragerLanguageVector : public QStorager
+{
+  public:
+    QStoragerLanguageVector();
+    virtual ~QStoragerLanguageVector();
+  private:
+    using inherited = QStorager;
+  public:
+    virtual void LoadFromStream( void *AObject, QDataStream &ST );
+    virtual void SaveToStream(   void *AObject, QDataStream &ST );
+};
+
+class QLanguageIndex : public QEmitInt
+{
+  CS_OBJECT( QLanguageIndex )
+  private:
+    using inherited = QEmitInt;
+  public:
+    QLanguageIndex() = delete;
+    QLanguageIndex( int Value
+                  , QLanguageVector& ALanguageVector );
+    QLanguageIndex( const QLanguageIndex& A );
+    QLanguageIndex( QLanguageIndex&& A );
+    ~QLanguageIndex();
+    QLanguageIndex& operator = ( const QLanguageIndex& A );
+    QLanguageIndex& operator = ( QLanguageIndex&& A );
+    static const int RussianIndex = 4;
+    QLanguageVector& m_LanguageVector;
+    void PrepareComboBox( QComboBox *CB );
+    void ComboBoxAddItem( QComboBox *CB, const QString &S );
+    void LoadFromStream( QDataStream &ST );
+    void SaveToStream( QDataStream &ST );
+  protected:
+};
+
+class QStoragerLanguageIndex : public QStorager
+{
+  public:
+    QStoragerLanguageIndex();
+    virtual ~QStoragerLanguageIndex();
+  private:
+    using inherited = QStorager;
+  public:
+    virtual void LoadFromStream( void *AObject, QDataStream &ST );
+    virtual void SaveToStream(   void *AObject, QDataStream &ST );
 };
 
 extern const QChar CharPercent;

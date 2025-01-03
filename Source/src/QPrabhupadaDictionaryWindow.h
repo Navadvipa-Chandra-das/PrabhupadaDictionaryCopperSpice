@@ -81,8 +81,8 @@ class QPrabhupadaDictionaryWindow : public QMainWindow {
     void actionGo_to_bookmark_8();
     void actionGo_to_bookmark_9();
     void PrepareLanguages();
-    void Language_IndexChanged( int Value );
-    void LanguageUI_IndexChanged( int Value );
+    void LanguageIndexChanged( int Value );
+    void LanguageUIIndexChanged( int Value );
     void DoOrderBy( QPrabhupadaDictionaryOrderBy Value );
 
     void CaseSensitiveChanged( bool Value );
@@ -91,6 +91,7 @@ class QPrabhupadaDictionaryWindow : public QMainWindow {
     void AutoPercentEndChanged( bool Value );
 
     void PrabhupadaFilterSlovarChanged( QFilterSlovar Value );
+    void PrabhupadaZakladkaChanged( QPrabhupadaZakladka Value );
     void DoGoToLine( int Value );
     void Connects();
     void Emits();

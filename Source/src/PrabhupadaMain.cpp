@@ -31,19 +31,13 @@ int main( int argc, char *argv[] )
 
   QStorageDB AStorage;
 
-  QStoragerPrabhupadaDictionary*       AStoragerPrabhupadaDictionary       = new QStoragerPrabhupadaDictionary();
-  QStoragerLanguageVector*             AStoragerLanguageVector             = new QStoragerLanguageVector();
-  QStoragerLanguageIndex*              AStoragerLanguageIndex              = new QStoragerLanguageIndex();
-  QStoragerPrabhupadaLoginDialog*      AStoragerPrabhupadaLoginDialog      = new QStoragerPrabhupadaLoginDialog();
-  QStoragerPrabhupadaDictionaryWindow* AStoragerPrabhupadaDictionaryWindow = new QStoragerPrabhupadaDictionaryWindow();
-
   QPrabhupadaDictionary APrabhupadaDictionary( nullptr );
   APrabhupadaDictionary.setObjectName( "PrabhupadaDictionary" );
   APrabhupadaDictionary.m_Storage = &AStorage;
   a.setObjectName( APrabhupadaDictionary.objectName() );
 
-  AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageVector,  QStorageKind::File, AStoragerLanguageVector, "m_LanguageVector.ini" );
-  AStorage.LoadObject( &APrabhupadaDictionary.m_LanguageUIIndex, QStorageKind::File, AStoragerLanguageIndex  );
+  LoadObject< QStoragerLanguageVector >( &APrabhupadaDictionary.m_LanguageVector, &AStorage, QStorageKind::File, "m_LanguageVector.ini" );
+  LoadObject< QStoragerLanguageIndex >( &APrabhupadaDictionary.m_LanguageUIIndex, &AStorage, QStorageKind::File );
 
   QPrabhupadaLoginDialog *APrabhupadaLoginDialog = new QPrabhupadaLoginDialog( &APrabhupadaDictionary, nullptr, Qt::WindowContextHelpButtonHint | Qt::WindowCloseButtonHint );
 
@@ -53,7 +47,7 @@ int main( int argc, char *argv[] )
   APrabhupadaLoginDialog->ComboBoxPort->        setEditText( QString::number( 5432 ) );
   APrabhupadaLoginDialog->ComboBoxSchema->      setEditText( "\"NewNavadvipa\"" );
 
-  AStorage.LoadObject( APrabhupadaLoginDialog, QStorageKind::File, AStoragerPrabhupadaLoginDialog );
+  LoadObject< QStoragerPrabhupadaLoginDialog >( APrabhupadaLoginDialog, &AStorage, QStorageKind::File );
   APrabhupadaDictionary.m_LanguageUIIndex.PrepareComboBox( APrabhupadaLoginDialog->ComboBoxLanguageUI );
 
   int R, N = 0;
@@ -72,30 +66,17 @@ int main( int argc, char *argv[] )
         if ( APrabhupadaLoginDialog->CheckBoxResetSettings->isChecked() ) {
             AStorage.ResetSettings();
         }
-        AStorage.LoadObject( &APrabhupadaDictionary, QStorageKind::DB, AStoragerPrabhupadaDictionary );
+        LoadObject< QStoragerPrabhupadaDictionary >( &APrabhupadaDictionary, &AStorage, QStorageKind::DB );
         QPrabhupadaDictionaryWindow APrabhupadaDictionaryWindow = QPrabhupadaDictionaryWindow( &APrabhupadaDictionary );
         APrabhupadaDictionaryWindow.m_StorageKind = QStorageKind::DB;
         APrabhupadaDictionaryWindow.m_Storage = &AStorage;
         APrabhupadaDictionaryWindow.PrepareDictionary();
-        AStorage.LoadObject( &APrabhupadaDictionaryWindow, APrabhupadaDictionaryWindow.m_StorageKind, AStoragerPrabhupadaDictionaryWindow );
+        LoadObject< QStoragerPrabhupadaDictionaryWindow >( &APrabhupadaDictionaryWindow, &AStorage, APrabhupadaDictionaryWindow.m_StorageKind );
         APrabhupadaDictionaryWindow.FirstShow();
-        AStorage.SaveObject( APrabhupadaLoginDialog, QStorageKind::File, AStoragerPrabhupadaLoginDialog );
+        SaveObject< QStoragerPrabhupadaLoginDialog >( APrabhupadaLoginDialog, &AStorage, QStorageKind::File );
 
         delete APrabhupadaLoginDialog;
-
-        delete AStoragerPrabhupadaDictionary;
-        delete AStoragerLanguageVector;
-        delete AStoragerLanguageIndex;
-        delete AStoragerPrabhupadaLoginDialog;
-        delete AStoragerPrabhupadaDictionaryWindow;
-
         APrabhupadaLoginDialog = nullptr;
-
-        AStoragerPrabhupadaDictionary       = nullptr;
-        AStoragerLanguageVector             = nullptr;
-        AStoragerLanguageIndex              = nullptr;
-        AStoragerPrabhupadaLoginDialog      = nullptr;
-        AStoragerPrabhupadaDictionaryWindow = nullptr;
 
         Result = a.exec();
         break;
