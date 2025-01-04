@@ -14,6 +14,10 @@ class QEmitValue : public QObject
   public:
     using inherited = QObject;
     TValueType m_Value;
+    // m_NeedMainWork flag can be used so that the slot is triggered only when the m_Value is actually changed,
+    // and with additional calls to the EmitМalueChanged( false ) method, the slot might not perform a long-term action.
+    // But m_NeedMainWork can only be used in one slot or not at all.
+    // If you need similar functionality for multiple slots, then you need to redo the m_NeedMainWork field to the set< int> type, for example.
     bool m_NeedMainWork = true;
     int m_Stop = 0;
     QEmitValue( QObject *parent = nullptr )
